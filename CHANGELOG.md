@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.7.8
+
+- Fix Unity Editor load/save `global_config.json` and `placements.json` (JsonUtility DTO with arrays instead of `List<>`).
+- Editor config windows show **Loaded from** (project / package / defaults) and log parse path.
+- Fix invalid GUID in `docs/gradleTemplate.host-unity2022-jdk11.properties.snippet.meta`.
+- Add [docs/native-template-files.md](docs/native-template-files.md) — native layout template reference for `templateName`.
+
 ## 1.7.7
 
 - Unity bridge for ABI Module Ads on Android and iOS (AdMob, MAX, Dual mediation).

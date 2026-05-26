@@ -1,0 +1,60 @@
+{
+    "placements": [
+        {
+            "ad_name": "main_interstitial",
+            "ads_type": "interstitial",
+            "ad_ids": [
+                {
+                    "ad_id": "",
+                    "ads_weight": 1,
+                    "mediation": 0
+                }
+            ],
+            "backup_ad_ids": [],
+            "is_show": true,
+            "is_organic_show": true,
+            "config_version": "",
+            "prioritize_by_weight": true,
+            "disable_version": [],
+            "activity_trigger_load": "",
+            "activity_load_and_show": false,
+            "delay_time_trigger_load": 0,
+            "activity_trigger_show": "",
+            "delay_time_trigger_show": 0,
+            "click_trigger_view_id": "",
+            "click_load_and_show": false,
+            "click_delay_ms": 0,
+            "click_trigger_show_view_id": "",
+            "click_trigger_show_delay_ms": 0,
+            "click_trigger_count_view_id": "",
+            "click_trigger_count_threshold": 0,
+            "click_trigger_count_delay_ms": 0,
+            "banner_ad": {
+                "inline_style": "",
+                "use_inline_adaptive": false,
+                "use_collapsible": false,
+                "collapsible_gravity": "",
+                "banner_size": "",
+                "reload_time": 0
+            },
+            "native_ad": {
+                "ad_layout_file": "",
+                "organic_layout": "",
+                "layout_meta": "",
+                "bg_color": "",
+                "border_color": "",
+                "corner_radius_dp": 0.0,
+                "stroke_width_dp": 1,
+                "headline_text_color": "",
+                "body_text_color": "",
+                "price_text_color": "",
+                "advertiser_text_color": "",
+                "clicked": {
+                    "btn_act_color": "",
+                    "btn_act_text_color": "",
+                    "delay_time_show_btn_next": 0
+                }
+            }
+        }
+    ]
+}

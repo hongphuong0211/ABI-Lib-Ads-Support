@@ -1,0 +1,24 @@
+.DS_Store
+*.csproj
+*.sln
+*.user
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+sysinfo.txt
+
+# Unity generated folders when this package is opened/tested as a project.
+Library/
+Temp/
+Obj/
+Build/
+Builds/
+Logs/
+UserSettings/
+MemoryCaptures/
+
+# IDE files.
+.idea/
+.vscode/

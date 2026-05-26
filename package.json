@@ -1,0 +1,19 @@
+{
+  "name": "com.abi.ads.unity",
+  "displayName": "ABI Ads Unity Bridge",
+  "version": "1.7.7",
+  "unity": "6000.0",
+  "description": "Unity bridge for ABI Module Ads on Android and iOS. Embeds ABI-Custom-Event for TROAS/Bamboo revenue forwarding.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git"
+  },
+  "keywords": [
+    "ads",
+    "admob",
+    "applovin",
+    "unity",
+    "upm"
+  ],
+  "category": "Advertising"
+}

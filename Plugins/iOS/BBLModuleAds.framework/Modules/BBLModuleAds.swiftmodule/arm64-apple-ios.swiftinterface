@@ -1,0 +1,1173 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.2.3 effective-5.10 (swiftlang-6.2.3.3.21 clang-1700.6.3.2)
+// swift-module-flags: -target arm64-apple-ios15.5 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Osize -enable-upcoming-feature DisableOutwardActorInference -enable-upcoming-feature InferSendableFromCaptures -enable-upcoming-feature GlobalActorIsolatedTypesUsability -enable-upcoming-feature MemberImportVisibility -enable-upcoming-feature InferIsolatedConformances -enable-upcoming-feature NonisolatedNonsendingByDefault -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -module-name BBLModuleAds
+// swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.2.3
+import AdSupport
+import AppLovinSDK
+import AppTrackingTransparency
+import AppsFlyerLib
+import Combine
+import CommonCrypto
+import CryptoKit
+import FBSDKCoreKit
+import FirebaseAnalytics
+import FirebaseCore
+import FirebaseDatabase
+import FirebaseMessaging
+import FirebaseRemoteConfig
+import Foundation
+import GoogleMobileAds
+import Lottie
+import ObjectiveC
+import Swift
+import SwiftUI
+import UIKit
+import UserMessagingPlatform
+import UserNotifications
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+import os.log
+import os
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency public class AdLoadingView : BBLModuleAds.BaseCustomAdXibView {
+  @_Concurrency.MainActor @preconcurrency override public func didLoadFromNib()
+  @_Concurrency.MainActor @preconcurrency public class func isVisible() -> Swift.Bool
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency public class func show(delay: Foundation.TimeInterval = 0.5, nextAction: (() -> Swift.Void)? = nil)
+  #endif
+  @_Concurrency.MainActor @preconcurrency public class func dismiss()
+  @objc deinit
+}
+extension UIKit.UIApplication {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency public class func getRootViewController() -> UIKit.UIViewController?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency public class func getTopViewController(base: UIKit.UIViewController? = nil) -> UIKit.UIViewController?
+  #endif
+  @_Concurrency.MainActor @preconcurrency public static var release: Swift.String {
+    get
+  }
+  @_Concurrency.MainActor @preconcurrency public static var build: Swift.String {
+    get
+  }
+  @_Concurrency.MainActor @preconcurrency public static var versionApp: Swift.String {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency public class BaseCustomAdXibView : UIKit.UIView {
+  @_Concurrency.MainActor @preconcurrency public func didLoadFromNib()
+  @objc deinit
+}
+extension Lottie.LottieAnimationView {
+  @_Concurrency.MainActor @preconcurrency public func loadAnimation(file name: Swift.String, loopMode: Lottie.LottieLoopMode = .playOnce, autoPlay: Swift.Bool = true, speed: CoreFoundation.CGFloat = 1)
+}
+public class GlobalConfig {
+  public static let KEY_MAX_CONSENT_FLOW_ENABLED: Swift.String
+  public static let KEY_MAX_PRIVACY_POLICY_URL: Swift.String
+  public static let KEY_MAX_TERMS_OF_SERVICE_URL: Swift.String
+  public static let KEY_MAX_SHOW_TERMS_IN_GDPR: Swift.String
+  public static let KEY_MAX_CONSENT_DEBUG_GDPR: Swift.String
+  public static let KEY_ENABLE_AD_RESUME: Swift.String
+  public static let KEY_ADMOB_APP_ID: Swift.String
+  public static let KEY_MAX_SDK_KEY: Swift.String
+  public static let KEY_AMAZON_APS_APP_ID: Swift.String
+  public static let KEY_AMAZON_APS_TEST_MODE: Swift.String
+  public static let KEY_META_AUDIENCE_LDU_ENABLED: Swift.String
+  public static let KEY_META_AUDIENCE_LDU_COUNTRY: Swift.String
+  public static let KEY_META_AUDIENCE_LDU_STATE: Swift.String
+  public static let KEY_TEST_USER_AD_CAPPING_INTERVAL: Swift.String
+  public enum MediationProvider : Swift.Int, Swift.Codable {
+    case admob
+    case applovin
+    case dual
+    #if compiler(>=5.3) && $NonescapableTypes
+    public init(jsonValue: Any?)
+    #endif
+    public var normalizedPerAdProvider: BBLModuleAds.GlobalConfig.MediationProvider {
+      get
+    }
+    public var remoteValue: Swift.Int {
+      get
+    }
+    #if compiler(>=5.3) && $NonescapableTypes
+    public init?(rawValue: Swift.Int)
+    #endif
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public var mediationProvider: BBLModuleAds.GlobalConfig.MediationProvider
+  public var timeoutRemote: Swift.Int
+  public var enableAdjust: Swift.Bool
+  public var enableAppsFlyer: Swift.Bool
+  public var enableFacebook: Swift.Bool
+  public var enableTikTok: Swift.Bool
+  public var enableFirebase: Swift.Bool
+  public var enableFCM: Swift.Bool
+  public var adjustToken: Swift.String?
+  public var appsflyerToken: Swift.String?
+  public var facebookClientToken: Swift.String?
+  public var tiktokAppId: Swift.String?
+  public var tiktokAccessToken: Swift.String?
+  public var appIDTT: Swift.String?
+  public var enableAdjustTracking: Swift.Bool
+  public var enableAppsFlyerTracking: Swift.Bool
+  public var enableRealtimeDatabaseTracking: Swift.Bool
+  public var variantDev: Swift.Bool {
+    get
+    set
+  }
+  public var enabledVersions: [Swift.String]?
+  public var testDevices: [Swift.String]?
+  public var configVersion: Swift.String?
+  public var admobAppId: Swift.String?
+  public var maxSdkKey: Swift.String?
+  public var enableAdResume: Swift.Bool
+  public var amazonApsAppId: Swift.String?
+  public var amazonApsTestMode: Swift.Bool
+  public var metaAudienceLduEnabled: Swift.Bool
+  public var metaAudienceLduCountry: Swift.Int
+  public var metaAudienceLduState: Swift.Int
+  public var testUserAdCappingInterval: Swift.Int
+  public var interAdInterval: Swift.Int
+  public var skipIntervalPlacements: [Swift.String]?
+  public var maxTermsPrivacyFlowEnabled: Swift.Bool
+  public var maxPrivacyPolicyUrl: Swift.String?
+  public var maxTermsOfServiceUrl: Swift.String?
+  public var maxShowTermsPrivacyAlertInGdpr: Swift.Bool
+  public var maxConsentDebugGeographyGdpr: Swift.Bool
+  public init()
+  public func setAdjustToken(_ token: Swift.String)
+  public func setAppsflyerToken(_ token: Swift.String)
+  public func setFacebookClientToken(_ token: Swift.String)
+  public func setTikTokAppId(appID: Swift.String, tiktokAppId: Swift.String, accessToken: Swift.String)
+  public func setTikTokAppId(_ appId: Swift.String)
+  public func setMaxTermsPrivacyFlowEnabled(_ maxTermsPrivacyFlowEnabled: Swift.Bool)
+  public func setMaxPrivacyPolicyUrl(_ maxPrivacyPolicyUrl: Swift.String)
+  public func setMaxTermsOfServiceUrl(_ maxTermsOfServiceUrl: Swift.String)
+  public func setMaxShowTermsPrivacyAlertInGdpr(_ maxShowTermsPrivacyAlertInGdpr: Swift.Bool)
+  public func setMaxConsentDebugGeographyGdpr(_ maxConsentDebugGeographyGdpr: Swift.Bool)
+  public func updateFromRemote(_ json: [Swift.String : Any])
+  @objc deinit
+}
+public class PlacementConfig {
+  public enum AdLoadMode : Swift.Int, Swift.Codable {
+    case waterfall
+    case loadAll
+    #if compiler(>=5.3) && $NonescapableTypes
+    public static func from(jsonValue: Any?) -> BBLModuleAds.PlacementConfig.AdLoadMode
+    #endif
+    #if compiler(>=5.3) && $NonescapableTypes
+    public init?(rawValue: Swift.Int)
+    #endif
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public struct AdIdConfig : Swift.Codable {
+    public let adId: Swift.String
+    public let adsWeight: Swift.Int
+    public let mediation: BBLModuleAds.GlobalConfig.MediationProvider
+    public init(adId: Swift.String, adsWeight: Swift.Int, mediation: BBLModuleAds.GlobalConfig.MediationProvider = .admob)
+    public init(from decoder: any Swift.Decoder) throws
+    public func encode(to encoder: any Swift.Encoder) throws
+  }
+  #if compiler(>=5.3) && $NonescapableTypes
+  public static func effectiveMediationProvider(globalConfig: BBLModuleAds.GlobalConfig?, adIdConfig: BBLModuleAds.PlacementConfig.AdIdConfig?) -> BBLModuleAds.GlobalConfig.MediationProvider
+  #endif
+  public struct NativeAdConfig : Swift.Codable {
+    public var adLayoutFile: Swift.String?
+    public var organicLayout: Swift.String?
+    public var layoutMeta: Swift.String?
+    public var bgColor: Swift.String?
+    public var borderColor: Swift.String?
+    public var cornerRadiusDp: Swift.Double
+    public var strokeWidthDp: Swift.Int
+    public var headlineTextColor: Swift.String?
+    public var bodyTextColor: Swift.String?
+    public var priceTextColor: Swift.String?
+    public var advertiserTextColor: Swift.String?
+    public var clicked: BBLModuleAds.PlacementConfig.NativeAdConfig.ClickedConfig?
+    public var btnNext: BBLModuleAds.PlacementConfig.NativeAdConfig.ButtonNextConfig?
+    public struct ClickedConfig : Swift.Codable {
+      public var btnActColor: Swift.String?
+      public var btnActTextColor: Swift.String?
+      public var delayTimeShowBtnNext: Swift.Int
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public struct ButtonNextConfig : Swift.Codable {
+      public var pos: Swift.String?
+      public func encode(to encoder: any Swift.Encoder) throws
+      public init(from decoder: any Swift.Decoder) throws
+    }
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public struct BannerAdConfig : Swift.Codable {
+    public var inlineStyle: Swift.String?
+    public var useInlineAdaptive: Swift.Bool
+    public var useCollapsible: Swift.Bool
+    public var collapsibleGravity: Swift.String?
+    public var bannerSize: Swift.String?
+    public var reloadTime: Swift.Int
+    public var useGoogleBannerRefresh: Swift.Bool
+    public var adsBufferSize: Swift.Int
+    public var defaultRefreshRateInSeconds: Swift.Int
+    public var adSourceRefreshRatesInSeconds: [Swift.String : Swift.Int]
+    public func effectiveDefaultRefreshRateSeconds() -> Swift.Int
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  final public let adName: Swift.String
+  final public let adsType: BBLModuleAds.AdType
+  final public let adIds: [BBLModuleAds.PlacementConfig.AdIdConfig]
+  public var backupAdIds: [BBLModuleAds.PlacementConfig.AdIdConfig]
+  public var isShow: Swift.Bool
+  public var isOrganicShow: Swift.Bool?
+  public var activityTriggerLoad: Swift.String?
+  public var activityLoadAndShow: Swift.Bool
+  public var activityTriggerShow: Swift.String?
+  public var delayTimeTriggerLoad: Swift.Int
+  public var delayTimeTriggerShow: Swift.Int
+  public var clickTriggerViewId: Swift.String?
+  public var clickLoadAndShow: Swift.Bool
+  public var clickDelayMs: Swift.Int
+  public var clickTriggerShowViewId: Swift.String?
+  public var clickTriggerShowDelayMs: Swift.Int
+  public var clickTriggerCountViewId: Swift.String?
+  public var clickTriggerCountThreshold: Swift.Int
+  public var clickTriggerCountDelayMs: Swift.Int
+  public var nativeAdConfig: BBLModuleAds.PlacementConfig.NativeAdConfig?
+  public var bannerAdConfig: BBLModuleAds.PlacementConfig.BannerAdConfig?
+  public var adLoadMode: BBLModuleAds.PlacementConfig.AdLoadMode
+  public var prioritizeByWeight: Swift.Bool
+  public var disableVersion: [Swift.String]
+  public var isWaterfallLoad: Swift.Bool {
+    get
+  }
+  public init(adName: Swift.String, adsType: BBLModuleAds.AdType, adIds: [BBLModuleAds.PlacementConfig.AdIdConfig], isShow: Swift.Bool = true)
+  #if compiler(>=5.3) && $NonescapableTypes
+  public static func from(json: [Swift.String : Any]) -> BBLModuleAds.PlacementConfig?
+  #endif
+  public func isDisabledForCurrentAppVersion() -> Swift.Bool
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func shouldShow(isOrganicUser: Swift.Bool?) -> Swift.Bool
+  #endif
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class RemoteConfigManager {
+  public static let shared: BBLModuleAds.RemoteConfigManager
+  public func initialize()
+  public func setLocalPlacements(_ placements: [Swift.String : Any])
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func getLocalPlacementsJson() -> [Swift.String : Any]?
+  #endif
+  public func setLocalGlobalConfig(_ config: [Swift.String : Any])
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func getLocalGlobalConfigJson() -> [Swift.String : Any]?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func fetch(completion: @escaping (Swift.Bool, (any Swift.Error)?) -> Swift.Void)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func getPlacements() -> [Swift.String : Any]?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func getGlobalConfig() -> [Swift.String : Any]?
+  #endif
+  public var isRemoteConfigAvailable: Swift.Bool {
+    get
+  }
+  public var hasRemoteConfig: Swift.Bool {
+    get
+  }
+  @objc deinit
+}
+public enum AdShowPauseGate {
+  public typealias OnUnpausedListener = () -> Swift.Void
+  #if compiler(>=5.3) && $NonescapableTypes
+  public static func setOnUnpausedListener(_ listener: BBLModuleAds.AdShowPauseGate.OnUnpausedListener?)
+  #endif
+  public static func isPaused() -> Swift.Bool
+  public static func beginUmpOverlay()
+  @discardableResult
+  public static func endUmpOverlay() -> Swift.Bool
+  public static func beginConsentFormOverlay()
+  public static func endConsentFormOverlay()
+  public static func beginWindowFocusOverlay()
+  @discardableResult
+  public static func endWindowFocusOverlay() -> Swift.Bool
+}
+public class AdPoolManager {
+  public init()
+  public func setMediationManager(_ manager: BBLModuleAds.MediationManager)
+  public func setGlobalConfig(_ config: BBLModuleAds.GlobalConfig)
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func getGlobalConfig() -> BBLModuleAds.GlobalConfig?
+  #endif
+  public func upsert(_ record: BBLModuleAds.AdRecord)
+  public func isAdReady(adType: BBLModuleAds.AdType) -> Swift.Bool
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func findReusable(adType: BBLModuleAds.AdType) -> BBLModuleAds.AdRecord?
+  #endif
+  public func mark(adUnitId: Swift.String, adType: BBLModuleAds.AdType, state: BBLModuleAds.AdState)
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func mark(adUnitId: Swift.String, adType: BBLModuleAds.AdType, mediationProvider: BBLModuleAds.GlobalConfig.MediationProvider?, state: BBLModuleAds.AdState)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func findByUnitId(_ adUnitId: Swift.String, adType: BBLModuleAds.AdType, mediationProvider: BBLModuleAds.GlobalConfig.MediationProvider? = nil) -> BBLModuleAds.AdRecord?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @available(*, deprecated, message: "Use findByUnitId instead")
+  public func findByAdName(_ adName: Swift.String, adType: BBLModuleAds.AdType) -> BBLModuleAds.AdRecord?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func findAvailableAdOfSameType(_ adType: BBLModuleAds.AdType) -> BBLModuleAds.AdRecord?
+  #endif
+  public func isAdReady(_ adType: BBLModuleAds.AdType) -> Swift.Bool
+  public func getLoadQueueStatus() -> Swift.String
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func loadAd(adName: Swift.String, adUnitId: Swift.String, adType: BBLModuleAds.AdType, adsWeight: Swift.Int, mediationProvider: BBLModuleAds.GlobalConfig.MediationProvider, callback: BBLModuleAds.AdCallback?)
+  #endif
+  @objc deinit
+}
+public class AdRecord {
+  public var adName: Swift.String
+  final public let adUnitId: Swift.String
+  final public let adType: BBLModuleAds.AdType
+  final public let adsWeight: Swift.Int
+  final public let mediationProvider: BBLModuleAds.GlobalConfig.MediationProvider
+  public var state: BBLModuleAds.AdState
+  public var adInstance: Any?
+  public init(adName: Swift.String, adUnitId: Swift.String, adType: BBLModuleAds.AdType, adsWeight: Swift.Int, mediationProvider: BBLModuleAds.GlobalConfig.MediationProvider = .admob)
+  public func addCallback(_ callback: BBLModuleAds.AdCallback)
+  public func getAndClearCallbacks() -> [BBLModuleAds.AdCallback]
+  public var hasCallbacks: Swift.Bool {
+    get
+  }
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @_Concurrency.MainActor public class AdsManager {
+  @_Concurrency.MainActor public static let shared: BBLModuleAds.AdsManager
+  @_Concurrency.MainActor public var isReady: Swift.Bool {
+    get
+  }
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public func initialize(application: UIKit.UIApplication, config: BBLModuleAds.GlobalConfig, localPlacements: [Swift.String : Any], completion: ((Swift.Bool) -> Swift.Void)? = nil)
+  #endif
+  @_Concurrency.MainActor public func addOnReadyListener(_ listener: @escaping () -> Swift.Void)
+  @_Concurrency.MainActor public func preloadAllExceptBanner()
+  @_Concurrency.MainActor public func reloadPlacements()
+  @_Concurrency.MainActor public func disableAppResumeWithViewController(_ viewControllerType: UIKit.UIViewController.Type)
+  @_Concurrency.MainActor public func enableAppResumeWithViewController(_ viewControllerType: UIKit.UIViewController.Type)
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public func setActivityTriggerNameOverride(_ name: Swift.String?)
+  #endif
+  @_Concurrency.MainActor public func clearActivityTriggerOverride()
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public func setOnFullscreenAdClosedListener(_ listener: (() -> Swift.Void)?)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public func getMediationManager() -> BBLModuleAds.MediationManager?
+  #endif
+  @_Concurrency.MainActor public func getLoadQueueStatus() -> Swift.String
+  @_Concurrency.MainActor public func updateGlobalConfig(_ config: BBLModuleAds.GlobalConfig)
+  @_Concurrency.MainActor public func registerBannerContainer(adName: Swift.String, containerView: UIKit.UIView)
+  @_Concurrency.MainActor public func unregisterBannerContainer(adName: Swift.String)
+  @_Concurrency.MainActor public func registerNativePresentation(adName: Swift.String, nativeAdView: BBLModuleAds.BBLNativeAdView, size: BBLModuleAds.BBLNativeAdView.NativeAdSize = .medium)
+  @_Concurrency.MainActor public func registerNativePresentation(adName: Swift.String, nativeAdView: BBLModuleAds.BBLNativeAdView, size: BBLModuleAds.BBLNativeAdView.NativeAdSize = .medium, enableLegacyReadyLookup: Swift.Bool)
+  @_Concurrency.MainActor public func unregisterNativePresentation(adName: Swift.String)
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public func showNativePresentation(adName: Swift.String, callback: BBLModuleAds.AdCallback? = nil) -> Swift.Bool
+  #endif
+  @_Concurrency.MainActor public func isAdReadyInPool(adName: Swift.String) -> Swift.Bool
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public func getGlobalConfig() -> BBLModuleAds.GlobalConfig?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public func load(adName: Swift.String, callback: BBLModuleAds.AdCallback? = nil)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public func show(adName: Swift.String, viewController: UIKit.UIViewController, callback: BBLModuleAds.AdCallback? = nil)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public func show(adName: Swift.String, viewController: UIKit.UIViewController, callback: BBLModuleAds.AdCallback?, timeoutLoadingAds: Swift.Int)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public func loadAndShow(adName: Swift.String, viewController: UIKit.UIViewController, callback: BBLModuleAds.AdCallback? = nil)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public func loadandShowWithTimeDalay(adName: Swift.String, viewController: UIKit.UIViewController, timeoutMs: Swift.Int64, timeDelayMs: Swift.Int64, callback: BBLModuleAds.AdCallback? = nil)
+  #endif
+  @_Concurrency.MainActor public func bindClickToLoad(viewController: UIKit.UIViewController, viewIdentifier: Swift.String, adName: Swift.String, delayMs: Swift.Int = 0)
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public func bindClickToLoadAndShow(viewController: UIKit.UIViewController, viewIdentifier: Swift.String, adName: Swift.String, delayMs: Swift.Int = 0, callback: BBLModuleAds.AdCallback? = nil)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public func bindClickToShow(viewController: UIKit.UIViewController, viewIdentifier: Swift.String, adName: Swift.String, delayMs: Swift.Int = 0, callback: BBLModuleAds.AdCallback? = nil)
+  #endif
+  @_Concurrency.MainActor public func setCurrentViewController(_ viewController: UIKit.UIViewController)
+  @_Concurrency.MainActor public func getCurrentViewControllerName() -> Swift.String
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public func loadBanner(adName: Swift.String, containerView: UIKit.UIView, callback: BBLModuleAds.AdCallback? = nil)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public func loadMRec(adName: Swift.String, containerView: UIKit.UIView, callback: BBLModuleAds.AdCallback? = nil)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public func getNativeAd(adName: Swift.String) -> Any?
+  #endif
+  @_Concurrency.MainActor public func renderNativeAd(adName: Swift.String, nativeAdView: BBLModuleAds.BBLNativeAdView) -> Swift.Bool
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public func loadAndRenderNativeAd(adName: Swift.String, nativeAdView: BBLModuleAds.BBLNativeAdView, size: BBLModuleAds.BBLNativeAdView.NativeAdSize = .medium, callback: BBLModuleAds.AdCallback? = nil)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public func loadAndPopulateNativeAd(adName: Swift.String, nativeAdView: BBLModuleAds.BBLNativeAdView, size: BBLModuleAds.BBLNativeAdView.NativeAdSize = .medium, callback: BBLModuleAds.AdCallback? = nil)
+  #endif
+  @objc deinit
+}
+public enum AdState {
+  case idle
+  case loading
+  case loaded
+  case showing
+  case failed
+  case exhausted
+  public static func == (a: BBLModuleAds.AdState, b: BBLModuleAds.AdState) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers @_Concurrency.MainActor public class LifecycleManager {
+  @_Concurrency.MainActor public static let shared: BBLModuleAds.LifecycleManager
+  @_Concurrency.MainActor public func bindClickToLoad(viewController: UIKit.UIViewController, viewIdentifier: Swift.String, adName: Swift.String, delayMs: Swift.Int = 0)
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public func bindClickToLoadAndShow(viewController: UIKit.UIViewController, viewIdentifier: Swift.String, adName: Swift.String, delayMs: Swift.Int = 0, callback: BBLModuleAds.AdCallback? = nil)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public func bindClickToShow(viewController: UIKit.UIViewController, viewIdentifier: Swift.String, adName: Swift.String, delayMs: Swift.Int = 0, callback: BBLModuleAds.AdCallback? = nil)
+  #endif
+  @objc deinit
+}
+public class MediationManager {
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init(context: Any, admobMediation: (any BBLModuleAds.BaseMediation)?, appLovinMediation: (any BBLModuleAds.BaseMediation)?)
+  #endif
+  convenience public init(context: Any, initialMediation: any BBLModuleAds.BaseMediation)
+  public func initialize()
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func loadAd(adName: Swift.String, adUnitId: Swift.String, adType: BBLModuleAds.AdType, mediationProvider: BBLModuleAds.GlobalConfig.MediationProvider, callback: BBLModuleAds.AdCallback?)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func showAd(adName: Swift.String, viewController: UIKit.UIViewController, adType: BBLModuleAds.AdType, adUnitId: Swift.String?, mediationProvider: BBLModuleAds.GlobalConfig.MediationProvider, callback: BBLModuleAds.AdCallback?)
+  #endif
+  public func isAdReady(adType: BBLModuleAds.AdType) -> Swift.Bool
+  public var networkName: Swift.String {
+    get
+  }
+  public func networkName(for provider: BBLModuleAds.GlobalConfig.MediationProvider) -> Swift.String
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func getCurrentMediation() -> (any BBLModuleAds.BaseMediation)?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func getMediation(for provider: BBLModuleAds.GlobalConfig.MediationProvider) -> (any BBLModuleAds.BaseMediation)?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func setViewController(_ viewController: UIKit.UIViewController?)
+  #endif
+  public func destroy()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @_Concurrency.MainActor final public class NativeAdsCoordinator {
+  public struct NativePresentationRegistration {
+    public let adName: Swift.String
+    weak public var nativeAdView: BBLModuleAds.BBLNativeAdView?
+    public var size: BBLModuleAds.BBLNativeAdView.NativeAdSize
+    public var enableLegacyReadyLookup: Swift.Bool
+  }
+  @_Concurrency.MainActor final public func registerNativePresentation(adName: Swift.String, nativeAdView: BBLModuleAds.BBLNativeAdView, size: BBLModuleAds.BBLNativeAdView.NativeAdSize = .medium, enableLegacyReadyLookup: Swift.Bool = false)
+  @_Concurrency.MainActor final public func unregisterNativePresentation(adName: Swift.String)
+  #if compiler(>=5.3) && $NonescapableTypes
+  @discardableResult
+  @_Concurrency.MainActor final public func showNativePresentation(adName: Swift.String, callback: BBLModuleAds.AdCallback? = nil) -> Swift.Bool
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor final public func getNativeAd(adName: Swift.String) -> Any?
+  #endif
+  @discardableResult
+  @_Concurrency.MainActor final public func renderNativeAd(adName: Swift.String, nativeAdView: BBLModuleAds.BBLNativeAdView) -> Swift.Bool
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor final public func loadAndRenderNativeAd(adName: Swift.String, nativeAdView: BBLModuleAds.BBLNativeAdView, size: BBLModuleAds.BBLNativeAdView.NativeAdSize = .medium, callback: BBLModuleAds.AdCallback? = nil)
+  #endif
+  @objc deinit
+}
+public struct AdCallback {
+  public var onAdLoaded: ((Swift.String) -> Swift.Void)?
+  public var onAdFailed: ((Swift.String, Swift.String) -> Swift.Void)?
+  public var onAdImpression: ((Swift.String) -> Swift.Void)?
+  public var onAdClicked: ((Swift.String) -> Swift.Void)?
+  public var onAdClosed: ((Swift.String) -> Swift.Void)?
+  public var onAdDisplayFailed: ((Swift.String, Swift.String) -> Swift.Void)?
+  public var onAdRevenue: ((Swift.String, Any) -> Swift.Void)?
+  public var onRewardGranted: ((Swift.String, BBLModuleAds.Reward) -> Swift.Void)?
+  public init()
+}
+public struct Reward {
+  public let type: Swift.String
+  public let amount: Swift.Int
+  public init(type: Swift.String, amount: Swift.Int)
+}
+final public class RewardedAdCallback {
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init(errorMessage: Swift.String? = nil, onRewardAction: @escaping () -> Swift.Void)
+  #endif
+  convenience public init(onRewardAction: @escaping () -> Swift.Void)
+  final public func buildAdCallback() -> BBLModuleAds.AdCallback
+  final public func reset()
+  @objc deinit
+}
+public protocol BaseMediation : AnyObject {
+  var networkName: Swift.String { get }
+  var provider: BBLModuleAds.GlobalConfig.MediationProvider { get }
+  var context: Any { get }
+  func initialize()
+  #if compiler(>=5.3) && $NonescapableTypes
+  func loadAd(adName: Swift.String, adUnitId: Swift.String, adType: BBLModuleAds.AdType, callback: BBLModuleAds.AdCallback?)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  func showAd(adName: Swift.String, viewController: UIKit.UIViewController, adType: BBLModuleAds.AdType, adUnitId: Swift.String?, callback: BBLModuleAds.AdCallback?)
+  #endif
+  func destroy()
+  func isAdReady(adType: BBLModuleAds.AdType) -> Swift.Bool
+  func isWrapperReady(adType: BBLModuleAds.AdType, wrapper: Swift.AnyObject) -> Swift.Bool
+  #if compiler(>=5.3) && $NonescapableTypes
+  func getAdWrapper(adUnitId: Swift.String, adType: BBLModuleAds.AdType) -> Any?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  func setViewController(_ viewController: UIKit.UIViewController?)
+  #endif
+}
+extension BBLModuleAds.BaseMediation {
+  public func destroy()
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func getAdWrapper(adUnitId: Swift.String, adType: BBLModuleAds.AdType) -> Any?
+  #endif
+}
+@available(iOS 13.0, *)
+extension SwiftUICore.View {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency public func interstitialAd(_ adName: Swift.String, trigger: SwiftUICore.Binding<Swift.Bool>, onLoaded: ((Swift.String) -> Swift.Void)? = nil, onFailed: ((Swift.String, Swift.String) -> Swift.Void)? = nil, onClosed: ((Swift.String) -> Swift.Void)? = nil) -> some SwiftUICore.View
+  
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency public func rewardedAd(_ adName: Swift.String, trigger: SwiftUICore.Binding<Swift.Bool>, onReward: ((Swift.String, BBLModuleAds.Reward) -> Swift.Void)? = nil, onFailed: ((Swift.String, Swift.String) -> Swift.Void)? = nil, onClosed: ((Swift.String) -> Swift.Void)? = nil) -> some SwiftUICore.View
+  
+  #endif
+  @_Concurrency.MainActor @preconcurrency public func bannerAd(_ adName: Swift.String, isVisible: SwiftUICore.Binding<Swift.Bool> = .constant(true)) -> some SwiftUICore.View
+  
+}
+@available(iOS 13.0, *)
+@_Concurrency.MainActor public class AdViewModel : Combine.ObservableObject {
+  @Combine.Published @_projectedValueProperty($isLoading) @_Concurrency.MainActor public var isLoading: Swift.Bool {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  @_Concurrency.MainActor public var $isLoading: Combine.Published<Swift.Bool>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  @Combine.Published @_projectedValueProperty($isLoaded) @_Concurrency.MainActor public var isLoaded: Swift.Bool {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  @_Concurrency.MainActor public var $isLoaded: Combine.Published<Swift.Bool>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  @Combine.Published @_projectedValueProperty($isShowing) @_Concurrency.MainActor public var isShowing: Swift.Bool {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  @_Concurrency.MainActor public var $isShowing: Combine.Published<Swift.Bool>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  #if compiler(>=5.3) && $NonescapableTypes
+  @Combine.Published @_projectedValueProperty($errorMessage) @_Concurrency.MainActor public var errorMessage: Swift.String? {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public var $errorMessage: Combine.Published<Swift.String?>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  #endif
+  @Combine.Published @_projectedValueProperty($isClicked) @_Concurrency.MainActor public var isClicked: Swift.Bool {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  @_Concurrency.MainActor public var $isClicked: Combine.Published<Swift.Bool>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  @Combine.Published @_projectedValueProperty($isClosed) @_Concurrency.MainActor public var isClosed: Swift.Bool {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  @_Concurrency.MainActor public var $isClosed: Combine.Published<Swift.Bool>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  #if compiler(>=5.3) && $NonescapableTypes
+  @Combine.Published @_projectedValueProperty($revenue) @_Concurrency.MainActor public var revenue: Swift.Double? {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public var $revenue: Combine.Published<Swift.Double?>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @Combine.Published @_projectedValueProperty($reward) @_Concurrency.MainActor public var reward: BBLModuleAds.Reward? {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public var $reward: Combine.Published<BBLModuleAds.Reward?>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  #endif
+  @_Concurrency.MainActor public init()
+  @_Concurrency.MainActor public func reset()
+  @_Concurrency.MainActor public func createCallback(for adName: Swift.String) -> BBLModuleAds.AdCallback
+  @_Concurrency.MainActor public func loadAd(_ adName: Swift.String)
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public func showAd(_ adName: Swift.String, from viewController: UIKit.UIViewController? = nil)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public func loadAndShowAd(_ adName: Swift.String, from viewController: UIKit.UIViewController? = nil)
+  #endif
+  @available(iOS 13.0, *)
+  public typealias ObjectWillChangePublisher = Combine.ObservableObjectPublisher
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @available(iOS 13.0, *)
+@_Concurrency.MainActor public class NativeAdViewModel : BBLModuleAds.AdViewModel {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @Combine.Published @_projectedValueProperty($nativeAdView) @_Concurrency.MainActor public var nativeAdView: BBLModuleAds.BBLNativeAdView? {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public var $nativeAdView: Combine.Published<BBLModuleAds.BBLNativeAdView?>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  #endif
+  @_Concurrency.MainActor public func loadAndRender(adName: Swift.String, size: BBLModuleAds.BBLNativeAdView.NativeAdSize = .medium)
+  @_Concurrency.MainActor override public init()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @available(iOS 13.0, *)
+@_Concurrency.MainActor public class AsyncAdManager {
+  @_Concurrency.MainActor public static let shared: BBLModuleAds.AsyncAdManager
+  @_Concurrency.MainActor public func loadAd(_ adName: Swift.String) async throws
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public func showAd(_ adName: Swift.String, from viewController: UIKit.UIViewController? = nil) async throws -> BBLModuleAds.AdResult
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public func loadAndShowAd(_ adName: Swift.String, from viewController: UIKit.UIViewController? = nil) async throws -> BBLModuleAds.AdResult
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public func showRewardedAd(_ adName: Swift.String, from viewController: UIKit.UIViewController? = nil) async throws -> BBLModuleAds.RewardedAdResult
+  #endif
+  @objc deinit
+}
+public struct AdResult {
+  public var didShowImpression: Swift.Bool
+  public var wasClicked: Swift.Bool
+  public var revenue: Swift.Double?
+  public init()
+}
+public struct RewardedAdResult {
+  public var didShowImpression: Swift.Bool
+  public var wasClicked: Swift.Bool
+  public var revenue: Swift.Double?
+  public var reward: BBLModuleAds.Reward?
+  public init()
+}
+public enum AdError : Foundation.LocalizedError {
+  case loadFailed(Swift.String)
+  case showFailed(Swift.String)
+  case loadAndShowFailed(Swift.String)
+  case noViewController
+  #if compiler(>=5.3) && $NonescapableTypes
+  public var errorDescription: Swift.String? {
+    get
+  }
+  #endif
+}
+@available(iOS 13.0, *)
+@_Concurrency.MainActor @preconcurrency public protocol BaseActivityView : SwiftUICore.View {
+  @_Concurrency.MainActor @preconcurrency var activityName: Swift.String { get }
+  @_Concurrency.MainActor @preconcurrency func onViewAppear()
+  @_Concurrency.MainActor @preconcurrency func onViewDisappear()
+}
+@available(iOS 13.0, *)
+extension BBLModuleAds.BaseActivityView {
+  @_Concurrency.MainActor @preconcurrency public func onViewAppear()
+  @_Concurrency.MainActor @preconcurrency public func onViewDisappear()
+  @_Concurrency.MainActor @preconcurrency public func applyActivityLifecycle<Content>(_ content: Content) -> some SwiftUICore.View where Content : SwiftUICore.View
+  
+}
+@available(iOS 13.0, *)
+@_Concurrency.MainActor @preconcurrency public struct ActivityLifecycleModifier : SwiftUICore.ViewModifier {
+  @_Concurrency.MainActor @preconcurrency public init(activityName: Swift.String, onAppear: @escaping () -> Swift.Void = {}, onDisappear: @escaping () -> Swift.Void = {})
+  @_Concurrency.MainActor @preconcurrency public func body(content: BBLModuleAds.ActivityLifecycleModifier.Content) -> some SwiftUICore.View
+  
+  @available(iOS 13.0, *)
+  public typealias Body = @_opaqueReturnTypeOf("$s12BBLModuleAds25ActivityLifecycleModifierV4body7contentQr7SwiftUI05_ViewE8_ContentVyACG_tF", 0) __
+}
+@available(iOS 13.0, *)
+extension SwiftUICore.View {
+  @_Concurrency.MainActor @preconcurrency public func activityLifecycle(_ activityName: Swift.String, onAppear: @escaping () -> Swift.Void = {}, onDisappear: @escaping () -> Swift.Void = {}) -> some SwiftUICore.View
+  
+}
+@available(iOS 14.0, *)
+@_Concurrency.MainActor @preconcurrency public protocol BaseApp : SwiftUI.App {
+  @_Concurrency.MainActor @preconcurrency var adsGlobalConfig: BBLModuleAds.GlobalConfig { get }
+  @_Concurrency.MainActor @preconcurrency var adsLocalPlacements: [Swift.String : Any] { get }
+}
+@available(iOS 14.0, *)
+extension BBLModuleAds.BaseApp {
+  @_Concurrency.MainActor @preconcurrency public func configureRootView<Content>(_ content: Content) -> some SwiftUICore.View where Content : SwiftUICore.View
+  
+}
+@objc @_inheritsConvenienceInitializers @available(iOS 13.0, *)
+@_Concurrency.MainActor @preconcurrency public class BaseAppSceneDelegate : ObjectiveC.NSObject, UIKit.UIWindowSceneDelegate {
+  @_Concurrency.MainActor @preconcurrency @objc public func sceneDidBecomeActive(_ scene: UIKit.UIScene)
+  @_Concurrency.MainActor @preconcurrency @objc public func sceneWillResignActive(_ scene: UIKit.UIScene)
+  @_Concurrency.MainActor @preconcurrency @objc public func sceneDidEnterBackground(_ scene: UIKit.UIScene)
+  @_Concurrency.MainActor @preconcurrency @objc public func sceneWillEnterForeground(_ scene: UIKit.UIScene)
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public init()
+  @objc deinit
+}
+@available(iOS 13.0, *)
+@_Concurrency.MainActor @preconcurrency public struct EnhancedNativeAdView : SwiftUICore.View {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency public init(adName: Swift.String, size: BBLModuleAds.BBLNativeAdView.NativeAdSize = .medium, onAdLoaded: ((Swift.String) -> Swift.Void)? = nil, onAdFailed: ((Swift.String, Swift.String) -> Swift.Void)? = nil, onAdImpression: ((Swift.String) -> Swift.Void)? = nil, onAdClicked: ((Swift.String) -> Swift.Void)? = nil)
+  #endif
+  @_Concurrency.MainActor @preconcurrency public var body: some SwiftUICore.View {
+    get
+  }
+  @available(iOS 13.0, *)
+  public typealias Body = @_opaqueReturnTypeOf("$s12BBLModuleAds20EnhancedNativeAdViewV4bodyQrvp", 0) __
+}
+@available(iOS 13.0, *)
+extension SwiftUICore.View {
+  @_Concurrency.MainActor @preconcurrency public func enhancedNativeAd(_ adName: Swift.String, size: BBLModuleAds.BBLNativeAdView.NativeAdSize = .medium) -> some SwiftUICore.View
+  
+}
+@available(iOS 13.0, *)
+public struct ViewControllerHolder {
+  #if compiler(>=5.3) && $NonescapableTypes
+  public static func getRootViewController() -> UIKit.UIViewController?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public static func getTopViewController() -> UIKit.UIViewController?
+  #endif
+}
+@available(iOS 13.0, *)
+extension SwiftUICore.View {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency public func onViewController(_ action: @escaping (UIKit.UIViewController?) -> Swift.Void) -> some SwiftUICore.View
+  
+  #endif
+}
+@_hasMissingDesignatedInitializers public class AdTrackingManager {
+  public static let shared: BBLModuleAds.AdTrackingManager
+  public func initialize(application: UIKit.UIApplication, config: BBLModuleAds.GlobalConfig)
+  public func trackAdRevenue(adName: Swift.String, adValue: Any, adUnitId: Swift.String, network: Swift.String, adType: BBLModuleAds.AdType, provider: BBLModuleAds.GlobalConfig.MediationProvider, activityName: Swift.String)
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func trackAdLoad(adName: Swift.String, adUnitId: Swift.String, adType: BBLModuleAds.AdType, network: Swift.String, activityName: Swift.String, configVersion: Swift.String? = nil)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func trackAdShow(adName: Swift.String, adUnitId: Swift.String, adType: BBLModuleAds.AdType, network: Swift.String, activityName: Swift.String, configVersion: Swift.String? = nil)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func trackAdImpression(adName: Swift.String, adUnitId: Swift.String, adType: BBLModuleAds.AdType, network: Swift.String, activityName: Swift.String, configVersion: Swift.String? = nil)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func trackAdClick(adName: Swift.String, adUnitId: Swift.String, adType: BBLModuleAds.AdType, network: Swift.String, activityName: Swift.String, configVersion: Swift.String? = nil)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func trackAdFail(adName: Swift.String, adUnitId: Swift.String, adType: BBLModuleAds.AdType, network: Swift.String, activityName: Swift.String, error: Swift.String, configVersion: Swift.String? = nil)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func trackAdLoaded(adName: Swift.String, adUnitId: Swift.String, adType: BBLModuleAds.AdType, network: Swift.String, activityName: Swift.String, configVersion: Swift.String? = nil, loadTimeMs: Swift.Int64)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func trackEvent(eventName: Swift.String, parameters: [Swift.String : Any]? = nil)
+  #endif
+  public func trackAppOpen()
+  public func trackAppResume(activityName: Swift.String)
+  public func trackAppClose()
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func isOrganicUser() -> Swift.Bool?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func trackAdRevenueWithMilestones(adName: Swift.String, adValue: GoogleMobileAds.AdValue, adUnitId: Swift.String, network: Swift.String, adType: BBLModuleAds.AdType, provider: BBLModuleAds.GlobalConfig.MediationProvider, activityName: Swift.String, configVersion: Swift.String?)
+  #endif
+  public func trackMaxAdRevenue(maxAd: AppLovinSDK.MAAd, adType: BBLModuleAds.AdType)
+  @objc deinit
+}
+public protocol FCMDelegate : AnyObject {
+  func fcmDidReceiveToken(_ token: Swift.String)
+  func fcmDidReceiveMessage(_ message: [Swift.AnyHashable : Any])
+  func fcmDidTapNotification(_ message: [Swift.AnyHashable : Any])
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class FCMManager : ObjectiveC.NSObject {
+  public static let shared: BBLModuleAds.FCMManager
+  weak public var delegate: (any BBLModuleAds.FCMDelegate)?
+  public var autoInitEnabled: Swift.Bool
+  public var onTokenReceived: ((Swift.String) -> Swift.Void)?
+  public var onMessageReceived: (([Swift.AnyHashable : Any]) -> Swift.Void)?
+  public var onNotificationTapped: (([Swift.AnyHashable : Any]) -> Swift.Void)?
+  public func initialize()
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func requestNotificationPermission(completion: ((Swift.Bool) -> Swift.Void)? = nil)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func getToken(completion: @escaping (Swift.String?, (any Swift.Error)?) -> Swift.Void)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func getCachedToken() -> Swift.String?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func subscribeToTopic(_ topic: Swift.String, completion: (((any Swift.Error)?) -> Swift.Void)? = nil)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func unsubscribeFromTopic(_ topic: Swift.String, completion: (((any Swift.Error)?) -> Swift.Void)? = nil)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func deleteToken(completion: (((any Swift.Error)?) -> Swift.Void)? = nil)
+  #endif
+  public func setAutoInitEnabled(_ enabled: Swift.Bool)
+  public func setAPNsToken(_ deviceToken: Foundation.Data)
+  public func handleNotification(userInfo: [Swift.AnyHashable : Any], fetchCompletionHandler: @escaping (UIKit.UIBackgroundFetchResult) -> Swift.Void)
+  public func handleNotificationTap(userInfo: [Swift.AnyHashable : Any])
+  @objc deinit
+}
+extension BBLModuleAds.FCMManager : FirebaseMessaging.MessagingDelegate {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @objc dynamic public func messaging(_ messaging: FirebaseMessaging.Messaging, didReceiveRegistrationToken fcmToken: Swift.String?)
+  #endif
+}
+extension BBLModuleAds.FCMManager : UserNotifications.UNUserNotificationCenterDelegate {
+  @objc dynamic public func userNotificationCenter(_ center: UserNotifications.UNUserNotificationCenter, willPresent notification: UserNotifications.UNNotification, withCompletionHandler completionHandler: @escaping (UserNotifications.UNNotificationPresentationOptions) -> Swift.Void)
+  @objc dynamic public func userNotificationCenter(_ center: UserNotifications.UNUserNotificationCenter, didReceive response: UserNotifications.UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Swift.Void)
+}
+extension Foundation.NSNotification.Name {
+  public static let FCMTokenReceived: Foundation.Notification.Name
+}
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency public class PrepareLoadingDialog : UIKit.UIViewController {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency public init(message: Swift.String? = nil)
+  #endif
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor @preconcurrency public func show(on viewController: UIKit.UIViewController)
+  @_Concurrency.MainActor @preconcurrency public func dismiss()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency public class SpinKitView : UIKit.UIView {
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public init(frame: CoreFoundation.CGRect)
+  @_Concurrency.MainActor @preconcurrency public func startAnimating()
+  @_Concurrency.MainActor @preconcurrency public func stopAnimating()
+  @_Concurrency.MainActor @preconcurrency public func setColor(_ color: UIKit.UIColor)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency public class BBLNativeAdView : GoogleMobileAds.NativeAdView {
+  public enum NativeAdSize {
+    case small
+    case medium
+    case fullScreen
+    public static func == (a: BBLModuleAds.BBLNativeAdView.NativeAdSize, b: BBLModuleAds.BBLNativeAdView.NativeAdSize) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  @_Concurrency.MainActor @preconcurrency @objc convenience dynamic public init()
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public init(frame: CoreFoundation.CGRect)
+  @_Concurrency.MainActor @preconcurrency public init(frame: CoreFoundation.CGRect, size: BBLModuleAds.BBLNativeAdView.NativeAdSize)
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func awakeFromNib()
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency public static func loadFromXIB(size: BBLModuleAds.BBLNativeAdView.NativeAdSize = .medium) -> BBLModuleAds.BBLNativeAdView?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency public static func loadFromXIB(size: BBLModuleAds.BBLNativeAdView.NativeAdSize = .medium, bundle: Foundation.Bundle) -> BBLModuleAds.BBLNativeAdView?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency public static func loadFromXIB(nibName: Swift.String, bundle: Foundation.Bundle? = nil, size: BBLModuleAds.BBLNativeAdView.NativeAdSize? = nil) -> BBLModuleAds.BBLNativeAdView?
+  #endif
+  @_Concurrency.MainActor @preconcurrency public func replaceNonSdkMediaViewWithMediaViewIfNeeded()
+  @_Concurrency.MainActor @preconcurrency public func populate(nativeAd: GoogleMobileAds.NativeAd)
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency public func populate(nativeAd: GoogleMobileAds.NativeAd, config: BBLModuleAds.PlacementConfig.NativeAdConfig?)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency public func populate(maxNativeAdView: AppLovinSDK.MANativeAdView, config: BBLModuleAds.PlacementConfig.NativeAdConfig?)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @discardableResult
+  @_Concurrency.MainActor @preconcurrency public func setCustomXIB(xibName: Swift.String, bundle: Foundation.Bundle? = nil) -> Swift.Bool
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func hitTest(_ point: CoreFoundation.CGPoint, with event: UIKit.UIEvent?) -> UIKit.UIView?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public func point(inside point: CoreFoundation.CGPoint, with event: UIKit.UIEvent?) -> Swift.Bool
+  #endif
+  @_Concurrency.MainActor @preconcurrency public func unregisterAd()
+  @objc deinit
+}
+extension BBLModuleAds.BBLNativeAdView : GoogleMobileAds.NativeAdDelegate {
+  @_Concurrency.MainActor @preconcurrency @objc dynamic public func nativeAdDidRecordImpression(_ nativeAd: GoogleMobileAds.NativeAd)
+  @_Concurrency.MainActor @preconcurrency @objc dynamic public func nativeAdDidRecordClick(_ nativeAd: GoogleMobileAds.NativeAd)
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @_Concurrency.MainActor @preconcurrency final public class NativeAdView : BBLModuleAds.BBLNativeAdView {
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public init(frame: CoreFoundation.CGRect)
+  @_Concurrency.MainActor @preconcurrency override public init(frame: CoreFoundation.CGRect, size: BBLModuleAds.BBLNativeAdView.NativeAdSize)
+  @objc deinit
+}
+@available(iOS 13.0, *)
+@_Concurrency.MainActor @preconcurrency public struct NativeAdViewRepresentable : SwiftUI.UIViewRepresentable {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency public init(adName: Swift.String, size: BBLModuleAds.BBLNativeAdView.NativeAdSize = .medium, config: BBLModuleAds.PlacementConfig.NativeAdConfig? = nil, onAdLoaded: ((Swift.String) -> Swift.Void)? = nil, onAdFailed: ((Swift.String, Swift.String) -> Swift.Void)? = nil)
+  #endif
+  @_Concurrency.MainActor @preconcurrency public func makeUIView(context: BBLModuleAds.NativeAdViewRepresentable.Context) -> BBLModuleAds.BBLNativeAdView
+  @_Concurrency.MainActor @preconcurrency public func updateUIView(_ uiView: BBLModuleAds.BBLNativeAdView, context: BBLModuleAds.NativeAdViewRepresentable.Context)
+  @_Concurrency.MainActor @preconcurrency public func makeCoordinator() -> BBLModuleAds.NativeAdViewRepresentable.Coordinator
+  @_hasMissingDesignatedInitializers public class Coordinator {
+    @objc deinit
+  }
+  @available(iOS 13.0, *)
+  public typealias Body = Swift.Never
+  @available(iOS 13.0, *)
+  public typealias UIViewType = BBLModuleAds.BBLNativeAdView
+}
+@available(iOS 13.0, *)
+extension SwiftUICore.View {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor @preconcurrency public func nativeAd(adName: Swift.String, size: BBLModuleAds.BBLNativeAdView.NativeAdSize = .medium, config: BBLModuleAds.PlacementConfig.NativeAdConfig? = nil) -> some SwiftUICore.View
+  
+  #endif
+}
+@_hasMissingDesignatedInitializers final public class BBLUnityNativeOverlayManager {
+  public static let shared: BBLModuleAds.BBLUnityNativeOverlayManager
+  public static let placeholderAccessibilityId: Swift.String
+  public static let shimmerAccessibilityId: Swift.String
+  weak final public var rootOverlayView: UIKit.UIView? {
+    get
+  }
+  weak final public var slotContainer: UIKit.UIView? {
+    get
+  }
+  weak final public var placeholderView: UIKit.UIView? {
+    get
+  }
+  weak final public var shimmerView: UIKit.UIView? {
+    get
+  }
+  final public func setPlaceholderBounds(minX: Swift.Float, minY: Swift.Float, maxX: Swift.Float, maxY: Swift.Float)
+  final public func applyDefaultBounds(for size: BBLModuleAds.BBLNativeAdView.NativeAdSize)
+  final public func resetBoundsState()
+  #if compiler(>=5.3) && $NonescapableTypes
+  final public func createNativeSlot(templateName: Swift.String?, size: BBLModuleAds.BBLNativeAdView.NativeAdSize) -> (slot: UIKit.UIView, placeholder: UIKit.UIView, shimmer: UIKit.UIView, nativeAdView: BBLModuleAds.BBLNativeAdView)
+  #endif
+  final public func attachRootOverlay(_ overlay: UIKit.UIView, slot: UIKit.UIView, to parentView: UIKit.UIView)
+  final public func hideShimmer()
+  final public func showShimmer()
+  final public func addCloseControls(to slot: UIKit.UIView, duration: Swift.Int32, fullscreen: Swift.Bool, onHide: @escaping () -> Swift.Void)
+  final public func cancelCloseControls()
+  final public func clearOverlayViews()
+  final public func tearDown()
+  @objc deinit
+}
+public enum AdType : Swift.String, Swift.Codable {
+  case banner
+  case mrec
+  case interstitial
+  case native
+  case rewarded
+  case rewardedInterstitial
+  case appOpen
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init?(from string: Swift.String)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init?(rawValue: Swift.String)
+  #endif
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public struct DeviceUtils {
+  public static var appVersion: Swift.String {
+    get
+  }
+  public static func safeAreaInsets(for view: UIKit.UIView) -> UIKit.UIEdgeInsets
+  public static var isIPad: Swift.Bool {
+    get
+  }
+  public static var isIPhone: Swift.Bool {
+    get
+  }
+  public static var currentOrientation: UIKit.UIInterfaceOrientation {
+    get
+  }
+  public static var isLandscape: Swift.Bool {
+    get
+  }
+  public static var isPortrait: Swift.Bool {
+    get
+  }
+  public static var isDynamicTypeEnabled: Swift.Bool {
+    get
+  }
+  @available(iOS 10.0, *)
+  public static var contentSizeCategory: UIKit.UIContentSizeCategory {
+    get
+  }
+  public static func getAdaptiveBannerSize(for view: UIKit.UIView) -> CoreFoundation.CGSize
+  public static var isVoiceOverEnabled: Swift.Bool {
+    get
+  }
+  public static var isReduceMotionEnabled: Swift.Bool {
+    get
+  }
+  public static func getDeviceId() -> Swift.String
+}
+public struct EncryptionUtils {
+  public static func isEncryptedJson(_ jsonString: Swift.String) -> Swift.Bool
+  #if compiler(>=5.3) && $NonescapableTypes
+  public static func decryptJson(_ encryptedString: Swift.String, encryptionKey: Swift.String? = nil) -> Swift.String?
+  #endif
+}
+public struct Logger {
+  public static func setEnabled(_ enabled: Swift.Bool)
+  public static func d(_ message: Swift.String, file: Swift.String = #file, function: Swift.String = #function, line: Swift.Int = #line)
+  public static func e(_ message: Swift.String, file: Swift.String = #file, function: Swift.String = #function, line: Swift.Int = #line)
+  public static func i(_ message: Swift.String, file: Swift.String = #file, function: Swift.String = #function, line: Swift.Int = #line)
+  public static func w(_ message: Swift.String, file: Swift.String = #file, function: Swift.String = #function, line: Swift.Int = #line)
+}
+@_hasMissingDesignatedInitializers @available(iOS 14.5, *)
+public class PrivacyManager {
+  public static let shared: BBLModuleAds.PrivacyManager
+  public static func requestTrackingAuthorization(completion: @escaping (Swift.Bool) -> Swift.Void)
+  @available(iOS 14.5, *)
+  public static func trackingAuthorizationStatus() -> AppTrackingTransparency.ATTrackingManager.AuthorizationStatus
+  @available(iOS 14.5, *)
+  public static func shouldRequestTracking() -> Swift.Bool
+  @available(iOS 14.5, *)
+  public static func isTrackingAuthorized() -> Swift.Bool
+  #if compiler(>=5.3) && $NonescapableTypes
+  @available(iOS 14.5, *)
+  public static func getIDFA() -> Swift.String?
+  #endif
+  @available(iOS 14.5, *)
+  public static func isIDFAAvailable() -> Swift.Bool
+  @objc deinit
+}
+@available(iOS 14.5, *)
+extension BBLModuleAds.PrivacyManager {
+  public static func requestTrackingAuthorizationCompat(completion: @escaping (Swift.Bool) -> Swift.Void)
+  public static func trackingAuthorizationStatusCompat() -> Swift.UInt
+}
+@_hasMissingDesignatedInitializers public class Toast {
+  #if compiler(>=5.3) && $NonescapableTypes
+  public static func show(_ message: Swift.String, duration: Foundation.TimeInterval = 2.0, on viewController: UIKit.UIViewController? = nil)
+  #endif
+  @objc deinit
+}
+@available(iOS 13.0, *)
+public enum BBL_Module_Ads {
+}
+extension BBLModuleAds.GlobalConfig.MediationProvider : Swift.Equatable {}
+extension BBLModuleAds.GlobalConfig.MediationProvider : Swift.Hashable {}
+extension BBLModuleAds.GlobalConfig.MediationProvider : Swift.RawRepresentable {}
+extension BBLModuleAds.PlacementConfig.AdLoadMode : Swift.Equatable {}
+extension BBLModuleAds.PlacementConfig.AdLoadMode : Swift.Hashable {}
+extension BBLModuleAds.PlacementConfig.AdLoadMode : Swift.RawRepresentable {}
+extension BBLModuleAds.AdsManager : Swift.Sendable {}
+extension BBLModuleAds.AdState : Swift.Equatable {}
+extension BBLModuleAds.AdState : Swift.Hashable {}
+extension BBLModuleAds.LifecycleManager : Swift.Sendable {}
+extension BBLModuleAds.NativeAdsCoordinator : Swift.Sendable {}
+@available(iOS 13.0, *)
+extension BBLModuleAds.AdViewModel : Swift.Sendable {}
+@available(iOS 13.0, *)
+extension BBLModuleAds.AsyncAdManager : Swift.Sendable {}
+@available(iOS 13.0, *)
+extension BBLModuleAds.ActivityLifecycleModifier : Swift.Sendable {}
+@available(iOS 13.0, *)
+extension BBLModuleAds.BaseAppSceneDelegate : Swift.Sendable {}
+@available(iOS 13.0, *)
+extension BBLModuleAds.EnhancedNativeAdView : Swift.Sendable {}
+extension BBLModuleAds.BBLNativeAdView.NativeAdSize : Swift.Equatable {}
+extension BBLModuleAds.BBLNativeAdView.NativeAdSize : Swift.Hashable {}
+@available(iOS 13.0, *)
+extension BBLModuleAds.NativeAdViewRepresentable : Swift.Sendable {}
+extension BBLModuleAds.AdType : Swift.Equatable {}
+extension BBLModuleAds.AdType : Swift.Hashable {}
+extension BBLModuleAds.AdType : Swift.RawRepresentable {}

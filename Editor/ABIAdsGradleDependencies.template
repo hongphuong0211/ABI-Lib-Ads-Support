@@ -1,0 +1,20 @@
+// ABI Ads: optional Android deps when the Unity project does NOT already ship them via
+// Google Mobile Ads Unity Plugin / Firebase Unity SDK / AppLovin MAX.
+//
+// Unity 2022.3 + JDK 11: use the full host block (GMA Next-Gen + excludes + D8 pins):
+//   docs/mainTemplate.host-unity2022-jdk11.gradle.snippet
+//   docs/android-build-unity-2022-jdk11.md
+//
+// Copy needed lines into Assets/Plugins/Android/mainTemplate.gradle ABOVE
+// "// Android Resolver Dependencies Start" (do not duplicate if EDM already added them).
+//
+// Legacy AdMob SDK (do NOT use with ads-mobile-sdk / GMA Next-Gen):
+// implementation 'com.google.android.gms:play-services-ads:24.1.0'
+//
+// GMA Next-Gen (required for ads-debug.aar / ads-release.aar):
+// implementation 'com.google.android.libraries.ads.mobile.sdk:ads-mobile-sdk:1.1.0'
+// implementation 'com.google.android.ump:user-messaging-platform:4.0.0'
+// implementation 'com.google.android.gms:play-services-ads-identifier:18.2.0'
+//
+// Firebase Unity 13.9.x resolves firebase-*-unity via Assets/Firebase/m2repository.
+// Do NOT add firebase-bom here; use Firebase Unity + Force Resolve only.

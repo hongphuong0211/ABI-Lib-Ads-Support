@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dependencies>
+  <androidPackages>
+    <androidPackage spec="androidx.appcompat:appcompat:1.6.1" />
+    <androidPackage spec="androidx.constraintlayout:constraintlayout:2.1.4" />
+    <androidPackage spec="com.google.android.material:material:1.9.0" />
+    
+    <androidPackage spec="androidx.cardview:cardview:1.0.0" />
+    <androidPackage spec="com.facebook.shimmer:shimmer:0.5.0" />
+    <androidPackage spec="com.intuit.sdp:sdp-android:1.0.6" />
+    <androidPackage spec="com.airbnb.android:lottie:5.0.2" />
+    <androidPackage spec="androidx.multidex:multidex:2.0.1" />
+    
+    <androidPackage spec="com.applovin:applovin-sdk:13.6.2" />
+    <androidPackage spec="com.applovin.mediation:google-ad-manager-adapter:24.1.0.0" />
+    <androidPackage spec="com.applovin.mediation:google-adapter:24.1.0.0" />
+  <androidPackage spec="com.google.ads.mediation:applovin:13.6.2.0" /><androidPackage spec="com.google.ads.mediation:facebook:6.21.0.3" /><androidPackage spec="com.google.ads.mediation:vungle:7.7.4.0" /><androidPackage spec="com.google.ads.mediation:mintegral:17.1.61.0" /><androidPackage spec="com.google.ads.mediation:pangle:8.0.0.5.0" /></androidPackages>
+</dependencies>

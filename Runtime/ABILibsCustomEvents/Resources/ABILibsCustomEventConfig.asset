@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8a91f2e3d4b5a60718293e4d5f6a70b, type: 3}
+  m_Name: ABILibsCustomEventConfig
+  m_EditorClassIdentifier: ABI.Ads.UnityBridge::ABILibsSDK.ABILibsCustomEventConfig
+  baseTROASPurchaeEventName: abi_sdk1_rise_iap
+  troasPurchaseEvents:
+  - logCount: 1
+    minRange: 0
+    maxRange: 4.99999
+  - logCount: 2
+    minRange: 5
+    maxRange: 19.99999
+  - logCount: 3
+    minRange: 20
+    maxRange: 49.99999
+  - logCount: 4
+    minRange: 50
+    maxRange: 99.99999
+  - logCount: 5
+    minRange: 100
+    maxRange: 999999
+  exchangeRates: '{"AED": 3.6725, "AFN": 73.83, "ALL": 94.4847, "AMD": 395.1811,
+    "ANG": 1.79, "AOA": 918.9906, "ARS": 1060.88, "AUD": 1.5735, "AWG": 1.79, "AZN":
+    1.7004, "BAM": 1.8684, "BBD": 2.0, "BDT": 121.5387, "BGN": 1.8684, "BHD": 0.376,
+    "BIF": 2965.3861, "BMD": 1.0, "BND": 1.3384, "BOB": 6.919, "BRL": 5.7302, "BSD":
+    1.0, "BTN": 86.7355, "BWP": 13.7927, "BYN": 3.2687, "BZD": 2.0, "CAD": 1.424,
+    "CDF": 2854.24, "CHF": 0.8976, "CLP": 943.0703, "CNY": 7.2523, "COP": 4098.4544,
+    "CRC": 506.016, "CUP": 24.0, "CVE": 105.3341, "CZK": 23.9118, "DJF": 177.721,
+    "DKK": 7.1276, "DOP": 62.3329, "DZD": 134.8959, "EGP": 50.6002, "ERN": 15.0,
+    "ETB": 126.151, "EUR": 0.9553, "FJD": 2.2948, "FKP": 0.7917, "FOK": 7.127, "GBP":
+    0.7918, "GEL": 2.8177, "GGP": 0.7917, "GHS": 15.5156, "GIP": 0.7917, "GMD": 72.5859,
+    "GNF": 8613.9696, "GTQ": 7.7201, "GYD": 209.2693, "HKD": 7.7746, "HNL": 25.5761,
+    "HRK": 7.1976, "HTG": 131.1801, "HUF": 383.3373, "IDR": 16287.2463, "ILS": 3.5727,
+    "IMP": 0.7917, "INR": 86.7398, "IQD": 1312.3244, "IRR": 41999.9353, "ISK": 138.6806,
+    "JEP": 0.7917, "JMD": 157.7191, "JOD": 0.709, "JPY": 149.705, "KES": 129.5087,
+    "KGS": 87.382, "KHR": 4005.9256, "KID": 1.5734, "KMF": 469.9678, "KRW": 1428.7938,
+    "KWD": 0.3086, "KYD": 0.8333, "KZT": 500.7322, "LAK": 21879.4829, "LBP": 89500.0,
+    "LKR": 295.5388, "LRD": 199.4805, "LSL": 18.3608, "LYD": 4.8945, "MAD": 9.949,
+    "MDL": 18.637, "MGA": 4743.9563, "MKD": 58.8272, "MMK": 2099.0029, "MNT": 3485.2215,
+    "MOP": 8.0079, "MRU": 40.0044, "MUR": 46.3354, "MVR": 15.4577, "MWK": 1742.8828,
+    "MXN": 20.4642, "MYR": 4.4113, "MZN": 63.9144, "NAD": 18.3608, "NGN": 1502.5275,
+    "NIO": 36.8113, "NOK": 11.1228, "NPR": 138.7767, "NZD": 1.7428, "OMR": 0.3845,
+    "PAB": 1.0, "PEN": 3.6847, "PGK": 4.0777, "PHP": 57.8965, "PKR": 279.4721, "PLN":
+    3.9608, "PYG": 7903.758, "QAR": 3.64, "RON": 4.7527, "RSD": 111.9111, "RUB":
+    87.9209, "RWF": 1431.9757, "SAR": 3.75, "SBD": 8.6497, "SCR": 14.4205, "SDG":
+    454.2589, "SEK": 10.6596, "SGD": 1.3384, "SHP": 0.7917, "SLE": 22.8566, "SLL":
+    22856.6481, "SOS": 571.1682, "SRD": 35.7749, "SSP": 4401.9434, "STN": 23.4044,
+    "SYP": 12928.4878, "SZL": 18.3608, "THB": 33.5022, "TJS": 10.9558, "TMT": 3.5001,
+    "TND": 3.1677, "TOP": 2.3803, "TRY": 36.4627, "TTD": 6.7665, "TVD": 1.5734, "TWD":
+    32.7128, "TZS": 2581.2513, "UAH": 41.7116, "UGX": 3675.5882, "USD": 1, "UYU":
+    43.0891, "UZS": 12892.7139, "VES": 63.4938, "VND": 25462.0816, "VUV": 122.4594,
+    "WST": 2.8067, "XAF": 626.6237, "XCD": 2.7, "XDR": 0.7614, "XOF": 626.6237, "XPF":
+    113.9957, "YER": 247.4834, "ZAR": 18.3621, "ZMW": 28.2034, "ZWL": 26.4879}'
+  baseTROASEventName: abi_sdk_taichi_
+  troasAdEvents:
+  - 0.1
+  - 0.5
+  - 1
+  baseTROASEventName2: abi_sdk_taichi2_
+  troasAdEvents2:
+  - 0.1
+  - 0.5
+  baseBambooAdEventName: abi_sdk2_watch_ad_
+  bambooCountAdEvents: 050000000a0000000f000000
+  baseBambooRewardedEventName: abi_sdk2_watch_rewarded_ad_
+  bambooCountRewardedEvents: 050000000a0000000f000000
+  minRevenueThresholdForBannerAndMrec: 0.1

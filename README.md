@@ -321,7 +321,7 @@ ABIAds.DestroyNative();
 
 - `ShowNative()` already loads — avoid `Load()` + `OnLoaded` → `ShowNative()` (duplicate show / double callbacks).
 - `SetNativePlaceholderBounds(…, maxY: 1f)` anchors to content bottom (not navigation bar) on current AAR.
-- `templateName` must match an Android layout in the ads module / iOS XIB set.
+- `templateName` must match a layout in the ads module. See [Native template files (review)](https://docs.google.com/spreadsheets/d/1LxvJKFlAn_9vDGtWCXLAHsGexKQmfJraV2_DgbhK6ng/edit?gid=0#gid=0).
 
 ---
 
@@ -707,7 +707,7 @@ ABIAds.DestroyNative();
 
 - Tránh `Load()` + `OnLoaded` → `ShowNative()` (show lặp / callback trùng).
 - `maxY = 1f` neo đáy vùng nội dung (không tính navigation bar) trên AAR mới.
-- `templateName` phải khớp layout trong module ads.
+- `templateName` phải khớp layout trong module ads. Xem [Danh sách native template (review)](https://docs.google.com/spreadsheets/d/1LxvJKFlAn_9vDGtWCXLAHsGexKQmfJraV2_DgbhK6ng/edit?gid=0#gid=0).
 
 ---
 

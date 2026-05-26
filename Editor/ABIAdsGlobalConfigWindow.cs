@@ -11,6 +11,7 @@ namespace ABI.Ads.UnityBridge.Editor
         private static readonly int[] MediationValues = { 0, 1, 2 };
 
         private ABIAdsGlobalConfigData _globalConfig;
+        private ABIAdsConfigStore.ConfigLoadSource _configLoadSource;
         private HashSet<string> _enabledAdMobNetworkIds;
         private HashSet<string> _enabledMaxNetworkIds;
         private Vector2 _scroll;
@@ -37,7 +38,8 @@ namespace ABI.Ads.UnityBridge.Editor
 
             EditorGUILayout.Space();
             EditorGUILayout.HelpBox(
-                "Quản lý Resources/Configs/global_config.json. File này chứa mediation provider, app id, SDK token và các setting build/runtime toàn cục.",
+                "Quản lý Assets/Resources/Configs/global_config.json (tên file: global_config.json, gạch dưới). " +
+                "Save luôn ghi vào Assets; Reload ưu tiên file project, rồi mới fallback package mẫu.",
                 MessageType.Info);
 
             using (new EditorGUILayout.HorizontalScope())
@@ -55,7 +57,11 @@ namespace ABI.Ads.UnityBridge.Editor
                 GUILayout.FlexibleSpace();
             }
 
-            ABIAdsConfigGui.DrawPath("Global", ABIAdsEditorPaths.GlobalConfigPath());
+            ABIAdsConfigGui.DrawPath("Global (Save target)", ABIAdsEditorPaths.GlobalConfigPath());
+            EditorGUILayout.LabelField(
+                "Loaded from",
+                DescribeLoadSource(_configLoadSource),
+                EditorStyles.miniLabel);
 
             _scroll = EditorGUILayout.BeginScrollView(_scroll);
             DrawGlobalConfig();
@@ -232,15 +238,29 @@ namespace ABI.Ads.UnityBridge.Editor
 
         private void LoadConfig()
         {
-            _globalConfig = ABIAdsConfigStore.LoadGlobalConfig();
+            _globalConfig = ABIAdsConfigStore.LoadGlobalConfig(out _configLoadSource);
             LoadAdMobNetworks();
             LoadMaxNetworks();
+        }
+
+        private static string DescribeLoadSource(ABIAdsConfigStore.ConfigLoadSource source)
+        {
+            switch (source)
+            {
+                case ABIAdsConfigStore.ConfigLoadSource.Project:
+                    return "Assets/Resources/Configs/global_config.json";
+                case ABIAdsConfigStore.ConfigLoadSource.Package:
+                    return "Packages/com.abi.ads.unity/Resources/Configs/global_config.json (chưa có bản project — bấm Save để copy sang Assets)";
+                default:
+                    return "Editor defaults (không tìm thấy hoặc không parse được JSON)";
+            }
         }
 
         private void SaveConfig()
         {
             EnsureData();
             ABIAdsConfigStore.SaveGlobalConfig(_globalConfig);
+            _configLoadSource = ABIAdsConfigStore.ConfigLoadSource.Project;
         }
 
         private void EnsureData()

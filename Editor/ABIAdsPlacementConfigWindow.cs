@@ -20,6 +20,7 @@ namespace ABI.Ads.UnityBridge.Editor
         };
 
         private ABIAdsPlacementsRoot _placementsRoot;
+        private ABIAdsConfigStore.ConfigLoadSource _configLoadSource;
         private Vector2 _scroll;
         private string[] _nativeAdLayoutValues = new string[0];
 
@@ -43,7 +44,7 @@ namespace ABI.Ads.UnityBridge.Editor
 
             EditorGUILayout.Space();
             EditorGUILayout.HelpBox(
-                "Quản lý Resources/Configs/placements.json. File này chứa ad_name, ads_type, ad_ids và cấu hình banner/native theo từng placement.",
+                "Quản lý Assets/Resources/Configs/placements.json. Save ghi vào Assets; Reload ưu tiên file project, rồi fallback package mẫu.",
                 MessageType.Info);
 
             using (new EditorGUILayout.HorizontalScope())
@@ -61,7 +62,11 @@ namespace ABI.Ads.UnityBridge.Editor
                 GUILayout.FlexibleSpace();
             }
 
-            ABIAdsConfigGui.DrawPath("Placements", ABIAdsEditorPaths.PlacementsPath());
+            ABIAdsConfigGui.DrawPath("Placements (Save target)", ABIAdsEditorPaths.PlacementsPath());
+            EditorGUILayout.LabelField(
+                "Loaded from",
+                DescribeLoadSource(_configLoadSource),
+                EditorStyles.miniLabel);
 
             _scroll = EditorGUILayout.BeginScrollView(_scroll);
             DrawPlacements();
@@ -202,14 +207,28 @@ namespace ABI.Ads.UnityBridge.Editor
 
         private void LoadConfig()
         {
-            _placementsRoot = ABIAdsConfigStore.LoadPlacements();
+            _placementsRoot = ABIAdsConfigStore.LoadPlacements(out _configLoadSource);
             _nativeAdLayoutValues = ABIAdsEditorPaths.LoadNativeAdLayoutValues();
+        }
+
+        private static string DescribeLoadSource(ABIAdsConfigStore.ConfigLoadSource source)
+        {
+            switch (source)
+            {
+                case ABIAdsConfigStore.ConfigLoadSource.Project:
+                    return "Assets/Resources/Configs/placements.json";
+                case ABIAdsConfigStore.ConfigLoadSource.Package:
+                    return "Packages/com.abi.ads.unity/Resources/Configs/placements.json (chưa có bản project — bấm Save để copy sang Assets)";
+                default:
+                    return "Editor defaults (không tìm thấy hoặc không parse được JSON)";
+            }
         }
 
         private void SaveConfig()
         {
             EnsureData();
             ABIAdsConfigStore.SavePlacements(_placementsRoot);
+            _configLoadSource = ABIAdsConfigStore.ConfigLoadSource.Project;
         }
 
         private void EnsureData()

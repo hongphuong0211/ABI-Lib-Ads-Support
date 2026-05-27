@@ -5,7 +5,7 @@ Troubleshooting **chung** + **Unity 6**. Setup Gradle đầy đủ cho **Unity 2
 | Phiên bản | Tài liệu |
 |-----------|----------|
 | **Unity 2022.3 + JDK 11** | **[android-build-unity-2022-jdk11.md](android-build-unity-2022-jdk11.md)** — template, GMA Next-Gen, D8 pins, duplicate class, checklist |
-| Unity 6 + JDK 17 | Mục [Unity 6](#unity-6) bên dưới |
+| **Unity 6 + JDK 17** | **[android-build-unity-6.md](android-build-unity-6.md)** — template, GMA Next-Gen, lifecycle, Firebase settings, checklist |
 
 **Không** copy `mainTemplate.gradle` / manifest giữa Unity 2022.3 và Unity 6.
 
@@ -36,7 +36,7 @@ Troubleshooting **chung** + **Unity 6**. Setup Gradle đầy đủ cho **Unity 2
 - Application: `com.abi.ads.modules.unity.ABIUnityAdsApplication` (hoặc kế thừa `AdsMultiDexApplication`).
 - Khai báo **cả hai** activity (`UnityPlayerActivity` + `UnityPlayerGameActivity`); mẫu: `Plugins/Android/AndroidManifest.template`. Post-processor bật đúng entry theo Application Entry.
 
-**Package tự cung cấp:** `ABIAdsDependencies.xml`, `abi-multidex-keep.pro`, `ABIAdsLauncherMultidexGradlePostProcessor` (MultiDex + dex pins JDK 11 trên launcher). Sau build cần log `[ABI Ads] Patched launcher/build.gradle`.
+**Package tự cung cấp:** `ABIAdsDependencies.xml`, `abi-multidex-keep.pro`, `ABIAdsLauncherMultidexGradlePostProcessor` (MultiDex; Unity 2022.3: D8 pins + Java 11 trên launcher; Unity 6: lifecycle alignment trên launcher + unityLibrary, giữ Java 17). Sau build cần log `[ABI Ads] Patched launcher/build.gradle` (và `unityLibrary` trên Unity 6).
 
 **CI:** `ABI_ANDROID_GOOGLE_AD_APP_ID`, `ABI_ANDROID_MAX_SDK_KEY`.
 
@@ -56,23 +56,27 @@ Chi tiết + snippet: [android-build-unity-2022-jdk11.md](android-build-unity-20
 
 | Thiếu resource (ví dụ) | Gradle (đã trong `ABIAdsDependencies.xml`) |
 |--------------------------|------------------------------------------|
-| AppCompat theme | `appcompat:1.6.1` |
+| AppCompat theme | `appcompat:1.7.0` |
 | `@dimen/_*sdp` | `sdp-android:1.0.6` |
-| ConstraintLayout | `constraintlayout:2.1.4` |
+| ConstraintLayout | `constraintlayout:2.2.0` |
+| RecyclerView | `recyclerview:1.3.2` |
 | Shimmer | `shimmer:0.5.0` |
-| Material behaviors | `material:1.9.0` |
+| Material behaviors | `material:1.12.0` |
 | Lottie | `lottie:5.0.2` |
 | MultiDex | `multidex:2.0.1` + `multiDexEnabled` trên launcher |
+| `ProcessLifecycleOwner$Companion` | `lifecycle-*:2.6.2` (runtime, process, ktx, …) |
 
 ---
 
 ## Unity 6
 
-- **Custom Gradle Settings Template** bắt buộc nếu dùng Firebase Unity: `maven` → `Assets/Firebase/m2repository` (biến đọc từ `gradle.properties`; **không** đặt tên `unityProjectPath` trùng block EDM).
-- `gradleTemplate.properties`: `android.useAndroidX=true`, `android.enableJetifier=true`.
-- `mainTemplate`: có thể dùng `shared/keepUnitySymbols.gradle`; Java **17**.
+Hướng dẫn đầy đủ: **[android-build-unity-6.md](android-build-unity-6.md)** (snippet `mainTemplate.host-unity6.gradle.snippet`, Firebase `settingsTemplate.host-unity6.firebase.snippet`).
 
-Xem README — mục *Unity 6 + Firebase Unity SDK*.
+Tóm tắt:
+
+- **Custom Gradle Settings Template** bắt buộc nếu dùng Firebase Unity hoặc mediation cần repo Maven riêng.
+- `mainTemplate`: `keepUnitySymbols.gradle`, Java **17**, GMA Next-Gen + align `androidx.lifecycle` **2.6.2**.
+- Post-processor **không** hạ Java 17 → 11 trên Unity 6.
 
 ---
 
@@ -96,7 +100,11 @@ Application nằm **dex phụ** — cần MultiDex + `abi-multidex-keep.pro` + p
 
 ### `NoClassDefFoundError: InitializationConfig$Builder`
 
-Thiếu GMA Next-Gen → [android-build-unity-2022-jdk11.md §3](android-build-unity-2022-jdk11.md#31-block-host-phía-trên--android-resolver-dependencies-start).
+Thiếu GMA Next-Gen → [android-build-unity-2022-jdk11.md §3](android-build-unity-2022-jdk11.md#31-block-host-phía-trên--android-resolver-dependencies-start) hoặc [android-build-unity-6.md §3.1](android-build-unity-6.md#31-block-host-phía-trên-android-resolver-dependencies-start).
+
+### `NoSuchFieldError: ProcessLifecycleOwner$Companion`
+
+Xung đột `androidx.lifecycle` (banner refresh GMA) → align lifecycle **2.6.2** — [android-build-unity-6.md §8.1](android-build-unity-6.md#81-nosuchfielderror-processlifecycleownercompanion) / [android-build-unity-2022-jdk11.md](android-build-unity-2022-jdk11.md) block `eachDependency`.
 
 ### `ClassNotFoundException: UnityPlayerGameActivity` (trên 2022.3)
 
@@ -123,13 +131,7 @@ else
 
 **Unity 2022.3 + JDK 11:** [android-build-unity-2022-jdk11.md §10](android-build-unity-2022-jdk11.md#10-checklist-nhanh)
 
-**Unity 6 (tóm tắt):**
-
-- [ ] Settings + Properties template; Firebase `maven` local
-- [ ] `mainTemplate` Unity 6 DSL + Java 17 + block GMA Next-Gen host
-- [ ] Manifest + Game Activity đúng Player Settings
-- [ ] Mediation Apply → repos trong `settingsTemplate.gradle`
-- [ ] Force Resolve; xóa `Library/Bee/Android`
+**Unity 6:** [android-build-unity-6.md §10](android-build-unity-6.md#10-checklist-nhanh)
 
 ---
 

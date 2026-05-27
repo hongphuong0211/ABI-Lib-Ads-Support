@@ -1,17 +1,15 @@
 // =============================================================================
 // ABI Ads — host block for Assets/Plugins/Android/mainTemplate.gradle
-// Unity 2022.3 + JDK 11 only. Place ABOVE "// Android Resolver Dependencies Start".
-// Full guide: docs/android-build-unity-2022-jdk11.md
+// Unity 6 + JDK 17. Place ABOVE "// Android Resolver Dependencies Start".
+// Full guide: docs/android-build-unity-6.md
 // =============================================================================
 
-// ABI Ads — Unity 2022.3 + JDK 11
+// ABI Ads — Unity 6 + JDK 17
 configurations.configureEach {
     exclude group: 'com.google.android.gms', module: 'play-services-ads'
     exclude group: 'com.google.android.gms', module: 'play-services-ads-lite'
     exclude group: 'com.google.android.gms', module: 'play-services-ads-api'
     resolutionStrategy {
-        force 'com.google.errorprone:error_prone_annotations:2.20.0'
-        force 'androidx.webkit:webkit:1.11.0'
         eachDependency { details ->
             if (details.requested.group == 'androidx.lifecycle') {
                 details.useVersion '2.6.2'
@@ -26,6 +24,8 @@ dependencies {
     implementation 'com.google.android.ump:user-messaging-platform:4.0.0'
 
     // --- Unity + EDM continue below (do not remove placeholders) ---
+    // apply plugin: 'com.android.library'
+    // apply from: '../shared/keepUnitySymbols.gradle'
     // implementation fileTree(dir: 'libs', include: ['*.jar'])
     // // Android Resolver Dependencies Start
     // ...

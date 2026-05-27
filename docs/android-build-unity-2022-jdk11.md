@@ -78,6 +78,7 @@ dependencies {
 | `exclude play-services-ads*` | Tránh duplicate class với mediation adapter (SDK AdMob cũ) |
 | `force error_prone_annotations:2.20.0` | Tránh D8 NPE trên bản 2.36+ với R8 cũ (Unity 2022.3) |
 | `force webkit:1.11.0` | Tránh D8 NPE trên `webkit:1.15+` |
+| `lifecycle → 2.6.2` | Tránh `NoSuchFieldError: ProcessLifecycleOwner$Companion` (banner refresh GMA) |
 
 **Không** thêm `com.google.android.gms:play-services-ads:24.x` song song `ads-mobile-sdk`.
 
@@ -223,9 +224,13 @@ MultiDex + primary dex — xem [android-build-notes.md §7](android-build-notes.
 
 ### 7.6 `ClassNotFoundException: UnityPlayerGameActivity`
 
-Manifest Unity 6 trên Unity 2022.3 — xem [android-build-notes.md §12](android-build-notes.md#12-runtime-classnotfoundexception-unityplayergameactivity-unity-2023).
+Manifest Unity 6 trên Unity 2022.3 — xem [android-build-notes.md](android-build-notes.md).
 
-### 7.7 `NoClassDefFoundError: InitializationConfig$Builder`
+### 7.7 `NoSuchFieldError: ProcessLifecycleOwner$Companion`
+
+Xung đột `androidx.lifecycle` — thêm `eachDependency` lifecycle **2.6.2** trong block host (xem [mainTemplate.host-unity2022-jdk11.gradle.snippet](mainTemplate.host-unity2022-jdk11.gradle.snippet)). Unity 6: [android-build-unity-6.md §8.1](android-build-unity-6.md#81-nosuchfielderror-processlifecycleownercompanion).
+
+### 7.8 `NoClassDefFoundError: InitializationConfig$Builder`
 
 Thiếu GMA Next-Gen — thêm `ads-mobile-sdk:1.1.0` mục 3.1.
 
@@ -272,6 +277,7 @@ CI: `ABI_ANDROID_GOOGLE_AD_APP_ID`, `ABI_ANDROID_MAX_SDK_KEY`.
 
 ## 11. Tài liệu liên quan
 
-- [android-build-notes.md](android-build-notes.md) — Unity 6, runtime native/banner, mediation Maven, EDM Firebase
+- [android-build-unity-6.md](android-build-unity-6.md) — Unity 6 + JDK 17
+- [android-build-notes.md](android-build-notes.md) — so sánh phiên bản, runtime native/banner, mediation Maven
 - [Editor/ABIAdsGradleDependencies.template](../Editor/ABIAdsGradleDependencies.template) — gợi ý khi **không** có Google Mobile Ads Unity Plugin
 - [README.md](../README.md) — tích hợp package tổng quan

@@ -1,0 +1,11 @@
+# ABI Ads — merge into Assets/Plugins/Android/gradleTemplate.properties
+# Unity 6 + JDK 17. Keep Unity placeholders: **JVM_HEAP_SIZE**, **STREAMING_ASSETS**, **ADDITIONAL_PROPERTIES**
+# Guide: docs/android-build-unity-6.md
+
+org.gradle.jvmargs=-Xmx**JVM_HEAP_SIZE**M -XX:MaxMetaspaceSize=512m -Dfile.encoding=UTF-8
+unityStreamingAssets=**STREAMING_ASSETS**
+# Android Resolver Properties Start
+android.useAndroidX=true
+android.enableJetifier=true
+# Android Resolver Properties End
+**ADDITIONAL_PROPERTIES**

@@ -11,11 +11,31 @@ namespace ABI.Ads.UnityBridge.Editor
     {
         private const string MultidexKeepFileName = "abi-multidex-keep.pro";
         private const string LogPrefix = "[ABI Ads]";
+        private const string LifecycleMarker = "ABI Ads lifecycle alignment";
         private const string Jdk11DexPinBlock = @"
 configurations.configureEach {
     resolutionStrategy {
         force 'com.google.errorprone:error_prone_annotations:2.20.0'
         force 'androidx.webkit:webkit:1.11.0'
+        eachDependency { details ->
+            if (details.requested.group == 'androidx.lifecycle') {
+                details.useVersion '2.6.2'
+                details.because 'ProcessLifecycleOwner.Companion (GMA banner refresh)'
+            }
+        }
+    }
+}
+";
+        private const string LifecycleOnlyPinBlock = @"
+// ABI Ads lifecycle alignment (Unity 6+)
+configurations.configureEach {
+    resolutionStrategy {
+        eachDependency { details ->
+            if (details.requested.group == 'androidx.lifecycle') {
+                details.useVersion '2.6.2'
+                details.because 'ProcessLifecycleOwner.Companion (GMA banner refresh)'
+            }
+        }
     }
 }
 ";
@@ -24,6 +44,8 @@ configurations.configureEach {
 
         public void OnPostGenerateGradleAndroidProject(string path)
         {
+            PatchUnityLibraryGradle(path);
+
             if (!TryResolveLauncherGradlePath(path, out var launcherGradlePath))
             {
                 Debug.LogWarning($"{LogPrefix} Could not find launcher/build.gradle under `{path}`.");
@@ -54,17 +76,45 @@ configurations.configureEach {
             var patched = PatchLauncherGradle(gradle, MultidexKeepFileName);
             if (patched == gradle)
             {
-                Debug.Log($"{LogPrefix} launcher/build.gradle already configured (MultiDex + JDK 11 dex pins).");
+                Debug.Log($"{LogPrefix} launcher/build.gradle already configured (MultiDex + Gradle pins).");
                 return;
             }
 
             File.WriteAllText(launcherGradlePath, patched);
-            Debug.Log($"{LogPrefix} Patched launcher/build.gradle (MultiDex keep + Unity 2022.3 JDK 11 dex pins).");
+            var pinLabel = ABIAdsUnityAndroidBuild.IsUnity6OrNewer
+                ? "Unity 6 lifecycle alignment"
+                : "Unity 2022.3 JDK 11 dex pins";
+            Debug.Log($"{LogPrefix} Patched launcher/build.gradle (MultiDex keep + {pinLabel}).");
+        }
+
+        private static void PatchUnityLibraryGradle(string generatedModulePath)
+        {
+            if (string.IsNullOrWhiteSpace(generatedModulePath))
+            {
+                return;
+            }
+
+            var unityLibraryGradle = Path.Combine(Path.GetFullPath(generatedModulePath.Trim()), "build.gradle");
+            if (!File.Exists(unityLibraryGradle))
+            {
+                return;
+            }
+
+            var gradle = File.ReadAllText(unityLibraryGradle);
+            var patched = ApplyGradlePins(gradle, forLauncher: false);
+            if (patched == gradle)
+            {
+                return;
+            }
+
+            File.WriteAllText(unityLibraryGradle, patched);
+            Debug.Log($"{LogPrefix} Patched unityLibrary/build.gradle (lifecycle alignment).");
         }
 
         private static string PatchLauncherGradle(string gradle, string keepFileName)
         {
-            gradle = ApplyUnity2022Jdk11DexPins(gradle);
+            gradle = ApplyGradlePins(gradle, forLauncher: true);
+
             if (!gradle.Contains("multiDexEnabled true", StringComparison.Ordinal))
             {
                 gradle = Regex.Replace(
@@ -110,23 +160,38 @@ configurations.configureEach {
                 RegexOptions.Multiline);
         }
 
-        /// <summary>
-        /// Unity 2022.3 + JDK 11: pin dependencies that break D8 in AGP 7.4; keep Java 11 on launcher.
-        /// See docs/android-build-unity-2022-jdk11.md
-        /// </summary>
-        private static string ApplyUnity2022Jdk11DexPins(string gradle)
+        private static string ApplyGradlePins(string gradle, bool forLauncher)
         {
-            gradle = gradle.Replace("JavaVersion.VERSION_17", "JavaVersion.VERSION_11");
+            if (gradle.Contains(LifecycleMarker, StringComparison.Ordinal) ||
+                gradle.Contains("ProcessLifecycleOwner.Companion (GMA banner refresh)", StringComparison.Ordinal))
+            {
+                return gradle;
+            }
+
+            if (ABIAdsUnityAndroidBuild.IsUnity6OrNewer)
+            {
+                return InjectAfterApplyPlugins(gradle, LifecycleOnlyPinBlock);
+            }
+
+            if (forLauncher)
+            {
+                gradle = gradle.Replace("JavaVersion.VERSION_17", "JavaVersion.VERSION_11");
+            }
 
             if (gradle.Contains("error_prone_annotations:2.20.0", StringComparison.Ordinal))
             {
                 return gradle;
             }
 
+            return InjectAfterApplyPlugins(gradle, Jdk11DexPinBlock);
+        }
+
+        private static string InjectAfterApplyPlugins(string gradle, string block)
+        {
             return Regex.Replace(
                 gradle,
                 @"(apply plugin:[^\n]+\n(?:apply plugin:[^\n]+\n)*)",
-                "$1" + Jdk11DexPinBlock,
+                "$1" + block,
                 RegexOptions.Multiline);
         }
 

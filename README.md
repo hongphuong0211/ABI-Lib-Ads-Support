@@ -4,7 +4,7 @@ Unity Package Manager package tích hợp **ABI Module Ads** vào project Unity 
 
 | | |
 |---|---|
-| Package | `com.abi.ads.unity` (hiện tại **v1.7.8**) |
+| Package | `com.abi.ads.unity` (hiện tại **v1.7.9**) |
 | Repository | [ABI-Lib-Ads-Support](https://github.com/hongphuong0211/ABI-Lib-Ads-Support) |
 | Namespace | `ABI.Ads.UnityBridge` |
 | API chính | `ABIAds` |
@@ -38,7 +38,7 @@ Tài liệu song ngữ:
 **Git URL** in `Packages/manifest.json`:
 
 ```json
-"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.7.8"
+"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.7.9"
 ```
 
 **Local package** (monorepo):
@@ -52,7 +52,7 @@ Tài liệu song ngữ:
 1. Copy `unity-package/com.abi.ads.unity` → `YourGame/Packages/com.abi.ads.unity`
 2. Add to `manifest.json`: `"com.abi.ads.unity": "file:com.abi.ads.unity"`
 
-After resolve, Unity imports C# bridge + native plugins (`Plugins/Android/ads-debug.aar`, `Plugins/iOS/`).
+After resolve, Unity imports C# bridge + native plugins (`Plugins/Android/ads-release.aar`, `Plugins/iOS/`).
 
 **ABI custom events** are embedded under `Runtime/ABILibsCustomEvents/` (from [ABI-Custom-Event](https://github.com/hongphuong0211/ABI-Custom-Event) v1.0.0). Do **not** add `com.abilibs.custom-events` separately (duplicate types break the build).
 
@@ -407,8 +407,9 @@ Config asset: `Runtime/ABILibsCustomEvents/Resources/ABILibsCustomEventConfig.as
 
 | Doc | Audience |
 |-----|----------|
+| [docs/android-build-unity-6.md](docs/android-build-unity-6.md) | **Unity 6** + JDK 17 (recommended) |
 | [docs/android-build-unity-2022-jdk11.md](docs/android-build-unity-2022-jdk11.md) | Unity 2022.3 + JDK 11 |
-| [docs/android-build-notes.md](docs/android-build-notes.md) | Unity 6, MultiDex, GMA Next-Gen, mediation repos, runtime |
+| [docs/android-build-notes.md](docs/android-build-notes.md) | So sánh phiên bản, MultiDex, runtime, troubleshooting |
 
 Key points:
 
@@ -450,7 +451,7 @@ Key points:
 **Git URL** trong `Packages/manifest.json`:
 
 ```json
-"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.7.8"
+"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.7.9"
 ```
 
 **Local package:**
@@ -464,7 +465,7 @@ Key points:
 1. Copy `unity-package/com.abi.ads.unity` → `YourGame/Packages/com.abi.ads.unity`
 2. Thêm: `"com.abi.ads.unity": "file:com.abi.ads.unity"`
 
-Sau resolve, Unity import C# bridge + native plugin (`Plugins/Android/ads-debug.aar`, `Plugins/iOS/`).
+Sau resolve, Unity import C# bridge + native plugin (`Plugins/Android/ads-release.aar`, `Plugins/iOS/`).
 
 **ABI custom events** nhúng sẵn tại `Runtime/ABILibsCustomEvents/`. **Không** thêm package `com.abilibs.custom-events` riêng (trùng type → lỗi build).
 
@@ -791,8 +792,9 @@ Asset: `Runtime/ABILibsCustomEvents/Resources/ABILibsCustomEventConfig.asset`.
 
 | Tài liệu | Đối tượng |
 |----------|-----------|
+| [docs/android-build-unity-6.md](docs/android-build-unity-6.md) | **Unity 6** + JDK 17 (khuyến nghị) |
 | [docs/android-build-unity-2022-jdk11.md](docs/android-build-unity-2022-jdk11.md) | Unity 2022.3 + JDK 11 |
-| [docs/android-build-notes.md](docs/android-build-notes.md) | Unity 6, MultiDex, GMA Next-Gen, mediation, runtime |
+| [docs/android-build-notes.md](docs/android-build-notes.md) | So sánh phiên bản, MultiDex, runtime, troubleshooting |
 
 Điểm chính:
 

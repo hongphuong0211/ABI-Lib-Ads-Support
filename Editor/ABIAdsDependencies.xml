@@ -1,18 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ABI Ads — Android Resolver base dependencies (Unity 6 + 2022.3).
+  GMA Next-Gen (ads-mobile-sdk) stays in host mainTemplate.gradle — not here.
+  Firebase: resolve via Firebase Unity EDM — not here.
+  Mediation adapters below are managed by ABI Ads → Configs → Apply.
+-->
 <dependencies>
   <androidPackages>
-    <androidPackage spec="androidx.appcompat:appcompat:1.6.1" />
-    <androidPackage spec="androidx.constraintlayout:constraintlayout:2.1.4" />
-    <androidPackage spec="com.google.android.material:material:1.9.0" />
-    
+    <!-- Layout / UI (ads-debug.aar resources) -->
+    <androidPackage spec="androidx.appcompat:appcompat:1.7.0" />
+    <androidPackage spec="androidx.constraintlayout:constraintlayout:2.2.0" />
+    <androidPackage spec="com.google.android.material:material:1.12.0" />
+    <androidPackage spec="androidx.recyclerview:recyclerview:1.3.2" />
     <androidPackage spec="androidx.cardview:cardview:1.0.0" />
     <androidPackage spec="com.facebook.shimmer:shimmer:0.5.0" />
     <androidPackage spec="com.intuit.sdp:sdp-android:1.0.6" />
     <androidPackage spec="com.airbnb.android:lottie:5.0.2" />
     <androidPackage spec="androidx.multidex:multidex:2.0.1" />
-    
+
+    <!-- ProcessLifecycleOwner.Companion — required by GMA banner refresh (IdleTimerController) -->
+    <androidPackage spec="androidx.lifecycle:lifecycle-runtime:2.6.2" />
+    <androidPackage spec="androidx.lifecycle:lifecycle-runtime-ktx:2.6.2" />
+    <androidPackage spec="androidx.lifecycle:lifecycle-process:2.6.2" />
+    <androidPackage spec="androidx.lifecycle:lifecycle-viewmodel:2.6.2" />
+    <androidPackage spec="androidx.lifecycle:lifecycle-common-java8:2.6.2" />
+
+    <!-- AppLovin MAX (optional — tick networks in ABI Ads → Configs) -->
     <androidPackage spec="com.applovin:applovin-sdk:13.6.2" />
     <androidPackage spec="com.applovin.mediation:google-ad-manager-adapter:24.1.0.0" />
     <androidPackage spec="com.applovin.mediation:google-adapter:24.1.0.0" />
-  <androidPackage spec="com.google.ads.mediation:applovin:13.6.2.0" /><androidPackage spec="com.google.ads.mediation:facebook:6.21.0.3" /><androidPackage spec="com.google.ads.mediation:vungle:7.7.4.0" /><androidPackage spec="com.google.ads.mediation:mintegral:17.1.61.0" /><androidPackage spec="com.google.ads.mediation:pangle:8.0.0.5.0" /></androidPackages>
+
+    <!-- AdMob mediation (enabled defaults — change via ABI Ads → Configs → Apply) -->
+    <androidPackage spec="com.google.ads.mediation:applovin:13.6.2.0" />
+    <androidPackage spec="com.google.ads.mediation:facebook:6.21.0.3" />
+    <androidPackage spec="com.google.ads.mediation:vungle:7.7.4.0" />
+    <androidPackage spec="com.google.ads.mediation:mintegral:17.1.61.0" />
+    <androidPackage spec="com.google.ads.mediation:pangle:8.0.0.5.0" />
+  </androidPackages>
 </dependencies>

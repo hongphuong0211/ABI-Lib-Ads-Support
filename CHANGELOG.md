@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.7.10
+
+- Add missing `docs/native-template-files.md.meta` (fixes Unity “immutable folder” warning for UPM installs).
+
 ## 1.7.9
 
 - `Log.e` / `Log.w` always write to logcat (not gated by `SetEnable`).

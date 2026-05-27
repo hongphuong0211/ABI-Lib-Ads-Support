@@ -4,7 +4,7 @@ Unity Package Manager package tích hợp **ABI Module Ads** vào project Unity 
 
 | | |
 |---|---|
-| Package | `com.abi.ads.unity` (hiện tại **v1.7.9**) |
+| Package | `com.abi.ads.unity` (hiện tại **v1.7.10**) |
 | Repository | [ABI-Lib-Ads-Support](https://github.com/hongphuong0211/ABI-Lib-Ads-Support) |
 | Namespace | `ABI.Ads.UnityBridge` |
 | API chính | `ABIAds` |
@@ -38,7 +38,7 @@ Tài liệu song ngữ:
 **Git URL** in `Packages/manifest.json`:
 
 ```json
-"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.7.9"
+"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.7.10"
 ```
 
 **Local package** (monorepo):
@@ -451,7 +451,7 @@ Key points:
 **Git URL** trong `Packages/manifest.json`:
 
 ```json
-"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.7.9"
+"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.7.10"
 ```
 
 **Local package:**

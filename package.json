@@ -1,7 +1,7 @@
 {
   "name": "com.abi.ads.unity",
   "displayName": "ABI Ads Unity Bridge",
-  "version": "1.7.9",
+  "version": "1.7.10",
   "unity": "2022.3",
   "description": "Unity bridge for ABI Module Ads on Android and iOS (Unity 6 + 2022.3). Embeds ABI-Custom-Event for TROAS/Bamboo revenue forwarding.",
   "repository": {

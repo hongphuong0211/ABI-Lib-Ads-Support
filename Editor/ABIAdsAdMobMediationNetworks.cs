@@ -55,7 +55,7 @@ namespace ABI.Ads.UnityBridge.Editor
             new ABIAdsAdMobMediationNetwork(
                 "chartboost",
                 "Chartboost",
-                "com.google.ads.mediation:chartboost:9.11.1.1",
+                "com.google.ads.mediation:chartboost:9.12.0.0",
                 mavenRepositoryUrls: new[] { "https://cboost.jfrog.io/artifactory/chartboost-ads/" }),
             new ABIAdsAdMobMediationNetwork("dt-exchange", "DT Exchange", "com.google.ads.mediation:fyber:8.4.5.0"),
             new ABIAdsAdMobMediationNetwork("facebook", "Meta Audience Network", "com.google.ads.mediation:facebook:6.21.0.3", "Bidding only in AdMob."),
@@ -94,7 +94,7 @@ namespace ABI.Ads.UnityBridge.Editor
             new ABIAdsAdMobMediationNetwork(
                 "pubmatic",
                 "PubMatic OpenWrap",
-                "com.google.ads.mediation:pubmatic:5.1.1.0",
+                "com.google.ads.mediation:pubmatic:5.1.2.0",
                 "Requires PubMatic Maven repo in Gradle settings.",
                 mavenRepositoryUrls: new[] { "https://repo.pubmatic.com/artifactory/public-repos" }),
             new ABIAdsAdMobMediationNetwork(

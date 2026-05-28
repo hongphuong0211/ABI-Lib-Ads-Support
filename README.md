@@ -4,7 +4,7 @@ Unity Package Manager package tích hợp **ABI Module Ads** vào project Unity 
 
 | | |
 |---|---|
-| Package | `com.abi.ads.unity` (hiện tại **v1.7.10**) |
+| Package | `com.abi.ads.unity` (hiện tại **v1.7.11**) |
 | Repository | [ABI-Lib-Ads-Support](https://github.com/hongphuong0211/ABI-Lib-Ads-Support) |
 | Namespace | `ABI.Ads.UnityBridge` |
 | API chính | `ABIAds` |
@@ -27,7 +27,7 @@ Tài liệu song ngữ:
 1. Add `com.abi.ads.unity` to `Packages/manifest.json`.
 2. Open **ABI Ads → Configs → Edit Ads Config** — fill **Global Config** + **Placement Config**, save JSON to `Assets/Resources/Configs/`.
 3. Tick mediation networks → **Apply To XML** → **Assets → External Dependency Manager → Android Resolver → Force Resolve**.
-4. Enable **Custom Main Gradle Template**, **Custom Gradle Settings Template**, **Custom Gradle Properties Template** (Android). See [Android build docs](#android-build-notes).
+4. Enable **Custom Main Gradle Template**, **Custom Gradle Settings Template**, **Custom Gradle Properties Template** (Android). See [Android build notes](#8-android-build-notes).
 5. Set `AndroidManifest.xml` → `com.abi.ads.modules.unity.ABIUnityAdsApplication` (or extend `AdsMultiDexApplication`).
 6. Add an `AdsBootstrap` component — drag **Global Config** and **Placements** `TextAsset`s into the Inspector → `ABIAds.Initialize(...)` → wait `OnInitialized` → preload/show by format.
 
@@ -38,7 +38,7 @@ Tài liệu song ngữ:
 **Git URL** in `Packages/manifest.json`:
 
 ```json
-"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.7.10"
+"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.7.11"
 ```
 
 **Local package** (monorepo):
@@ -136,15 +136,19 @@ configurations.configureEach {
 
 #### Networks that need extra Maven repos (auto-injected on Apply)
 
+Supported AdMob mediation networks with open-source adapters are listed in [Google choose-networks](https://developers.google.com/admob/android/choose-networks). Tick them in **ABI Ads → Configs → Edit Global Config → AdMob Mediation Networks**, then **Apply To XML**.
+
 | Network | Maven URL (representative) |
 |---------|---------------------------|
 | Mintegral | `https://dl-maven-android.mintegral.com/repository/mbridge_android_sdk_oversea` |
 | Pangle | `https://artifact.bytedance.com/repository/pangle/` |
 | ironSource | `https://android-sdk.is.com/` |
-| PubMatic | `https://repo.pubmatic.com/artifactory/public-repos` |
+| PubMatic OpenWrap | `https://repo.pubmatic.com/artifactory/public-repos` |
 | Chartboost | `https://cboost.jfrog.io/artifactory/chartboost-ads/` |
+| i-mobile | `https://imobile.github.io/adnw-sdk-android` |
+| maio | `https://imobile-maio.github.io/maven` |
 
-Full list: see [docs/android-build-notes.md §13](docs/android-build-notes.md).
+Other mediated networks get Maven repos injected automatically when you **Apply To XML**. Bidding-only exchange sources on Google (no third-party SDK) do not need Gradle adapters in the app.
 
 #### iOS mediation
 
@@ -402,18 +406,20 @@ Config asset: `Runtime/ABILibsCustomEvents/Resources/ABILibsCustomEventConfig.as
 
 ### 8. Android build notes
 
-| Doc | Audience |
-|-----|----------|
-| [docs/android-build-unity-6.md](docs/android-build-unity-6.md) | **Unity 6** + JDK 17 (recommended) |
-| [docs/android-build-unity-2022-jdk11.md](docs/android-build-unity-2022-jdk11.md) | Unity 2022.3 + JDK 11 |
-| [docs/android-build-notes.md](docs/android-build-notes.md) | So sánh phiên bản, MultiDex, runtime, troubleshooting |
+| Unity | JDK | Gradle templates |
+|-------|-----|------------------|
+| **Unity 6** (recommended) | 17 | Custom Main + **Settings** + Properties |
+| Unity 2022.3 | 11 | Custom Main + Properties (+ Settings if Firebase/mediation) |
 
 Key points:
 
 - Custom `Application`: `com.abi.ads.modules.unity.ABIUnityAdsApplication` or extend `AdsMultiDexApplication`
 - Package provides `abi-multidex-keep.pro` + `ABIAdsLauncherMultidexGradlePostProcessor`
+- Host `mainTemplate.gradle`: keep **GMA classic** block above EDM resolver block (see [§3](#3-integrate-mediation-networks))
+- Gradle snippet files in package `docs/` (`*.gradle.snippet`, `*.properties.snippet`) for host template blocks
 - CI env: `ABI_ANDROID_GOOGLE_AD_APP_ID`, `ABI_ANDROID_MAX_SDK_KEY`
 - Unity 6 + Firebase: Maven repos in `settingsTemplate.gradle`, not only `mainTemplate.gradle`
+- If Gradle cannot resolve mediation artifacts (`mbridge`, `pag-sdk`, …): enable **Custom Gradle Settings Template**, **Apply To XML**, **Force Resolve**, then clean `Library/Bee/Android`
 
 ---
 
@@ -437,7 +443,7 @@ Key points:
 1. Thêm `com.abi.ads.unity` vào `Packages/manifest.json`.
 2. Mở **ABI Ads → Configs → Edit Ads Config** — điền **Global Config** + **Placement Config**, lưu vào `Assets/Resources/Configs/`.
 3. Tick mediation network → **Apply To XML** → **Force Resolve** (EDM4U).
-4. Bật **Custom Main / Settings / Properties Gradle Template** (Android). Xem [Ghi chú build Android](#luu-y-build-android).
+4. Bật **Custom Main / Settings / Properties Gradle Template** (Android). Xem [Lưu ý build Android](#8-lưu-y-build-android).
 5. `AndroidManifest.xml` dùng `ABIUnityAdsApplication` (hoặc kế thừa `AdsMultiDexApplication`).
 6. Gắn component bootstrap — kéo **Global Config** và **Placements** (`TextAsset`) vào Inspector → `ABIAds.Initialize(...)` → đợi `OnInitialized` → preload/show theo format.
 
@@ -448,7 +454,7 @@ Key points:
 **Git URL** trong `Packages/manifest.json`:
 
 ```json
-"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.7.10"
+"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.7.11"
 ```
 
 **Local package:**
@@ -546,14 +552,19 @@ configurations.configureEach {
 
 #### Network cần Maven repo riêng (tự inject khi Apply)
 
+Danh sách network AdMob mediation (open-source adapter) theo [Google choose-networks](https://developers.google.com/admob/android/choose-networks). Tick trong **ABI Ads → Configs → Edit Global Config → AdMob Mediation Networks**, rồi **Apply To XML**.
+
 | Network | Maven URL |
 |---------|-----------|
 | Mintegral | `https://dl-maven-android.mintegral.com/repository/mbridge_android_sdk_oversea` |
 | Pangle | `https://artifact.bytedance.com/repository/pangle/` |
 | ironSource | `https://android-sdk.is.com/` |
-| PubMatic | `https://repo.pubmatic.com/artifactory/public-repos` |
+| PubMatic OpenWrap | `https://repo.pubmatic.com/artifactory/public-repos` |
+| Chartboost | `https://cboost.jfrog.io/artifactory/chartboost-ads/` |
+| i-mobile | `https://imobile.github.io/adnw-sdk-android` |
+| maio | `https://imobile-maio.github.io/maven` |
 
-Chi tiết lỗi Gradle: [docs/android-build-notes.md §13](docs/android-build-notes.md).
+Các network khác được inject Maven repo tự động khi **Apply To XML**. Nguồn bidding-only trên Google (không cần SDK bên thứ ba) không cần adapter Gradle trong app. Nếu Gradle báo thiếu artifact, bật **Custom Gradle Settings Template** và **Force Resolve**.
 
 #### iOS
 
@@ -784,18 +795,20 @@ Asset: `Runtime/ABILibsCustomEvents/Resources/ABILibsCustomEventConfig.asset`.
 
 ### 8. Lưu ý build Android
 
-| Tài liệu | Đối tượng |
-|----------|-----------|
-| [docs/android-build-unity-6.md](docs/android-build-unity-6.md) | **Unity 6** + JDK 17 (khuyến nghị) |
-| [docs/android-build-unity-2022-jdk11.md](docs/android-build-unity-2022-jdk11.md) | Unity 2022.3 + JDK 11 |
-| [docs/android-build-notes.md](docs/android-build-notes.md) | So sánh phiên bản, MultiDex, runtime, troubleshooting |
+| Unity | JDK | Gradle template |
+|-------|-----|-----------------|
+| **Unity 6** (khuyến nghị) | 17 | Custom Main + **Settings** + Properties |
+| Unity 2022.3 | 11 | Custom Main + Properties (+ Settings nếu Firebase/mediation) |
 
 Điểm chính:
 
 - Application: `com.abi.ads.modules.unity.ABIUnityAdsApplication` hoặc kế thừa `AdsMultiDexApplication`
 - Package có `abi-multidex-keep.pro` + post-processor MultiDex
+- `mainTemplate.gradle` host: giữ block **GMA classic** phía trên block EDM (xem [§3](#3-tích-hợp-mediation-network))
+- File snippet trong `docs/` package (`*.gradle.snippet`, `*.properties.snippet`) để copy vào template host
 - CI: `ABI_ANDROID_GOOGLE_AD_APP_ID`, `ABI_ANDROID_MAX_SDK_KEY`
 - Unity 6 + Firebase: repo Maven trong `settingsTemplate.gradle`
+- Gradle không resolve mediation (`mbridge`, `pag-sdk`, …): bật **Custom Gradle Settings Template**, **Apply To XML**, **Force Resolve**, xóa `Library/Bee/Android`
 
 ---
 
@@ -810,4 +823,4 @@ Asset: `Runtime/ABILibsCustomEvents/Resources/ABILibsCustomEventConfig.asset`.
 
 ---
 
-*Repository: [ABI-Lib-Ads-Support](https://github.com/hongphuong0211/ABI-Lib-Ads-Support) — Cập nhật README: 2026-05-27.*
+*Repository: [ABI-Lib-Ads-Support](https://github.com/hongphuong0211/ABI-Lib-Ads-Support) — Cập nhật README: 2026-05-28.*

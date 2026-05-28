@@ -3,11 +3,11 @@
 //
 // Unity 6 + JDK 17 (recommended):
 //   docs/mainTemplate.host-unity6.gradle.snippet
-//   docs/android-build-unity-6.md
 //
 // Unity 2022.3 + JDK 11:
 //   docs/mainTemplate.host-unity2022-jdk11.gradle.snippet
-//   docs/android-build-unity-2022-jdk11.md
+//
+// See README.md § Android build notes.
 //
 // Copy needed lines into Assets/Plugins/Android/mainTemplate.gradle ABOVE
 // "// Android Resolver Dependencies Start" (do not duplicate if EDM already added them).

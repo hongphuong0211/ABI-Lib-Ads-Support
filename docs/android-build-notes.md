@@ -4,8 +4,8 @@ Troubleshooting **chung** + **Unity 6**. Setup Gradle đầy đủ cho **Unity 2
 
 | Phiên bản | Tài liệu |
 |-----------|----------|
-| **Unity 2022.3 + JDK 11** | **[android-build-unity-2022-jdk11.md](android-build-unity-2022-jdk11.md)** — template, GMA Next-Gen, D8 pins, duplicate class, checklist |
-| **Unity 6 + JDK 17** | **[android-build-unity-6.md](android-build-unity-6.md)** — template, GMA Next-Gen, lifecycle, Firebase settings, checklist |
+| **Unity 2022.3 + JDK 11** | **[android-build-unity-2022-jdk11.md](android-build-unity-2022-jdk11.md)** — template, GMA classic, D8 pins, duplicate class, checklist |
+| **Unity 6 + JDK 17** | **[android-build-unity-6.md](android-build-unity-6.md)** — template, GMA classic, lifecycle, Firebase settings, checklist |
 
 **Không** copy `mainTemplate.gradle` / manifest giữa Unity 2022.3 và Unity 6.
 
@@ -44,13 +44,13 @@ Troubleshooting **chung** + **Unity 6**. Setup Gradle đầy đủ cho **Unity 2
 
 ## Dependency `ads-debug.aar`
 
-AAR flat **không kéo** transitive — EDM resolve từ `Editor/ABIAdsDependencies.xml` (layout/UI). Host thêm **GMA Next-Gen** (không do EDM tự thêm):
+AAR flat **không kéo** transitive — EDM resolve từ `Editor/ABIAdsDependencies.xml` (layout/UI). Host thêm **GMA classic** (không do EDM tự thêm):
 
 | Host `mainTemplate.gradle` (trên block EDM) | |
 |---------------------------------------------|---|
-| `ads-mobile-sdk:1.1.0` | Bắt buộc |
+| `play-services-ads:25.3.0` | Bắt buộc |
 | `user-messaging-platform:4.0.0` | UMP |
-| `exclude play-services-ads*` | Tránh duplicate với mediation |
+| Không exclude `play-services-ads*` | Dùng GMA classic nên không chặn dependency này |
 
 Chi tiết + snippet: [android-build-unity-2022-jdk11.md](android-build-unity-2022-jdk11.md). `ABIAdsDependencies.xml` **không** khai báo Firebase.
 
@@ -75,7 +75,7 @@ Hướng dẫn đầy đủ: **[android-build-unity-6.md](android-build-unity-6.
 Tóm tắt:
 
 - **Custom Gradle Settings Template** bắt buộc nếu dùng Firebase Unity hoặc mediation cần repo Maven riêng.
-- `mainTemplate`: `keepUnitySymbols.gradle`, Java **17**, GMA Next-Gen + align `androidx.lifecycle` **2.6.2**.
+- `mainTemplate`: `keepUnitySymbols.gradle`, Java **17**, GMA classic + align `androidx.lifecycle` **2.6.2**.
 - Post-processor **không** hạ Java 17 → 11 trên Unity 6.
 
 ---
@@ -98,9 +98,9 @@ Tóm tắt:
 
 Application nằm **dex phụ** — cần MultiDex + `abi-multidex-keep.pro` + patch launcher (package). Gỡ app cũ, clean `Library/Bee/Android`.
 
-### `NoClassDefFoundError: InitializationConfig$Builder`
+### `NoClassDefFoundError: MobileAds$Builder`
 
-Thiếu GMA Next-Gen → [android-build-unity-2022-jdk11.md §3](android-build-unity-2022-jdk11.md#31-block-host-phía-trên--android-resolver-dependencies-start) hoặc [android-build-unity-6.md §3.1](android-build-unity-6.md#31-block-host-phía-trên-android-resolver-dependencies-start).
+Thiếu GMA classic → [android-build-unity-2022-jdk11.md §3](android-build-unity-2022-jdk11.md#31-block-host-phía-trên--android-resolver-dependencies-start) hoặc [android-build-unity-6.md §3.1](android-build-unity-6.md#31-block-host-phía-trên-android-resolver-dependencies-start).
 
 ### `NoSuchFieldError: ProcessLifecycleOwner$Companion`
 

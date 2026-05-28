@@ -47,7 +47,7 @@ namespace ABI.Ads.UnityBridge.Editor
 
     internal static class ABIAdsAdMobMediationNetworks
     {
-        internal const string VersionSource = "Google AdMob GMA Next-Gen choose-networks docs, scanned 2026-05-24";
+        internal const string VersionSource = "Google AdMob mediation adapter docs (classic GMA), scanned 2026-05-28";
 
         internal static readonly ABIAdsAdMobMediationNetwork[] All =
         {

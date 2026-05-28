@@ -95,9 +95,22 @@ namespace ABI.Ads.UnityBridge.Editor
 
             var settings = ABIAdsBuildSettings.Load();
             var appId = ABIAdsBuildSettings.ResolveEnvironmentString(EnvironmentGoogleMobileAdsAppIdKey, settings.admob_app_id);
-            plist.root.SetString(GoogleMobileAdsAppIdKey, appId);
-
             var maxSdkKey = ABIAdsBuildSettings.ResolveEnvironmentString(EnvironmentMaxSdkKey, settings.max_sdk_key);
+            if (settings.RequiresAdmobAppId() && string.IsNullOrWhiteSpace(appId))
+            {
+                Debug.LogError(
+                    "ABI Ads Unity requirement: mediation_provider=ADMOB/DUAL requires admob_app_id (GMA classic) " +
+                    "or environment variable ABI_IOS_GOOGLE_AD_APP_ID.");
+                return;
+            }
+            if (settings.RequiresMaxSdkKey() && string.IsNullOrWhiteSpace(maxSdkKey))
+            {
+                Debug.LogError(
+                    "ABI Ads Unity requirement: mediation_provider=MAX/DUAL requires max_sdk_key " +
+                    "or environment variable ABI_IOS_MAX_SDK_KEY.");
+                return;
+            }
+            plist.root.SetString(GoogleMobileAdsAppIdKey, appId);
             if (!string.IsNullOrWhiteSpace(maxSdkKey))
             {
                 plist.root.SetString(AppLovinSdkKey, maxSdkKey);

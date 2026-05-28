@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
   ABI Ads — Android Resolver base dependencies (Unity 6 + 2022.3).
-  GMA Next-Gen (ads-mobile-sdk) stays in host mainTemplate.gradle — not here.
+  GMA classic (play-services-ads) stays in host mainTemplate.gradle — not here.
   Firebase: resolve via Firebase Unity EDM — not here.
   Mediation adapters below are managed by ABI Ads → Configs → Apply.
 -->
@@ -18,7 +18,7 @@
     <androidPackage spec="com.airbnb.android:lottie:5.0.2" />
     <androidPackage spec="androidx.multidex:multidex:2.0.1" />
 
-    <!-- ProcessLifecycleOwner.Companion — required by GMA banner refresh (IdleTimerController) -->
+    <!-- Lifecycle base deps used by ads module -->
     <androidPackage spec="androidx.lifecycle:lifecycle-runtime:2.6.2" />
     <androidPackage spec="androidx.lifecycle:lifecycle-runtime-ktx:2.6.2" />
     <androidPackage spec="androidx.lifecycle:lifecycle-process:2.6.2" />

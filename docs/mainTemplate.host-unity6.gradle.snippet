@@ -6,21 +6,18 @@
 
 // ABI Ads — Unity 6 + JDK 17
 configurations.configureEach {
-    exclude group: 'com.google.android.gms', module: 'play-services-ads'
-    exclude group: 'com.google.android.gms', module: 'play-services-ads-lite'
-    exclude group: 'com.google.android.gms', module: 'play-services-ads-api'
     resolutionStrategy {
         eachDependency { details ->
             if (details.requested.group == 'androidx.lifecycle') {
                 details.useVersion '2.6.2'
-                details.because 'ProcessLifecycleOwner.Companion (GMA banner refresh)'
+                details.because 'lifecycle alignment for ABI Ads module'
             }
         }
     }
 }
 
 dependencies {
-    implementation 'com.google.android.libraries.ads.mobile.sdk:ads-mobile-sdk:1.1.0'
+    implementation 'com.google.android.gms:play-services-ads:25.3.0'
     implementation 'com.google.android.ump:user-messaging-platform:4.0.0'
 
     // --- Unity + EDM continue below (do not remove placeholders) ---

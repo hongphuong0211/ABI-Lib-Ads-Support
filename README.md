@@ -122,15 +122,12 @@ ABI Ads manages **Gradle adapter dependencies** and **Maven repos** from the edi
    - Writes adapter specs to `Packages/.../Editor/ABIAdsDependencies.xml`
    - Injects Maven repos into `Assets/Plugins/Android/settingsTemplate.gradle` (block `// ABI Ads Mediation Repos Start … End`)
    - Triggers EDM4U **Force Resolve**
-5. Confirm `mainTemplate.gradle` still has **GMA Next-Gen** block **above** `// Android Resolver Dependencies Start` (EDM may overwrite — re-add if missing):
+5. Confirm `mainTemplate.gradle` still has **GMA classic** block **above** `// Android Resolver Dependencies Start` (EDM may overwrite — re-add if missing):
 
 ```gradle
-implementation 'com.google.android.libraries.ads.mobile.sdk:ads-mobile-sdk:1.1.0'
+implementation 'com.google.android.gms:play-services-ads:25.3.0'
 implementation 'com.google.android.ump:user-messaging-platform:4.0.0'
 configurations.configureEach {
-    exclude group: 'com.google.android.gms', module: 'play-services-ads'
-    exclude group: 'com.google.android.gms', module: 'play-services-ads-lite'
-    exclude group: 'com.google.android.gms', module: 'play-services-ads-api'
 }
 ```
 
@@ -535,15 +532,12 @@ Package quản lý **Gradle adapter** và **Maven repo** từ Editor — bạn v
    - Ghi adapter vào `Editor/ABIAdsDependencies.xml`
    - Inject Maven repo vào `settingsTemplate.gradle` (block `// ABI Ads Mediation Repos Start … End`)
    - Chạy EDM4U **Force Resolve**
-5. Kiểm tra `mainTemplate.gradle` vẫn có block **GMA Next-Gen** **phía trên** `// Android Resolver Dependencies Start`:
+5. Kiểm tra `mainTemplate.gradle` vẫn có block **GMA classic** **phía trên** `// Android Resolver Dependencies Start`:
 
 ```gradle
-implementation 'com.google.android.libraries.ads.mobile.sdk:ads-mobile-sdk:1.1.0'
+implementation 'com.google.android.gms:play-services-ads:25.3.0'
 implementation 'com.google.android.ump:user-messaging-platform:4.0.0'
 configurations.configureEach {
-    exclude group: 'com.google.android.gms', module: 'play-services-ads'
-    exclude group: 'com.google.android.gms', module: 'play-services-ads-lite'
-    exclude group: 'com.google.android.gms', module: 'play-services-ads-api'
 }
 ```
 

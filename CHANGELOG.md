@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.7.11
+
+- Migrate Android integration in Unity package from GMA Next-Gen to GMA classic (`play-services-ads:25.3.0`).
+- Update editor build pipeline checks so `mediation_provider` validates required keys:
+  - AdMob/Dual requires `admob_app_id`
+  - MAX/Dual requires `max_sdk_key`
+- Refresh docs/snippets/templates for classic GMA and dual AdMob + MAX setup consistency.
+
 ## 1.7.10
 
 - Add missing `docs/native-template-files.md.meta` (fixes Unity “immutable folder” warning for UPM installs).
@@ -28,7 +36,7 @@
 - Embedded ABI-Custom-Event for TROAS/Bamboo revenue forwarding.
 - Per-placement callbacks (`RegisterPlacement`, `ABIAdsPlacementCallbacks`) and global lifecycle events.
 - iOS native overlay: programmatic placeholder/shimmer; `SetNativePlaceholderBounds`, `ShowNative` screen bounds.
-- Android: GMA Next-Gen, MultiDex keep rules, EDM4U mediation adapter management.
+- Android: GMA classic, MultiDex keep rules, EDM4U mediation adapter management.
 - Add [docs/android-build-unity-2022-jdk11.md](docs/android-build-unity-2022-jdk11.md) for Unity 2022.3 + JDK 11.
 - Add Gradle/property snippets for Unity 2022 host projects.
 - `ABIAdsLauncherMultidexGradlePostProcessor`: JDK 11 D8 dependency pins.

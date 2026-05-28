@@ -57,9 +57,6 @@ EDM4U **không** tự thêm block này — copy từ [mainTemplate.host-unity202
 ```gradle
 // ABI Ads — Unity 2022.3 + JDK 11 (docs/android-build-unity-2022-jdk11.md)
 configurations.configureEach {
-    exclude group: 'com.google.android.gms', module: 'play-services-ads'
-    exclude group: 'com.google.android.gms', module: 'play-services-ads-lite'
-    exclude group: 'com.google.android.gms', module: 'play-services-ads-api'
     resolutionStrategy {
         force 'com.google.errorprone:error_prone_annotations:2.20.0'
         force 'androidx.webkit:webkit:1.11.0'
@@ -67,20 +64,20 @@ configurations.configureEach {
 }
 
 dependencies {
-    implementation 'com.google.android.libraries.ads.mobile.sdk:ads-mobile-sdk:1.1.0'
+    implementation 'com.google.android.gms:play-services-ads:25.3.0'
     implementation 'com.google.android.ump:user-messaging-platform:4.0.0'
 ```
 
 | Dòng | Mục đích |
 |------|----------|
-| `ads-mobile-sdk:1.1.0` | GMA Next-Gen — **bắt buộc** cho `ads-debug.aar` / `ads-release.aar` |
+| `play-services-ads:25.3.0` | GMA classic — **bắt buộc** cho `ads-debug.aar` / `ads-release.aar` |
 | `user-messaging-platform:4.0.0` | UMP trước `MobileAds.initialize` |
-| `exclude play-services-ads*` | Tránh duplicate class với mediation adapter (SDK AdMob cũ) |
+| Không exclude `play-services-ads*` | Dùng GMA classic nên không chặn dependency này |
 | `force error_prone_annotations:2.20.0` | Tránh D8 NPE trên bản 2.36+ với R8 cũ (Unity 2022.3) |
 | `force webkit:1.11.0` | Tránh D8 NPE trên `webkit:1.15+` |
 | `lifecycle → 2.6.2` | Tránh `NoSuchFieldError: ProcessLifecycleOwner$Companion` (banner refresh GMA) |
 
-**Không** thêm `com.google.android.gms:play-services-ads:24.x` song song `ads-mobile-sdk`.
+**Không** thêm `com.google.android.gms:play-services-ads:24.x` song song `play-services-ads`.
 
 ### 3.2 Khung `android { }` — Unity 2022.3
 
@@ -169,7 +166,7 @@ Giữ dòng `**ADDITIONAL_PROPERTIES**` và `unityStreamingAssets=**STREAMING_AS
 4. Merge `gradleTemplate.properties` (mục 4).
 5. **ABI Ads → Configs** — AdMob App ID, MAX key (nếu có), mediation → **Apply**.
 6. **Assets → External Dependency Manager → Android Resolver → Force Resolve**.
-7. Kiểm tra `mainTemplate.gradle`: block GMA Next-Gen + exclude **vẫn nằm trên** `// Android Resolver Dependencies Start` (EDM có thể chèn dependency bên dưới — **không** xóa block host).
+7. Kiểm tra `mainTemplate.gradle`: block GMA classic **vẫn nằm trên** `// Android Resolver Dependencies Start` (EDM có thể chèn dependency bên dưới — **không** xóa block host).
 8. Xóa `Library/Bee/Android` (và cache transform nếu D8 vẫn lỗi):
 
    ```powershell
@@ -191,9 +188,9 @@ Giữ dòng `**ADDITIONAL_PROPERTIES**` và `unityStreamingAssets=**STREAMING_AS
 
 ### 7.2 Duplicate class `com.google.android.gms.ads.*`
 
-**Nguyên nhân:** `ads-mobile-sdk` + `play-services-ads-api` (từ MAX/Google mediation).
+**Nguyên nhân:** `play-services-ads` + `play-services-ads-api` (từ MAX/Google mediation).
 
-**Sửa:** Block `exclude play-services-ads*` mục 3.1. Không resolve lại `ads-mobile-sdk:1.0.1` từ Google Mobile Ads plugin cũ trong block EDM — xóa dòng trùng sau Force Resolve.
+**Sửa:** Bỏ block exclude `play-services-ads*` ở mục 3.1. Đảm bảo chỉ còn một phiên bản `play-services-ads` (khuyến nghị `25.3.0`) sau Force Resolve.
 
 ### 7.3 D8 `NullPointerException` — `webkit-1.15.0`, `error_prone_annotations-2.41.0`
 
@@ -230,9 +227,9 @@ Manifest Unity 6 trên Unity 2022.3 — xem [android-build-notes.md](android-bui
 
 Xung đột `androidx.lifecycle` — thêm `eachDependency` lifecycle **2.6.2** trong block host (xem [mainTemplate.host-unity2022-jdk11.gradle.snippet](mainTemplate.host-unity2022-jdk11.gradle.snippet)). Unity 6: [android-build-unity-6.md §8.1](android-build-unity-6.md#81-nosuchfielderror-processlifecycleownercompanion).
 
-### 7.8 `NoClassDefFoundError: InitializationConfig$Builder`
+### 7.8 `NoClassDefFoundError: MobileAds$Builder`
 
-Thiếu GMA Next-Gen — thêm `ads-mobile-sdk:1.1.0` mục 3.1.
+Thiếu GMA classic — thêm `play-services-ads:25.3.0` mục 3.1.
 
 ---
 
@@ -266,7 +263,7 @@ CI: `ABI_ANDROID_GOOGLE_AD_APP_ID`, `ABI_ANDROID_MAX_SDK_KEY`.
 - [ ] Unity **2022.3**, JDK **11** (Unity bundled)
 - [ ] Custom Main + Gradle Properties + Settings template
 - [ ] `mainTemplate.gradle`: **không** `shared/keepUnitySymbols.gradle`
-- [ ] Block host: GMA Next-Gen + exclude `play-services-ads*` + force `error_prone` / `webkit`
+- [ ] Block host: GMA classic  + force `error_prone` / `webkit`
 - [ ] `compileSdkVersion`, `**MINSDKVERSION**`, `JavaVersion.VERSION_11`
 - [ ] `gradleTemplate.properties`: Jetifier, `lint.checkReleaseBuilds=false`, `-Xss4m`
 - [ ] ABI Ads Configs → Apply → Force Resolve

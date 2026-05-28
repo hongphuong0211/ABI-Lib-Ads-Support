@@ -56,9 +56,6 @@ EDM4U **không** tự thêm block này — copy từ [mainTemplate.host-unity6.g
 ```gradle
 // ABI Ads — Unity 6 + JDK 17 (docs/android-build-unity-6.md)
 configurations.configureEach {
-    exclude group: 'com.google.android.gms', module: 'play-services-ads'
-    exclude group: 'com.google.android.gms', module: 'play-services-ads-lite'
-    exclude group: 'com.google.android.gms', module: 'play-services-ads-api'
     resolutionStrategy {
         eachDependency { details ->
             if (details.requested.group == 'androidx.lifecycle') {
@@ -70,20 +67,20 @@ configurations.configureEach {
 }
 
 dependencies {
-    implementation 'com.google.android.libraries.ads.mobile.sdk:ads-mobile-sdk:1.1.0'
+    implementation 'com.google.android.gms:play-services-ads:25.3.0'
     implementation 'com.google.android.ump:user-messaging-platform:4.0.0'
 ```
 
 | Dòng | Mục đích |
 |------|----------|
-| `ads-mobile-sdk:1.1.0` | GMA Next-Gen — **bắt buộc** cho `ads-debug.aar` / `ads-release.aar` |
+| `play-services-ads:25.3.0` | GMA classic — **bắt buộc** cho `ads-debug.aar` / `ads-release.aar` |
 | `user-messaging-platform:4.0.0` | UMP trước `MobileAds.initialize` |
-| `exclude play-services-ads*` | Tránh duplicate class với mediation adapter (SDK AdMob cũ) |
+| Không exclude `play-services-ads*` | Dùng GMA classic nên không chặn dependency này |
 | `lifecycle → 2.6.2` | Tránh `NoSuchFieldError: ProcessLifecycleOwner$Companion` khi show banner refresh |
 
 EDM cũng resolve lifecycle từ `Editor/ABIAdsDependencies.xml` (`lifecycle-runtime`, `lifecycle-process`, … **2.6.2**).
 
-**Không** thêm `com.google.android.gms:play-services-ads:24.x` song song `ads-mobile-sdk`.
+**Không** thêm `com.google.android.gms:play-services-ads:24.x` song song `play-services-ads`.
 
 **Unity 6:** **không** cần `force error_prone_annotations` / `force webkit` (chỉ dùng trên Unity 2022.3 + AGP 7.4).
 
@@ -180,7 +177,7 @@ Console sau build Android:
 5. Firebase: merge repo mục 5 (nếu dùng Firebase Unity).
 6. **ABI Ads → Configs** — AdMob App ID, MAX key, mediation → **Apply**.
 7. **EDM4U → Force Resolve**.
-8. Kiểm tra block GMA Next-Gen **vẫn trên** `// Android Resolver Dependencies Start`.
+8. Kiểm tra block GMA classic **vẫn trên** `// Android Resolver Dependencies Start`.
 9. Xóa `Library/Bee/Android` → build; gỡ app cũ trước khi cài bản mới.
 
 ---
@@ -201,7 +198,7 @@ Console sau build Android:
 
 ### 8.3 Duplicate `com.google.android.gms.ads.*`
 
-Block `exclude play-services-ads*` mục 3.1. Xem [android-build-unity-2022-jdk11.md §7.2](android-build-unity-2022-jdk11.md#72-duplicate-class-comgoogleandroidgmsads).
+Bỏ block exclude `play-services-ads*` ở mục 3.1. Xem [android-build-unity-2022-jdk11.md §7.2](android-build-unity-2022-jdk11.md#72-duplicate-class-comgoogleandroidgmsads).
 
 ### 8.4 `Could not find firebase-*-unity`
 
@@ -211,9 +208,9 @@ Bật Settings template + repo Firebase mục 5. Comment XML trong `*Dependencie
 
 Manifest Game Activity trên project 2022.3 — dùng manifest mẫu package (cả hai activity). Xem [android-build-notes.md](android-build-notes.md).
 
-### 8.6 `NoClassDefFoundError: InitializationConfig$Builder`
+### 8.6 `NoClassDefFoundError: MobileAds$Builder`
 
-Thiếu GMA Next-Gen — thêm `ads-mobile-sdk:1.1.0` mục 3.1.
+Thiếu GMA classic — thêm `play-services-ads:25.3.0` mục 3.1.
 
 ---
 
@@ -237,7 +234,7 @@ Mẫu: `Plugins/Android/AndroidManifest.template`. Post-processor bật đúng l
 
 - [ ] Unity **6.x**, JDK **17** (Unity bundled)
 - [ ] Custom Main + Properties + **Settings** template
-- [ ] `mainTemplate`: `keepUnitySymbols.gradle`, Java **17**, block GMA Next-Gen + lifecycle **2.6.2**
+- [ ] `mainTemplate`: `keepUnitySymbols.gradle`, Java **17**, block GMA classic + lifecycle **2.6.2**
 - [ ] Firebase maven trong `settingsTemplate` (nếu dùng Firebase Unity)
 - [ ] ABI Ads Configs → Apply → Force Resolve
 - [ ] Log `[ABI Ads] Patched launcher` + `unityLibrary` lifecycle

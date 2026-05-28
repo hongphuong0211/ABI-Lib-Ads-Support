@@ -2,6 +2,7 @@ namespace ABI.Ads.UnityBridge.Editor
 {
     internal sealed class ABIAdsBuildSettings
     {
+        public int mediation_provider;
         public string admob_app_id = ABIAdsEditorPaths.DefaultGoogleMobileAdsAppId;
         public string max_sdk_key = string.Empty;
 
@@ -10,6 +11,7 @@ namespace ABI.Ads.UnityBridge.Editor
             var globalConfig = ABIAdsConfigStore.LoadGlobalConfig();
             var settings = new ABIAdsBuildSettings
             {
+                mediation_provider = globalConfig.mediation_provider,
                 admob_app_id = globalConfig.admob_app_id,
                 max_sdk_key = globalConfig.max_sdk_key
             };
@@ -26,6 +28,18 @@ namespace ABI.Ads.UnityBridge.Editor
 
             admob_app_id = admob_app_id.Trim();
             max_sdk_key = (max_sdk_key ?? string.Empty).Trim();
+        }
+
+        internal bool RequiresAdmobAppId()
+        {
+            // 0 = AdMob, 2 = Dual
+            return mediation_provider != 1;
+        }
+
+        internal bool RequiresMaxSdkKey()
+        {
+            // 1 = MAX, 2 = Dual
+            return mediation_provider != 0;
         }
 
         internal static string ResolveEnvironmentString(string key, string fallback)

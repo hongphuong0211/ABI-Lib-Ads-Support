@@ -217,6 +217,10 @@ public sealed class AdsBootstrap : MonoBehaviour
 
 Always subscribe to `OnInitialized` (or `EventReceived` with `initialized`) **before** calling `Initialize()`. Preload with `Load()` / `LoadRewarded()` after `ready == true`.
 
+**Android main thread:** On device builds, `Initialize()` posts the JNI bridge call to the **Android UI thread** (`Activity.runOnUiThread`) so Lifecycle / UMP / Activity APIs are safe. You do **not** need to wrap `Initialize()` yourself. The C# call returns immediately — wait for `OnBridgeReady` and `OnInitialized` (check `e.ready`) instead of blocking the caller.
+
+**Do not** rely on synchronous init from a background `Task` or worker thread; register callbacks first, then call `Initialize()` from `Awake` / `Start` as in the sample above.
+
 ---
 
 ### 5. Ad formats — setup & API
@@ -420,6 +424,7 @@ Key points:
 - CI env: `ABI_ANDROID_GOOGLE_AD_APP_ID`, `ABI_ANDROID_MAX_SDK_KEY`
 - Unity 6 + Firebase: Maven repos in `settingsTemplate.gradle`, not only `mainTemplate.gradle`
 - If Gradle cannot resolve mediation artifacts (`mbridge`, `pag-sdk`, …): enable **Custom Gradle Settings Template**, **Apply To XML**, **Force Resolve**, then clean `Library/Bee/Android`
+- **`IllegalStateException: addObserver must be called on the main thread`** on init: use a package build where `ABIAds.Initialize()` marshals to the Android UI thread, and rebuild/replace `Plugins/Android/ads-release.aar` from the matching `ads` module. Do not call the Java bridge `initialize` directly from a non-UI thread.
 
 ---
 
@@ -628,6 +633,10 @@ public sealed class AdsBootstrap : MonoBehaviour
 
 Luôn đăng ký `OnInitialized` **trước** `Initialize()`. Preload bằng `Load()` / `LoadRewarded()` khi `ready == true`.
 
+**Main thread Android:** Trên bản build device, `Initialize()` tự post lên **Android UI thread** (`Activity.runOnUiThread`) để an toàn với Lifecycle / UMP / Activity. **Không** cần bọc `runOnUiThread` thủ công. Lời gọi C# trả về ngay — đợi `OnBridgeReady` và `OnInitialized` (kiểm tra `e.ready`) thay vì block luồng gọi.
+
+**Không** init đồng bộ từ `Task` / worker thread; đăng ký callback trước, gọi `Initialize()` từ `Awake` / `Start` như mẫu trên.
+
 ---
 
 ### 5. Setup từng format quảng cáo
@@ -809,6 +818,7 @@ Asset: `Runtime/ABILibsCustomEvents/Resources/ABILibsCustomEventConfig.asset`.
 - CI: `ABI_ANDROID_GOOGLE_AD_APP_ID`, `ABI_ANDROID_MAX_SDK_KEY`
 - Unity 6 + Firebase: repo Maven trong `settingsTemplate.gradle`
 - Gradle không resolve mediation (`mbridge`, `pag-sdk`, …): bật **Custom Gradle Settings Template**, **Apply To XML**, **Force Resolve**, xóa `Library/Bee/Android`
+- **`IllegalStateException: addObserver must be called on the main thread`** khi init: dùng bản package có `ABIAds.Initialize()` post lên Android UI thread, và build lại / thay `Plugins/Android/ads-release.aar` từ module `ads` tương ứng. Không gọi trực tiếp Java bridge `initialize` từ thread không phải UI.
 
 ---
 
@@ -823,4 +833,4 @@ Asset: `Runtime/ABILibsCustomEvents/Resources/ABILibsCustomEventConfig.asset`.
 
 ---
 
-*Repository: [ABI-Lib-Ads-Support](https://github.com/hongphuong0211/ABI-Lib-Ads-Support) — Cập nhật README: 2026-05-28.*
+*Repository: [ABI-Lib-Ads-Support](https://github.com/hongphuong0211/ABI-Lib-Ads-Support) — Cập nhật README: 2026-05-29.*

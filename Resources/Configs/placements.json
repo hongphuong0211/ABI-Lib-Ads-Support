@@ -15,6 +15,7 @@
             "is_organic_show": true,
             "config_version": "",
             "prioritize_by_weight": true,
+            "ad_load_mode": 1,
             "disable_version": [],
             "activity_trigger_load": "",
             "activity_load_and_show": false,
@@ -52,7 +53,9 @@
                 "clicked": {
                     "btn_act_color": "",
                     "btn_act_text_color": "",
-                    "delay_time_show_btn_next": 0
+                    "delay_time_show_btn_next": 0,
+                    "close_btn_render_mode": 0,
+                    "dismiss_on_ad_click": false
                 }
             }
         }

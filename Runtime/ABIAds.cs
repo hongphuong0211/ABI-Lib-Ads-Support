@@ -69,15 +69,20 @@ namespace ABI.Ads.UnityBridge
             ABIAdsCustomEventForwarder.ConfigurePlacements(placementsJson);
 
 #if UNITY_ANDROID && !UNITY_EDITOR
-            using (var bridge = new AndroidJavaClass(AndroidBridgeClass))
+            var resolvedGlobalConfig = globalConfigJson ?? string.Empty;
+            var resolvedPlacements = placementsJson ?? string.Empty;
+            RunOnAndroidUiThread(() =>
             {
-                bridge.CallStatic(
-                    "initialize",
-                    CallbackGameObjectName,
-                    CallbackMethodName,
-                    globalConfigJson ?? string.Empty,
-                    placementsJson ?? string.Empty);
-            }
+                using (var bridge = new AndroidJavaClass(AndroidBridgeClass))
+                {
+                    bridge.CallStatic(
+                        "initialize",
+                        CallbackGameObjectName,
+                        CallbackMethodName,
+                        resolvedGlobalConfig,
+                        resolvedPlacements);
+                }
+            });
 #elif UNITY_IOS && !UNITY_EDITOR
             ABIUnityAds_SetCallbackTarget(CallbackGameObjectName, CallbackMethodName);
             ABIUnityAds_Initialize(globalConfigJson, placementsJson);
@@ -754,6 +759,44 @@ namespace ABI.Ads.UnityBridge
 
             return string.Empty;
         }
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+        private static void RunOnAndroidUiThread(Action action)
+        {
+            if (action == null)
+            {
+                return;
+            }
+
+            using (var unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+            {
+                var activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+                if (activity != null)
+                {
+                    activity.Call("runOnUiThread", new AndroidUiThreadRunnable(action));
+                    return;
+                }
+            }
+
+            action.Invoke();
+        }
+
+        private sealed class AndroidUiThreadRunnable : AndroidJavaProxy
+        {
+            readonly Action _action;
+
+            public AndroidUiThreadRunnable(Action action) : base("java.lang.Runnable")
+            {
+                _action = action;
+            }
+
+            // Called from Android UI thread via JNI.
+            public void run()
+            {
+                _action?.Invoke();
+            }
+        }
+#endif
 
 #if UNITY_IOS && !UNITY_EDITOR
         [DllImport("__Internal")]

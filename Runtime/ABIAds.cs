@@ -331,8 +331,9 @@ namespace ABI.Ads.UnityBridge
         }
 
         /// <summary>
-        /// Sets native ad slot bounds on screen (normalized 0..1). Call before <see cref="ShowNative"/> or while native is visible.
-        /// Android builds placeholder + shimmer in Java; <paramref name="templateName"/> is only the native ad layout.
+        /// Sets default native slot bounds on screen (normalized 0..1). Applies to new placements without
+        /// per-placement bounds and to existing slots that were not customized via
+        /// <see cref="SetNativePlaceholderBounds(string,float,float,float,float)"/>.
         /// </summary>
         public static void SetNativePlaceholderBounds(
             float minX,
@@ -349,6 +350,43 @@ namespace ABI.Ads.UnityBridge
             ABIUnityAds_SetNativePlaceholderBounds(minX, minY, maxX, maxY);
 #else
             Debug.Log($"ABIAds.SetNativePlaceholderBounds({minX},{minY},{maxX},{maxY}) skipped on this platform.");
+#endif
+        }
+
+        /// <summary>
+        /// Sets bounds for a specific native placement (normalized 0..1). Call before or after
+        /// <see cref="ShowNative"/> for the same <paramref name="placement"/>.
+        /// Android only; iOS uses the global <see cref="SetNativePlaceholderBounds(float,float,float,float)"/>.
+        /// </summary>
+        public static void SetNativePlaceholderBounds(
+            string placement,
+            float minX,
+            float minY,
+            float maxX,
+            float maxY)
+        {
+            if (string.IsNullOrWhiteSpace(placement))
+            {
+                SetNativePlaceholderBounds(minX, minY, maxX, maxY);
+                return;
+            }
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+            using (var bridge = new AndroidJavaClass(AndroidBridgeClass))
+            {
+                bridge.CallStatic(
+                    "setNativePlaceholderBounds",
+                    placement,
+                    minX,
+                    minY,
+                    maxX,
+                    maxY);
+            }
+#elif UNITY_IOS && !UNITY_EDITOR
+            ABIUnityAds_SetNativePlaceholderBounds(minX, minY, maxX, maxY);
+#else
+            Debug.Log(
+                $"ABIAds.SetNativePlaceholderBounds({placement},{minX},{minY},{maxX},{maxY}) skipped on this platform.");
 #endif
         }
 
@@ -398,6 +436,13 @@ namespace ABI.Ads.UnityBridge
                 Debug.LogWarning("ABIAds.ShowNativeFullScreen skipped because placement is empty.");
                 return;
             }
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+            using (var bridge = new AndroidJavaClass(AndroidBridgeClass))
+            {
+                bridge.CallStatic("prepareNativeFullScreenShow", config.Placement, true);
+            }
+#endif
 
             ShowNative(
                 config.Placement,
@@ -520,6 +565,7 @@ namespace ABI.Ads.UnityBridge
             }
         }
 
+        /// <summary>Hides all native overlay slots.</summary>
         public static void HideNative()
         {
 #if UNITY_ANDROID && !UNITY_EDITOR
@@ -532,6 +578,28 @@ namespace ABI.Ads.UnityBridge
 #endif
         }
 
+        /// <summary>Hides one native placement; other placements stay visible.</summary>
+        public static void HideNative(string placement)
+        {
+            if (string.IsNullOrWhiteSpace(placement))
+            {
+                HideNative();
+                return;
+            }
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+            using (var bridge = new AndroidJavaClass(AndroidBridgeClass))
+            {
+                bridge.CallStatic("hideNative", placement);
+            }
+#elif UNITY_IOS && !UNITY_EDITOR
+            ABIUnityAds_HideNative();
+#else
+            Debug.Log($"ABIAds.HideNative({placement}) skipped on this platform.");
+#endif
+        }
+
+        /// <summary>Destroys all native overlay slots and unregisters presentations.</summary>
         public static void DestroyNative()
         {
 #if UNITY_ANDROID && !UNITY_EDITOR
@@ -541,6 +609,27 @@ namespace ABI.Ads.UnityBridge
             }
 #elif UNITY_IOS && !UNITY_EDITOR
             ABIUnityAds_DestroyNative();
+#endif
+        }
+
+        /// <summary>Destroys one native placement slot; others are unchanged.</summary>
+        public static void DestroyNative(string placement)
+        {
+            if (string.IsNullOrWhiteSpace(placement))
+            {
+                DestroyNative();
+                return;
+            }
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+            using (var bridge = new AndroidJavaClass(AndroidBridgeClass))
+            {
+                bridge.CallStatic("destroyNative", placement);
+            }
+#elif UNITY_IOS && !UNITY_EDITOR
+            ABIUnityAds_DestroyNative();
+#else
+            Debug.Log($"ABIAds.DestroyNative({placement}) skipped on this platform.");
 #endif
         }
 

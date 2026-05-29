@@ -122,6 +122,11 @@ namespace ABI.Ads.UnityBridge.Editor
             placement.is_organic_show = EditorGUILayout.Toggle("Is Organic Show", placement.is_organic_show);
             placement.config_version = EditorGUILayout.TextField("Config Version", placement.config_version ?? string.Empty);
             placement.prioritize_by_weight = EditorGUILayout.Toggle("Prioritize By Weight", placement.prioritize_by_weight);
+            placement.ad_load_mode = EditorGUILayout.IntPopup(
+                "Ad Load Mode",
+                placement.ad_load_mode,
+                new[] { "0 Waterfall", "1 Parallel Priority", "2 Load All" },
+                new[] { 0, 1, 2 });
             ABIAdsConfigGui.DrawStringList("Disable Versions", placement.disable_version);
 
             EditorGUILayout.Space();
@@ -178,6 +183,14 @@ namespace ABI.Ads.UnityBridge.Editor
                 placement.native_ad.clicked.btn_act_color = ABIAdsConfigGui.DrawHexColorField("Clicked Button Color", placement.native_ad.clicked.btn_act_color);
                 placement.native_ad.clicked.btn_act_text_color = ABIAdsConfigGui.DrawHexColorField("Clicked Button Text Color", placement.native_ad.clicked.btn_act_text_color);
                 placement.native_ad.clicked.delay_time_show_btn_next = EditorGUILayout.IntField("Delay Show Next Button", placement.native_ad.clicked.delay_time_show_btn_next);
+                placement.native_ad.clicked.close_btn_render_mode = EditorGUILayout.IntPopup(
+                    "Close Button Render Mode",
+                    placement.native_ad.clicked.close_btn_render_mode,
+                    new[] { "0 Default", "1 CTA Top-Right + Close Top-Left", "2 Meta Progress", "3 Delay Only" },
+                    new[] { 0, 1, 2, 3 });
+                placement.native_ad.clicked.dismiss_on_ad_click = EditorGUILayout.Toggle(
+                    "Dismiss On Ad Click (fullscreen)",
+                    placement.native_ad.clicked.dismiss_on_ad_click);
             }
         }
 

@@ -837,6 +837,7 @@ namespace ABI.Ads.UnityBridge.Editor
         public bool is_organic_show;
         public string config_version;
         public bool prioritize_by_weight;
+        public int ad_load_mode;
         public string[] disable_version;
         public string activity_trigger_load;
         public bool activity_load_and_show;
@@ -880,6 +881,7 @@ namespace ABI.Ads.UnityBridge.Editor
                 is_organic_show = is_organic_show,
                 config_version = config_version,
                 prioritize_by_weight = prioritize_by_weight,
+                ad_load_mode = ad_load_mode,
                 activity_trigger_load = activity_trigger_load,
                 activity_load_and_show = activity_load_and_show,
                 delay_time_trigger_load = delay_time_trigger_load,
@@ -914,6 +916,7 @@ namespace ABI.Ads.UnityBridge.Editor
                 is_organic_show = placement.is_organic_show,
                 config_version = placement.config_version,
                 prioritize_by_weight = placement.prioritize_by_weight,
+                ad_load_mode = placement.ad_load_mode,
                 activity_trigger_load = placement.activity_trigger_load,
                 activity_load_and_show = placement.activity_load_and_show,
                 delay_time_trigger_load = placement.delay_time_trigger_load,
@@ -1112,6 +1115,8 @@ namespace ABI.Ads.UnityBridge.Editor
         public string btn_act_color;
         public string btn_act_text_color;
         public int delay_time_show_btn_next;
+        public int close_btn_render_mode;
+        public bool dismiss_on_ad_click;
 
         internal ABIAdsClickedConfig ToData()
         {
@@ -1119,7 +1124,9 @@ namespace ABI.Ads.UnityBridge.Editor
             {
                 btn_act_color = btn_act_color ?? string.Empty,
                 btn_act_text_color = btn_act_text_color ?? string.Empty,
-                delay_time_show_btn_next = delay_time_show_btn_next
+                delay_time_show_btn_next = delay_time_show_btn_next,
+                close_btn_render_mode = close_btn_render_mode,
+                dismiss_on_ad_click = dismiss_on_ad_click
             };
         }
 
@@ -1134,8 +1141,26 @@ namespace ABI.Ads.UnityBridge.Editor
             {
                 btn_act_color = config.btn_act_color,
                 btn_act_text_color = config.btn_act_text_color,
-                delay_time_show_btn_next = config.delay_time_show_btn_next
+                delay_time_show_btn_next = config.delay_time_show_btn_next,
+                close_btn_render_mode = config.close_btn_render_mode,
+                dismiss_on_ad_click = config.dismiss_on_ad_click
             };
+        }
+    }
+
+    internal static class ABIAdsNativeAdDefaults
+    {
+        internal static bool IsFullScreenLayout(string layoutFile)
+        {
+            if (string.IsNullOrWhiteSpace(layoutFile))
+            {
+                return false;
+            }
+
+            var normalized = layoutFile.Trim().ToLowerInvariant();
+            return normalized.Contains("fsn")
+                   || normalized.Contains("full_screen")
+                   || normalized.Contains("fullscreen");
         }
     }
 
@@ -1150,6 +1175,7 @@ namespace ABI.Ads.UnityBridge.Editor
         public bool is_organic_show = true;
         public string config_version = string.Empty;
         public bool prioritize_by_weight = true;
+        public int ad_load_mode = 1;
         public List<string> disable_version = new List<string>();
         public string activity_trigger_load = string.Empty;
         public bool activity_load_and_show;
@@ -1274,12 +1300,24 @@ namespace ABI.Ads.UnityBridge.Editor
         public string price_text_color = string.Empty;
         public string advertiser_text_color = string.Empty;
         public ABIAdsClickedConfig clicked = new ABIAdsClickedConfig();
+        [NonSerialized] public bool dismissOnAdClickDefaulted;
 
         public void EnsureDefaults()
         {
             if (clicked == null)
             {
                 clicked = new ABIAdsClickedConfig();
+            }
+
+            var isFullScreen = ABIAdsNativeAdDefaults.IsFullScreenLayout(ad_layout_file);
+            if (isFullScreen && !dismissOnAdClickDefaulted)
+            {
+                clicked.dismiss_on_ad_click = true;
+                dismissOnAdClickDefaulted = true;
+            }
+            else if (!isFullScreen)
+            {
+                dismissOnAdClickDefaulted = false;
             }
         }
     }
@@ -1290,5 +1328,7 @@ namespace ABI.Ads.UnityBridge.Editor
         public string btn_act_color = string.Empty;
         public string btn_act_text_color = string.Empty;
         public int delay_time_show_btn_next;
+        public int close_btn_render_mode;
+        public bool dismiss_on_ad_click;
     }
 }

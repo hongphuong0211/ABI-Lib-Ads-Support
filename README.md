@@ -4,8 +4,9 @@ Unity Package Manager package tích hợp **ABI Module Ads** vào project Unity 
 
 | | |
 |---|---|
-| Package | `com.abi.ads.unity` (hiện tại **v1.7.11**) |
+| Package | `com.abi.ads.unity` (hiện tại **v1.7.12**) |
 | Repository | [ABI-Lib-Ads-Support](https://github.com/hongphuong0211/ABI-Lib-Ads-Support) |
+| Hướng dẫn tích hợp | [Unity integration guide (Google Docs)](https://docs.google.com/document/d/1n4MRn_bFpleChfLl4Tf6l5B_owGpiHaahPNa9bVTqh8/edit?usp=sharing) |
 | Namespace | `ABI.Ads.UnityBridge` |
 | API chính | `ABIAds` |
 | Editor | `ABI Ads > Configs` |
@@ -15,6 +16,7 @@ Tài liệu song ngữ:
 
 - [English](#english)
 - [Tiếng Việt](#tieng-viet)
+- [Hướng dẫn tích hợp Unity (Google Docs)](https://docs.google.com/document/d/1n4MRn_bFpleChfLl4Tf6l5B_owGpiHaahPNa9bVTqh8/edit?usp=sharing)
 
 ---
 
@@ -23,6 +25,8 @@ Tài liệu song ngữ:
 ## English
 
 ### Quick start checklist
+
+> Step-by-step guide: [Unity integration guide (Google Docs)](https://docs.google.com/document/d/1n4MRn_bFpleChfLl4Tf6l5B_owGpiHaahPNa9bVTqh8/edit?usp=sharing)
 
 1. Add `com.abi.ads.unity` to `Packages/manifest.json`.
 2. Open **ABI Ads → Configs → Edit Ads Config** — fill **Global Config** + **Placement Config**, save JSON to `Assets/Resources/Configs/`.
@@ -38,7 +42,7 @@ Tài liệu song ngữ:
 **Git URL** in `Packages/manifest.json`:
 
 ```json
-"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.7.11"
+"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.7.12"
 ```
 
 **Local package** (monorepo):
@@ -76,18 +80,25 @@ Editor menus:
 
 #### Global Config (`global_config.json`)
 
+Editor shows **Loaded from** (project file, package sample, or defaults). **Save** always writes to `Assets/Resources/Configs/global_config.json`.
+
 | Field | Description |
 |-------|-------------|
 | `mediation_provider` | `0` = AdMob, `1` = MAX, `2` = Dual |
-| `admob_app_id` | AdMob App ID → Android manifest + iOS `Info.plist` |
-| `max_sdk_key` | MAX SDK key (required for MAX/Dual) |
+| `admob_app_id` | AdMob App ID → Android manifest + iOS `Info.plist`. **Required** when `mediation_provider` is AdMob or Dual |
+| `max_sdk_key` | MAX SDK key. **Required** when `mediation_provider` is MAX or Dual |
 | `variant_dev` | Dev flag: verbose logs, AdMob test units on release, Adjust sandbox. Set **`false`** for store builds |
+| `timeout_remote` | Remote config fetch timeout (ms) |
+| `config_version` | Config version tag for remote / A/B gating |
+| `enabled_versions` | Allowed config versions (empty = all) |
 | `inter_ad_interval` | Minimum ms between interstitial shows (native SDK) |
 | `skip_interval_placements` | Placements exempt from inter interval |
 | `test_devices` | AdMob test device IDs |
 | Optional SDK tokens | Adjust, AppsFlyer, Facebook, TikTok, Firebase, FCM, MAX consent URLs |
 
 #### Placement Config (`placements.json`)
+
+Editor shows **Loaded from** (project file, package sample, or defaults). **Save** always writes to `Assets/Resources/Configs/placements.json`. For native placements, **Ad Layout File** / **Organic Layout** / **Layout Meta** use a dropdown populated from layouts in the ads module (Android `.xml` ∩ iOS `.xib` when both are available in the monorepo).
 
 One entry per logical ad slot:
 
@@ -97,8 +108,14 @@ One entry per logical ad slot:
 | `ads_type` | See [Ad formats](#ad-formats-setup--api) |
 | `ad_ids[]` | Ad unit IDs with `ads_weight` and `mediation` (`0` = AdMob, `1` = MAX) |
 | `backup_ad_ids[]` | Fallback units |
+| `ad_load_mode` | `0` = Waterfall, `1` = Parallel Priority (default), `2` = Load All |
+| `is_show` / `is_organic_show` | Show flags for paid vs organic traffic |
+| `prioritize_by_weight` | Weight-based ad ID selection |
+| `disable_version[]` | Config versions where this placement is disabled |
 | Banner/MREC options | inline adaptive, collapsible, size, reload time |
-| Native options | layout colors, corner radius, CTA style (Android layout names from module) |
+| Native options | layout colors, corner radius, CTA style |
+| Native `clicked.close_btn_render_mode` | `0` default (close top-right), `1` close top-left, `2` Meta progress, `3` delay only |
+| Native `clicked.dismiss_on_ad_click` | Fullscreen native: dismiss overlay when user clicks the ad |
 
 Click **Save Global Config** / **Save Placement Config**. JSON is plain text in the Unity bridge (no encryption in C#).
 
@@ -235,7 +252,7 @@ Placement `ads_type` in JSON determines native SDK behavior. Unity API mapping:
 | `rewarded` | `LoadRewarded`, `ShowRewarded`, `LoadAndShowRewarded` | Must use rewarded API |
 | `banner` | `ShowBanner`, `HideBanner`, `DestroyBanner` | `position`: `"top"` or `"bottom"` |
 | `mrec` | `ShowBanner`, `HideBanner`, `DestroyBanner` | MREC size from placement JSON |
-| `native` | `ShowNative`, `SetNativePlaceholderBounds`, `HideNative`, `DestroyNative` | Overlay on native layer |
+| `native` | `ShowNative`, `ShowNativeFullScreen`, `SetNativePlaceholderBounds`, `HideNative`, `DestroyNative` | Overlay on native layer; per-placement hide/destroy on Android |
 
 #### Interstitial / App Open / Rewarded Interstitial
 
@@ -298,8 +315,11 @@ Banner does not expose a separate `Load()` — `ShowBanner` requests the ad. Ove
 #### Native
 
 ```csharp
-// Normalized screen bounds (0..1) before show
+// Global bounds (0..1) — applies to all native slots (iOS) or default slot (Android)
 ABIAds.SetNativePlaceholderBounds(minX: 0f, minY: 0.6f, maxX: 1f, maxY: 1f);
+
+// Per-placement bounds (Android) — call before or after ShowNative for the same placement
+ABIAds.SetNativePlaceholderBounds("main_native", 0f, 0.6f, 1f, 1f);
 
 // ShowNative loads internally — do NOT chain Load() + OnLoaded → ShowNative()
 ABIAds.ShowNative(
@@ -310,23 +330,35 @@ ABIAds.ShowNative(
     duration: 0            // seconds; < 0 hides close button
 );
 
-// Enum overload (recommended for new code)
+// Enum overload with optional bounds (recommended for new code)
 ABIAds.ShowNative("main_native", "ads_layout_native_language",
-    NativeSize.Medium, NativePosition.Bottom, duration: 0);
+    NativeSize.Medium, NativePosition.Bottom, duration: 0,
+    bounds: NativePlaceholderBounds.BottomStrip(0.4f));
 
 // Fullscreen native (Google-style)
 ABIAds.ShowNativeFullScreen("main_native_full", countDownSec: 3);
+ABIAds.ShowNativeFullScreen(new GoogleNativeFullScreenConfig(
+    placement: "main_native_full",
+    templateName: "ads_layout_native_full",
+    countDownSec: 3));
+
+// Hide / destroy one placement (Android) or all slots
+ABIAds.HideNative("main_native");
+ABIAds.DestroyNative("main_native");
+ABIAds.DestroyNative(); // all slots
 
 // Cleanup when leaving screen
 ABIAds.UnregisterPlacement("main_native");
-ABIAds.DestroyNative();
 ```
 
 **Native tips:**
 
 - `ShowNative()` already loads — avoid `Load()` + `OnLoaded` → `ShowNative()` (duplicate show / double callbacks).
 - `SetNativePlaceholderBounds(…, maxY: 1f)` anchors to content bottom (not navigation bar) on current AAR.
-- `templateName` must match a layout in the ads module. See [Native template files (review)](https://docs.google.com/spreadsheets/d/1LxvJKFlAn_9vDGtWCXLAHsGexKQmfJraV2_DgbhK6ng/edit?gid=0#gid=0).
+- `NativePlaceholderBounds.FullScreen` and `BottomStrip(heightPercent)` are helpers for common layouts.
+- Per-placement `HideNative(placement)` / `DestroyNative(placement)` keep other native slots visible (Android).
+- Set `native_ad.clicked.dismiss_on_ad_click` in placement JSON for fullscreen native dismiss-on-click behavior.
+- `templateName` must match a layout in the ads module. Pick from the Editor dropdown or see [Native template files (review)](https://docs.google.com/spreadsheets/d/1LxvJKFlAn_9vDGtWCXLAHsGexKQmfJraV2_DgbhK6ng/edit?gid=0#gid=0).
 
 ---
 
@@ -445,6 +477,8 @@ Key points:
 
 ### Checklist tích hợp nhanh
 
+> Chi tiết từng bước: [Hướng dẫn tích hợp Unity (Google Docs)](https://docs.google.com/document/d/1n4MRn_bFpleChfLl4Tf6l5B_owGpiHaahPNa9bVTqh8/edit?usp=sharing)
+
 1. Thêm `com.abi.ads.unity` vào `Packages/manifest.json`.
 2. Mở **ABI Ads → Configs → Edit Ads Config** — điền **Global Config** + **Placement Config**, lưu vào `Assets/Resources/Configs/`.
 3. Tick mediation network → **Apply To XML** → **Force Resolve** (EDM4U).
@@ -459,7 +493,7 @@ Key points:
 **Git URL** trong `Packages/manifest.json`:
 
 ```json
-"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.7.11"
+"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.7.12"
 ```
 
 **Local package:**
@@ -497,18 +531,25 @@ Menu Editor:
 
 #### Global Config
 
+Editor hiển thị **Loaded from** (file project, mẫu package, hoặc defaults). **Save** luôn ghi vào `Assets/Resources/Configs/global_config.json`.
+
 | Trường | Mô tả |
 |--------|-------|
 | `mediation_provider` | `0` = AdMob, `1` = MAX, `2` = Dual |
-| `admob_app_id` | AdMob App ID → manifest Android + `Info.plist` iOS |
-| `max_sdk_key` | MAX SDK key (bắt buộc với MAX/Dual) |
+| `admob_app_id` | AdMob App ID → manifest Android + `Info.plist` iOS. **Bắt buộc** khi `mediation_provider` là AdMob hoặc Dual |
+| `max_sdk_key` | MAX SDK key. **Bắt buộc** khi `mediation_provider` là MAX hoặc Dual |
 | `variant_dev` | Cờ dev: log chi tiết, AdMob test unit trên release, Adjust sandbox. **Tắt (`false`)** khi lên store |
+| `timeout_remote` | Timeout fetch remote config (ms) |
+| `config_version` | Tag phiên bản config cho remote / A/B |
+| `enabled_versions` | Phiên bản config được phép (rỗng = tất cả) |
 | `inter_ad_interval` | Khoảng cách tối thiểu (ms) giữa các lần show interstitial |
 | `skip_interval_placements` | Placement không áp interval |
 | `test_devices` | Test device ID AdMob |
 | SDK tuỳ chọn | Adjust, AppsFlyer, Facebook, TikTok, Firebase, FCM, MAX consent |
 
 #### Placement Config
+
+Editor hiển thị **Loaded from** (file project, mẫu package, hoặc defaults). **Save** luôn ghi vào `Assets/Resources/Configs/placements.json`. Với placement native, **Ad Layout File** / **Organic Layout** / **Layout Meta** dùng dropdown lấy từ layout trong module ads (Android `.xml` ∩ iOS `.xib` khi có cả hai trong monorepo).
 
 Mỗi vị trí quảng cáo một entry:
 
@@ -518,8 +559,14 @@ Mỗi vị trí quảng cáo một entry:
 | `ads_type` | Xem [Setup từng format](#setup-tung-format-quang-cao) |
 | `ad_ids[]` | Ad unit ID + `ads_weight` + `mediation` (`0` AdMob, `1` MAX) |
 | `backup_ad_ids[]` | ID dự phòng |
+| `ad_load_mode` | `0` = Waterfall, `1` = Parallel Priority (mặc định), `2` = Load All |
+| `is_show` / `is_organic_show` | Cờ hiển thị cho traffic trả phí / organic |
+| `prioritize_by_weight` | Chọn ad ID theo trọng số |
+| `disable_version[]` | Phiên bản config tắt placement này |
 | Banner/MREC | inline adaptive, collapsible, size, reload time |
-| Native | màu layout, bo góc, CTA (tên layout Android trong module ads) |
+| Native | màu layout, bo góc, CTA |
+| Native `clicked.close_btn_render_mode` | `0` mặc định (close góc phải), `1` close góc trái, `2` Meta progress, `3` chỉ delay |
+| Native `clicked.dismiss_on_ad_click` | Native fullscreen: đóng overlay khi user click vào ad |
 
 Bấm **Save Global Config** / **Save Placement Config**. JSON lưu dạng plain text (bridge Unity không mã hóa).
 
@@ -651,7 +698,7 @@ Luôn đăng ký `OnInitialized` **trước** `Initialize()`. Preload bằng `Lo
 | `rewarded` | `LoadRewarded`, `ShowRewarded`, `LoadAndShowRewarded` | Bắt buộc API rewarded |
 | `banner` | `ShowBanner`, `HideBanner`, `DestroyBanner` | `position`: `"top"` / `"bottom"` |
 | `mrec` | `ShowBanner`, `HideBanner`, `DestroyBanner` | Kích thước MREC từ JSON placement |
-| `native` | `ShowNative`, `SetNativePlaceholderBounds`, `HideNative`, `DestroyNative` | Overlay native |
+| `native` | `ShowNative`, `ShowNativeFullScreen`, `SetNativePlaceholderBounds`, `HideNative`, `DestroyNative` | Overlay native; hide/destroy theo placement trên Android |
 
 #### Interstitial / App Open / Rewarded Interstitial
 
@@ -707,22 +754,40 @@ ABIAds.DestroyBanner();
 #### Native
 
 ```csharp
+// Bounds toàn cục (0..1) — áp mọi slot native (iOS) hoặc slot mặc định (Android)
 ABIAds.SetNativePlaceholderBounds(0f, 0.6f, 1f, 1f);
+
+// Bounds theo placement (Android) — gọi trước hoặc sau ShowNative cùng placement
+ABIAds.SetNativePlaceholderBounds("main_native", 0f, 0.6f, 1f, 1f);
 
 // ShowNative tự load — KHÔNG gọi Load() + OnLoaded → ShowNative()
 ABIAds.ShowNative("main_native", "ads_layout_native_language", "medium", "bottom", 0);
 
+// Overload enum + bounds (khuyến nghị code mới)
+ABIAds.ShowNative("main_native", "ads_layout_native_language",
+    NativeSize.Medium, NativePosition.Bottom, duration: 0,
+    bounds: NativePlaceholderBounds.BottomStrip(0.4f));
+
 ABIAds.ShowNativeFullScreen("main_native_full", countDownSec: 3);
+ABIAds.ShowNativeFullScreen(new GoogleNativeFullScreenConfig(
+    "main_native_full", "ads_layout_native_full", countDownSec: 3));
+
+// Ẩn / huỷ một placement (Android) hoặc tất cả slot
+ABIAds.HideNative("main_native");
+ABIAds.DestroyNative("main_native");
+ABIAds.DestroyNative();
 
 ABIAds.UnregisterPlacement("main_native");
-ABIAds.DestroyNative();
 ```
 
 **Lưu ý native:**
 
 - Tránh `Load()` + `OnLoaded` → `ShowNative()` (show lặp / callback trùng).
 - `maxY = 1f` neo đáy vùng nội dung (không tính navigation bar) trên AAR mới.
-- `templateName` phải khớp layout trong module ads. Xem [Danh sách native template (review)](https://docs.google.com/spreadsheets/d/1LxvJKFlAn_9vDGtWCXLAHsGexKQmfJraV2_DgbhK6ng/edit?gid=0#gid=0).
+- `NativePlaceholderBounds.FullScreen` và `BottomStrip(heightPercent)` là helper cho layout phổ biến.
+- `HideNative(placement)` / `DestroyNative(placement)` giữ các slot native khác (Android).
+- Bật `native_ad.clicked.dismiss_on_ad_click` trong JSON cho fullscreen dismiss khi click ad.
+- `templateName` phải khớp layout trong module ads. Chọn từ dropdown Editor hoặc xem [Danh sách native template (review)](https://docs.google.com/spreadsheets/d/1LxvJKFlAn_9vDGtWCXLAHsGexKQmfJraV2_DgbhK6ng/edit?gid=0#gid=0).
 
 ---
 
@@ -833,4 +898,4 @@ Asset: `Runtime/ABILibsCustomEvents/Resources/ABILibsCustomEventConfig.asset`.
 
 ---
 
-*Repository: [ABI-Lib-Ads-Support](https://github.com/hongphuong0211/ABI-Lib-Ads-Support) — Cập nhật README: 2026-05-29.*
+*Repository: [ABI-Lib-Ads-Support](https://github.com/hongphuong0211/ABI-Lib-Ads-Support) — Cập nhật README: 2026-05-30.*

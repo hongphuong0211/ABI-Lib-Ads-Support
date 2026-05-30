@@ -186,7 +186,7 @@ namespace ABI.Ads.UnityBridge.Editor
                 placement.native_ad.clicked.close_btn_render_mode = EditorGUILayout.IntPopup(
                     "Close Button Render Mode",
                     placement.native_ad.clicked.close_btn_render_mode,
-                    new[] { "0 Default", "1 CTA Top-Right + Close Top-Left", "2 Meta Progress", "3 Delay Only" },
+                    new[] { "0 Default (close top-right)", "1 Close top-left", "2 Meta Progress", "3 Delay Only" },
                     new[] { 0, 1, 2, 3 });
                 placement.native_ad.clicked.dismiss_on_ad_click = EditorGUILayout.Toggle(
                     "Dismiss On Ad Click (fullscreen)",

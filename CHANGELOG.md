@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.7.14
+
+- **Breaking:** Package requires **Unity 6** (6000.0+) and JDK 17. Unity 2022.3 is no longer supported.
+- `package.json`: `unity` minimum `6000.0`, `version` aligned with release tag; README and editor templates updated.
+
 ## 1.7.11
 
 - Migrate Android integration in Unity package from GMA Next-Gen to GMA classic (`play-services-ads:25.3.0`).

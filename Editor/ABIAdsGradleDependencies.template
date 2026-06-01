@@ -1,11 +1,8 @@
 // ABI Ads: optional Android deps when the Unity project does NOT already ship them via
 // Google Mobile Ads Unity Plugin / Firebase Unity SDK / AppLovin MAX.
 //
-// Unity 6 + JDK 17 (recommended):
+// Unity 6 + JDK 17:
 //   docs/mainTemplate.host-unity6.gradle.snippet
-//
-// Unity 2022.3 + JDK 11:
-//   docs/mainTemplate.host-unity2022-jdk11.gradle.snippet
 //
 // See README.md § Android build notes.
 //

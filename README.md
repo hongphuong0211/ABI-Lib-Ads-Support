@@ -4,7 +4,8 @@ Unity Package Manager package tích hợp **ABI Module Ads** vào project Unity 
 
 | | |
 |---|---|
-| Package | `com.abi.ads.unity` (hiện tại **v1.7.12**) |
+| Package | `com.abi.ads.unity` (hiện tại **v1.7.14**) |
+| Unity | **Unity 6** (6000.0+) — không hỗ trợ Unity 2022.3 |
 | Repository | [ABI-Lib-Ads-Support](https://github.com/hongphuong0211/ABI-Lib-Ads-Support) |
 | Hướng dẫn tích hợp | [Unity integration guide (Google Docs)](https://docs.google.com/document/d/1n4MRn_bFpleChfLl4Tf6l5B_owGpiHaahPNa9bVTqh8/edit?usp=sharing) |
 | Namespace | `ABI.Ads.UnityBridge` |
@@ -24,6 +25,8 @@ Tài liệu song ngữ:
 
 ## English
 
+**Unity 6 only** (6000.0+, JDK 17). Unity 2022.3 is not supported.
+
 ### Quick start checklist
 
 > Step-by-step guide: [Unity integration guide (Google Docs)](https://docs.google.com/document/d/1n4MRn_bFpleChfLl4Tf6l5B_owGpiHaahPNa9bVTqh8/edit?usp=sharing)
@@ -39,10 +42,12 @@ Tài liệu song ngữ:
 
 ### 1. Install into a Unity project
 
+**Requirements:** **Unity 6** (6000.0+) and **JDK 17**. Unity 2022.3 is **not** supported.
+
 **Git URL** in `Packages/manifest.json`:
 
 ```json
-"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.7.12"
+"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.7.14"
 ```
 
 **Local package** (monorepo):
@@ -444,8 +449,7 @@ Config asset: `Runtime/ABILibsCustomEvents/Resources/ABILibsCustomEventConfig.as
 
 | Unity | JDK | Gradle templates |
 |-------|-----|------------------|
-| **Unity 6** (recommended) | 17 | Custom Main + **Settings** + Properties |
-| Unity 2022.3 | 11 | Custom Main + Properties (+ Settings if Firebase/mediation) |
+| **Unity 6** (6000.0+) | 17 | Custom Main + **Settings** + Properties |
 
 Key points:
 
@@ -475,6 +479,8 @@ Key points:
 
 ## Tiếng Việt
 
+**Chỉ Unity 6** (6000.0+, JDK 17). Unity 2022.3 không được hỗ trợ.
+
 ### Checklist tích hợp nhanh
 
 > Chi tiết từng bước: [Hướng dẫn tích hợp Unity (Google Docs)](https://docs.google.com/document/d/1n4MRn_bFpleChfLl4Tf6l5B_owGpiHaahPNa9bVTqh8/edit?usp=sharing)
@@ -490,10 +496,12 @@ Key points:
 
 ### 1. Cài package vào Unity
 
+**Yêu cầu:** **Unity 6** (6000.0+) và **JDK 17**. Unity 2022.3 **không** được hỗ trợ.
+
 **Git URL** trong `Packages/manifest.json`:
 
 ```json
-"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.7.12"
+"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.7.14"
 ```
 
 **Local package:**
@@ -871,8 +879,7 @@ Asset: `Runtime/ABILibsCustomEvents/Resources/ABILibsCustomEventConfig.asset`.
 
 | Unity | JDK | Gradle template |
 |-------|-----|-----------------|
-| **Unity 6** (khuyến nghị) | 17 | Custom Main + **Settings** + Properties |
-| Unity 2022.3 | 11 | Custom Main + Properties (+ Settings nếu Firebase/mediation) |
+| **Unity 6** (6000.0+) | 17 | Custom Main + **Settings** + Properties |
 
 Điểm chính:
 
@@ -898,4 +905,4 @@ Asset: `Runtime/ABILibsCustomEvents/Resources/ABILibsCustomEventConfig.asset`.
 
 ---
 
-*Repository: [ABI-Lib-Ads-Support](https://github.com/hongphuong0211/ABI-Lib-Ads-Support) — Cập nhật README: 2026-05-30.*
+*Repository: [ABI-Lib-Ads-Support](https://github.com/hongphuong0211/ABI-Lib-Ads-Support) — Cập nhật README: 2026-06-01.*

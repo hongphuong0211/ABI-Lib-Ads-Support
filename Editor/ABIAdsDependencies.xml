@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
-  ABI Ads — Android Resolver base dependencies (Unity 6 + 2022.3).
+  ABI Ads — Android Resolver base dependencies (Unity 6 only).
   GMA classic (play-services-ads) stays in host mainTemplate.gradle — not here.
   Firebase: resolve via Firebase Unity EDM — not here.
   Mediation adapters below are managed by ABI Ads → Configs → Apply.

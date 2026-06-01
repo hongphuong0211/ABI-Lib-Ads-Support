@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.8.0
+
+- Remove default AdMob mediation adapter `com.google.ads.mediation:applovin` from `Editor/ABIAdsDependencies.xml`; enable networks via **ABI Ads → Configs → Apply**.
+- Fix `ABIAdsDependencies.xml` structure (`</androidPackages>` closing tag).
+- Refresh `Plugins/Android/ads-release.aar`.
+
 ## 1.7.15
 
 - Release `v1.7.15` — align `package.json` version with Git tag for UPM.

@@ -36,5 +36,5 @@
     
     
     
-  </androidPackages>
+  <androidPackage spec="com.google.ads.mediation:applovin:13.6.2.0" /></androidPackages>
 </dependencies>

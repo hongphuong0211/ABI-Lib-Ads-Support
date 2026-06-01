@@ -8,6 +8,7 @@ import AppTrackingTransparency
 import AppsFlyerLib
 import Combine
 import CommonCrypto
+import CoreTelephony
 import CryptoKit
 import FBSDKCoreKit
 import FirebaseAnalytics
@@ -18,6 +19,7 @@ import FirebaseRemoteConfig
 import Foundation
 import GoogleMobileAds
 import Lottie
+import Network
 import ObjectiveC
 import Swift
 import SwiftUI
@@ -193,9 +195,15 @@ public class PlacementConfig {
     public var clicked: BBLModuleAds.PlacementConfig.NativeAdConfig.ClickedConfig?
     public var btnNext: BBLModuleAds.PlacementConfig.NativeAdConfig.ButtonNextConfig?
     public struct ClickedConfig : Swift.Codable {
+      public static let closeBtnRenderDefault: Swift.Int
+      public static let closeBtnRenderCloseTopLeft: Swift.Int
+      public static let closeBtnRenderMetaProgress: Swift.Int
+      public static let closeBtnRenderDelayOnly: Swift.Int
       public var btnActColor: Swift.String?
       public var btnActTextColor: Swift.String?
       public var delayTimeShowBtnNext: Swift.Int
+      public var closeBtnRenderMode: Swift.Int
+      public var dismissOnAdClick: Swift.Bool
       public func encode(to encoder: any Swift.Encoder) throws
       public init(from decoder: any Swift.Decoder) throws
     }
@@ -378,6 +386,13 @@ public class AdRecord {
   @_Concurrency.MainActor public func updateGlobalConfig(_ config: BBLModuleAds.GlobalConfig)
   @_Concurrency.MainActor public func registerBannerContainer(adName: Swift.String, containerView: UIKit.UIView)
   @_Concurrency.MainActor public func unregisterBannerContainer(adName: Swift.String)
+  @_Concurrency.MainActor public func clearAllBannerLoadingStates()
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public static func validateUnityMediationRequirements(_ config: BBLModuleAds.GlobalConfig) -> Swift.String?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor public func requestInitSecurityPermission(config: BBLModuleAds.GlobalConfig, completion: @escaping (_ allowed: Swift.Bool, _ reason: Swift.String?) -> Swift.Void)
+  #endif
   @_Concurrency.MainActor public func registerNativePresentation(adName: Swift.String, nativeAdView: BBLModuleAds.BBLNativeAdView, size: BBLModuleAds.BBLNativeAdView.NativeAdSize = .medium)
   @_Concurrency.MainActor public func registerNativePresentation(adName: Swift.String, nativeAdView: BBLModuleAds.BBLNativeAdView, size: BBLModuleAds.BBLNativeAdView.NativeAdSize = .medium, enableLegacyReadyLookup: Swift.Bool)
   @_Concurrency.MainActor public func unregisterNativePresentation(adName: Swift.String)
@@ -1012,36 +1027,38 @@ extension SwiftUICore.View {
   
   #endif
 }
-@_hasMissingDesignatedInitializers final public class BBLUnityNativeOverlayManager {
-  public static let shared: BBLModuleAds.BBLUnityNativeOverlayManager
-  public static let placeholderAccessibilityId: Swift.String
-  public static let shimmerAccessibilityId: Swift.String
-  weak final public var rootOverlayView: UIKit.UIView? {
+@_hasMissingDesignatedInitializers @_Concurrency.MainActor final public class BBLUnityNativeOverlayManager {
+  @_Concurrency.MainActor public static let shared: BBLModuleAds.BBLUnityNativeOverlayManager
+  @_Concurrency.MainActor public static let placeholderAccessibilityId: Swift.String
+  @_Concurrency.MainActor public static let shimmerAccessibilityId: Swift.String
+  @_Concurrency.MainActor weak final public var rootOverlayView: UIKit.UIView? {
     get
   }
-  weak final public var slotContainer: UIKit.UIView? {
-    get
-  }
-  weak final public var placeholderView: UIKit.UIView? {
-    get
-  }
-  weak final public var shimmerView: UIKit.UIView? {
-    get
-  }
-  final public func setPlaceholderBounds(minX: Swift.Float, minY: Swift.Float, maxX: Swift.Float, maxY: Swift.Float)
-  final public func applyDefaultBounds(for size: BBLModuleAds.BBLNativeAdView.NativeAdSize)
-  final public func resetBoundsState()
+  @_Concurrency.MainActor final public func registerAppResumeObserverIfNeeded()
+  @_Concurrency.MainActor final public func dismissFullscreenOnAppResume()
+  @_Concurrency.MainActor final public func prepareNativeFullScreenShow(adName: Swift.String, dismissOnAdClick: Swift.Bool)
+  @_Concurrency.MainActor final public func setDefaultPlaceholderBounds(minX: Swift.Float, minY: Swift.Float, maxX: Swift.Float, maxY: Swift.Float)
   #if compiler(>=5.3) && $NonescapableTypes
-  final public func createNativeSlot(templateName: Swift.String?, size: BBLModuleAds.BBLNativeAdView.NativeAdSize) -> (slot: UIKit.UIView, placeholder: UIKit.UIView, shimmer: UIKit.UIView, nativeAdView: BBLModuleAds.BBLNativeAdView)
+  @_Concurrency.MainActor final public func setPlaceholderBounds(adName: Swift.String?, minX: Swift.Float, minY: Swift.Float, maxX: Swift.Float, maxY: Swift.Float)
   #endif
-  final public func attachRootOverlay(_ overlay: UIKit.UIView, slot: UIKit.UIView, to parentView: UIKit.UIView)
-  final public func hideShimmer()
-  final public func showShimmer()
-  final public func addCloseControls(to slot: UIKit.UIView, duration: Swift.Int32, fullscreen: Swift.Bool, onHide: @escaping () -> Swift.Void)
-  final public func cancelCloseControls()
-  final public func clearOverlayViews()
-  final public func tearDown()
+  @_Concurrency.MainActor final public func applyDefaultBounds(for size: BBLModuleAds.BBLNativeAdView.NativeAdSize, adName: Swift.String)
+  @_Concurrency.MainActor final public func resetBoundsState()
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor final public func showNative(adName: Swift.String, templateName: Swift.String?, size: BBLModuleAds.BBLNativeAdView.NativeAdSize, containerStyle: Swift.String, duration: Swift.Int32, customBounds: (minX: Swift.Float, minY: Swift.Float, maxX: Swift.Float, maxY: Swift.Float)?, in viewController: UIKit.UIViewController, onHide: @escaping (Swift.String) -> Swift.Void, onAdClicked: @escaping (Swift.String) -> Swift.Void) -> (nativeAdView: BBLModuleAds.BBLNativeAdView, callback: BBLModuleAds.AdCallback)?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor final public func hide(adName: Swift.String?)
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_Concurrency.MainActor final public func destroy(adName: Swift.String?)
+  #endif
+  @_Concurrency.MainActor final public func cancelCloseControls()
+  @_Concurrency.MainActor final public func tearDown()
   @objc deinit
+}
+extension BBLModuleAds.BBLUnityNativeOverlayManager {
+  @_Concurrency.MainActor final public func setPlaceholderBounds(minX: Swift.Float, minY: Swift.Float, maxX: Swift.Float, maxY: Swift.Float)
+  @_Concurrency.MainActor final public func clearOverlayViews()
 }
 public enum AdType : Swift.String, Swift.Codable {
   case banner
@@ -1102,6 +1119,9 @@ public struct EncryptionUtils {
   public static func isEncryptedJson(_ jsonString: Swift.String) -> Swift.Bool
   #if compiler(>=5.3) && $NonescapableTypes
   public static func decryptJson(_ encryptedString: Swift.String, encryptionKey: Swift.String? = nil) -> Swift.String?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public static func encryptJson(_ plaintext: Swift.String, encryptionKey: Swift.String? = nil) -> Swift.String?
   #endif
 }
 public struct Logger {
@@ -1168,6 +1188,7 @@ extension BBLModuleAds.BBLNativeAdView.NativeAdSize : Swift.Equatable {}
 extension BBLModuleAds.BBLNativeAdView.NativeAdSize : Swift.Hashable {}
 @available(iOS 13.0, *)
 extension BBLModuleAds.NativeAdViewRepresentable : Swift.Sendable {}
+extension BBLModuleAds.BBLUnityNativeOverlayManager : Swift.Sendable {}
 extension BBLModuleAds.AdType : Swift.Equatable {}
 extension BBLModuleAds.AdType : Swift.Hashable {}
 extension BBLModuleAds.AdType : Swift.RawRepresentable {}

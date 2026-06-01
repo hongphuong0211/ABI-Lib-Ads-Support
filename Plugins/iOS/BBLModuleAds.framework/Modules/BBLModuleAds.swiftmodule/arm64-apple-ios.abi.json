@@ -7558,6 +7558,194 @@
                 "children": [
                   {
                     "kind": "Var",
+                    "name": "closeBtnRenderDefault",
+                    "printedName": "closeBtnRenderDefault",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Int",
+                        "printedName": "Swift.Int",
+                        "usr": "s:Si"
+                      }
+                    ],
+                    "declKind": "Var",
+                    "usr": "s:12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V21closeBtnRenderDefaultSivpZ",
+                    "mangledName": "$s12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V21closeBtnRenderDefaultSivpZ",
+                    "moduleName": "BBLModuleAds",
+                    "static": true,
+                    "declAttributes": [
+                      "HasInitialValue",
+                      "HasStorage",
+                      "AccessControl"
+                    ],
+                    "isLet": true,
+                    "hasStorage": true,
+                    "accessors": [
+                      {
+                        "kind": "Accessor",
+                        "name": "Get",
+                        "printedName": "Get()",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Int",
+                            "printedName": "Swift.Int",
+                            "usr": "s:Si"
+                          }
+                        ],
+                        "declKind": "Accessor",
+                        "usr": "s:12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V21closeBtnRenderDefaultSivgZ",
+                        "mangledName": "$s12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V21closeBtnRenderDefaultSivgZ",
+                        "moduleName": "BBLModuleAds",
+                        "static": true,
+                        "implicit": true,
+                        "accessorKind": "get"
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "Var",
+                    "name": "closeBtnRenderCloseTopLeft",
+                    "printedName": "closeBtnRenderCloseTopLeft",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Int",
+                        "printedName": "Swift.Int",
+                        "usr": "s:Si"
+                      }
+                    ],
+                    "declKind": "Var",
+                    "usr": "s:12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V26closeBtnRenderCloseTopLeftSivpZ",
+                    "mangledName": "$s12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V26closeBtnRenderCloseTopLeftSivpZ",
+                    "moduleName": "BBLModuleAds",
+                    "static": true,
+                    "declAttributes": [
+                      "HasInitialValue",
+                      "HasStorage",
+                      "AccessControl"
+                    ],
+                    "isLet": true,
+                    "hasStorage": true,
+                    "accessors": [
+                      {
+                        "kind": "Accessor",
+                        "name": "Get",
+                        "printedName": "Get()",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Int",
+                            "printedName": "Swift.Int",
+                            "usr": "s:Si"
+                          }
+                        ],
+                        "declKind": "Accessor",
+                        "usr": "s:12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V26closeBtnRenderCloseTopLeftSivgZ",
+                        "mangledName": "$s12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V26closeBtnRenderCloseTopLeftSivgZ",
+                        "moduleName": "BBLModuleAds",
+                        "static": true,
+                        "implicit": true,
+                        "accessorKind": "get"
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "Var",
+                    "name": "closeBtnRenderMetaProgress",
+                    "printedName": "closeBtnRenderMetaProgress",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Int",
+                        "printedName": "Swift.Int",
+                        "usr": "s:Si"
+                      }
+                    ],
+                    "declKind": "Var",
+                    "usr": "s:12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V26closeBtnRenderMetaProgressSivpZ",
+                    "mangledName": "$s12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V26closeBtnRenderMetaProgressSivpZ",
+                    "moduleName": "BBLModuleAds",
+                    "static": true,
+                    "declAttributes": [
+                      "HasInitialValue",
+                      "HasStorage",
+                      "AccessControl"
+                    ],
+                    "isLet": true,
+                    "hasStorage": true,
+                    "accessors": [
+                      {
+                        "kind": "Accessor",
+                        "name": "Get",
+                        "printedName": "Get()",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Int",
+                            "printedName": "Swift.Int",
+                            "usr": "s:Si"
+                          }
+                        ],
+                        "declKind": "Accessor",
+                        "usr": "s:12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V26closeBtnRenderMetaProgressSivgZ",
+                        "mangledName": "$s12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V26closeBtnRenderMetaProgressSivgZ",
+                        "moduleName": "BBLModuleAds",
+                        "static": true,
+                        "implicit": true,
+                        "accessorKind": "get"
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "Var",
+                    "name": "closeBtnRenderDelayOnly",
+                    "printedName": "closeBtnRenderDelayOnly",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Int",
+                        "printedName": "Swift.Int",
+                        "usr": "s:Si"
+                      }
+                    ],
+                    "declKind": "Var",
+                    "usr": "s:12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V23closeBtnRenderDelayOnlySivpZ",
+                    "mangledName": "$s12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V23closeBtnRenderDelayOnlySivpZ",
+                    "moduleName": "BBLModuleAds",
+                    "static": true,
+                    "declAttributes": [
+                      "HasInitialValue",
+                      "HasStorage",
+                      "AccessControl"
+                    ],
+                    "isLet": true,
+                    "hasStorage": true,
+                    "accessors": [
+                      {
+                        "kind": "Accessor",
+                        "name": "Get",
+                        "printedName": "Get()",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Int",
+                            "printedName": "Swift.Int",
+                            "usr": "s:Si"
+                          }
+                        ],
+                        "declKind": "Accessor",
+                        "usr": "s:12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V23closeBtnRenderDelayOnlySivgZ",
+                        "mangledName": "$s12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V23closeBtnRenderDelayOnlySivgZ",
+                        "moduleName": "BBLModuleAds",
+                        "static": true,
+                        "implicit": true,
+                        "accessorKind": "get"
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "Var",
                     "name": "btnActColor",
                     "printedName": "btnActColor",
                     "children": [
@@ -7856,6 +8044,178 @@
                         "declKind": "Accessor",
                         "usr": "s:12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V20delayTimeShowBtnNextSivM",
                         "mangledName": "$s12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V20delayTimeShowBtnNextSivM",
+                        "moduleName": "BBLModuleAds",
+                        "implicit": true,
+                        "accessorKind": "_modify"
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "Var",
+                    "name": "closeBtnRenderMode",
+                    "printedName": "closeBtnRenderMode",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Int",
+                        "printedName": "Swift.Int",
+                        "usr": "s:Si"
+                      }
+                    ],
+                    "declKind": "Var",
+                    "usr": "s:12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V18closeBtnRenderModeSivp",
+                    "mangledName": "$s12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V18closeBtnRenderModeSivp",
+                    "moduleName": "BBLModuleAds",
+                    "declAttributes": [
+                      "HasInitialValue",
+                      "HasStorage",
+                      "AccessControl"
+                    ],
+                    "hasStorage": true,
+                    "accessors": [
+                      {
+                        "kind": "Accessor",
+                        "name": "Get",
+                        "printedName": "Get()",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Int",
+                            "printedName": "Swift.Int",
+                            "usr": "s:Si"
+                          }
+                        ],
+                        "declKind": "Accessor",
+                        "usr": "s:12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V18closeBtnRenderModeSivg",
+                        "mangledName": "$s12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V18closeBtnRenderModeSivg",
+                        "moduleName": "BBLModuleAds",
+                        "implicit": true,
+                        "accessorKind": "get"
+                      },
+                      {
+                        "kind": "Accessor",
+                        "name": "Set",
+                        "printedName": "Set()",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Void",
+                            "printedName": "()"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Int",
+                            "printedName": "Swift.Int",
+                            "usr": "s:Si"
+                          }
+                        ],
+                        "declKind": "Accessor",
+                        "usr": "s:12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V18closeBtnRenderModeSivs",
+                        "mangledName": "$s12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V18closeBtnRenderModeSivs",
+                        "moduleName": "BBLModuleAds",
+                        "implicit": true,
+                        "accessorKind": "set"
+                      },
+                      {
+                        "kind": "Accessor",
+                        "name": "Modify",
+                        "printedName": "Modify()",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Void",
+                            "printedName": "()"
+                          }
+                        ],
+                        "declKind": "Accessor",
+                        "usr": "s:12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V18closeBtnRenderModeSivM",
+                        "mangledName": "$s12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V18closeBtnRenderModeSivM",
+                        "moduleName": "BBLModuleAds",
+                        "implicit": true,
+                        "accessorKind": "_modify"
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "Var",
+                    "name": "dismissOnAdClick",
+                    "printedName": "dismissOnAdClick",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Bool",
+                        "printedName": "Swift.Bool",
+                        "usr": "s:Sb"
+                      }
+                    ],
+                    "declKind": "Var",
+                    "usr": "s:12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V09dismissOnF5ClickSbvp",
+                    "mangledName": "$s12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V09dismissOnF5ClickSbvp",
+                    "moduleName": "BBLModuleAds",
+                    "declAttributes": [
+                      "HasInitialValue",
+                      "HasStorage",
+                      "AccessControl"
+                    ],
+                    "hasStorage": true,
+                    "accessors": [
+                      {
+                        "kind": "Accessor",
+                        "name": "Get",
+                        "printedName": "Get()",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Bool",
+                            "printedName": "Swift.Bool",
+                            "usr": "s:Sb"
+                          }
+                        ],
+                        "declKind": "Accessor",
+                        "usr": "s:12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V09dismissOnF5ClickSbvg",
+                        "mangledName": "$s12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V09dismissOnF5ClickSbvg",
+                        "moduleName": "BBLModuleAds",
+                        "implicit": true,
+                        "accessorKind": "get"
+                      },
+                      {
+                        "kind": "Accessor",
+                        "name": "Set",
+                        "printedName": "Set()",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Void",
+                            "printedName": "()"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Bool",
+                            "printedName": "Swift.Bool",
+                            "usr": "s:Sb"
+                          }
+                        ],
+                        "declKind": "Accessor",
+                        "usr": "s:12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V09dismissOnF5ClickSbvs",
+                        "mangledName": "$s12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V09dismissOnF5ClickSbvs",
+                        "moduleName": "BBLModuleAds",
+                        "implicit": true,
+                        "accessorKind": "set"
+                      },
+                      {
+                        "kind": "Accessor",
+                        "name": "Modify",
+                        "printedName": "Modify()",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Void",
+                            "printedName": "()"
+                          }
+                        ],
+                        "declKind": "Accessor",
+                        "usr": "s:12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V09dismissOnF5ClickSbvM",
+                        "mangledName": "$s12BBLModuleAds15PlacementConfigC08NativeAdD0V07ClickedD0V09dismissOnF5ClickSbvM",
                         "moduleName": "BBLModuleAds",
                         "implicit": true,
                         "accessorKind": "_modify"
@@ -14595,6 +14955,133 @@
           },
           {
             "kind": "Function",
+            "name": "clearAllBannerLoadingStates",
+            "printedName": "clearAllBannerLoadingStates()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12BBLModuleAds0B7ManagerC27clearAllBannerLoadingStatesyyF",
+            "mangledName": "$s12BBLModuleAds0B7ManagerC27clearAllBannerLoadingStatesyyF",
+            "moduleName": "BBLModuleAds",
+            "declAttributes": [
+              "Custom",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "validateUnityMediationRequirements",
+            "printedName": "validateUnityMediationRequirements(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "GlobalConfig",
+                "printedName": "BBLModuleAds.GlobalConfig",
+                "usr": "s:12BBLModuleAds12GlobalConfigC"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12BBLModuleAds0B7ManagerC34validateUnityMediationRequirementsySSSgAA12GlobalConfigCFZ",
+            "mangledName": "$s12BBLModuleAds0B7ManagerC34validateUnityMediationRequirementsySSSgAA12GlobalConfigCFZ",
+            "moduleName": "BBLModuleAds",
+            "static": true,
+            "declAttributes": [
+              "Custom",
+              "Final",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "requestInitSecurityPermission",
+            "printedName": "requestInitSecurityPermission(config:completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "GlobalConfig",
+                "printedName": "BBLModuleAds.GlobalConfig",
+                "usr": "s:12BBLModuleAds12GlobalConfigC"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Swift.Bool, Swift.String?) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Tuple",
+                    "printedName": "(Swift.Bool, Swift.String?)",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Bool",
+                        "printedName": "Swift.Bool",
+                        "usr": "s:Sb"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "Swift.String?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "String",
+                            "printedName": "Swift.String",
+                            "usr": "s:SS"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12BBLModuleAds0B7ManagerC29requestInitSecurityPermission6config10completionyAA12GlobalConfigC_ySb_SSSgtctF",
+            "mangledName": "$s12BBLModuleAds0B7ManagerC29requestInitSecurityPermission6config10completionyAA12GlobalConfigC_ySb_SSSgtctF",
+            "moduleName": "BBLModuleAds",
+            "declAttributes": [
+              "Custom",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
             "name": "registerNativePresentation",
             "printedName": "registerNativePresentation(adName:nativeAdView:size:)",
             "children": [
@@ -20193,6 +20680,40 @@
         "kind": "Import",
         "name": "FirebaseAnalytics",
         "printedName": "FirebaseAnalytics",
+        "declKind": "Import",
+        "moduleName": "BBLModuleAds"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "BBLModuleAds",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Network",
+        "printedName": "Network",
+        "declKind": "Import",
+        "moduleName": "BBLModuleAds"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "BBLModuleAds",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "CoreTelephony",
+        "printedName": "CoreTelephony",
         "declKind": "Import",
         "moduleName": "BBLModuleAds"
       },
@@ -30124,6 +30645,7 @@
               "HasInitialValue",
               "Final",
               "HasStorage",
+              "Custom",
               "AccessControl"
             ],
             "isLet": true,
@@ -30175,6 +30697,7 @@
               "HasInitialValue",
               "Final",
               "HasStorage",
+              "Custom",
               "AccessControl"
             ],
             "isLet": true,
@@ -30226,6 +30749,7 @@
               "HasInitialValue",
               "Final",
               "HasStorage",
+              "Custom",
               "AccessControl"
             ],
             "isLet": true,
@@ -30274,6 +30798,7 @@
             "declAttributes": [
               "HasInitialValue",
               "Final",
+              "Custom",
               "HasStorage",
               "ReferenceOwnership",
               "SetterAccess",
@@ -30315,178 +30840,526 @@
             ]
           },
           {
-            "kind": "Var",
-            "name": "slotContainer",
-            "printedName": "slotContainer",
+            "kind": "Function",
+            "name": "registerAppResumeObserverIfNeeded",
+            "printedName": "registerAppResumeObserverIfNeeded()",
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "WeakStorage",
-                "printedName": "UIKit.UIView?"
+                "name": "Void",
+                "printedName": "()"
               }
             ],
-            "declKind": "Var",
-            "usr": "s:12BBLModuleAds28BBLUnityNativeOverlayManagerC13slotContainerSo6UIViewCSgvp",
-            "mangledName": "$s12BBLModuleAds28BBLUnityNativeOverlayManagerC13slotContainerSo6UIViewCSgvp",
+            "declKind": "Func",
+            "usr": "s:12BBLModuleAds28BBLUnityNativeOverlayManagerC33registerAppResumeObserverIfNeededyyF",
+            "mangledName": "$s12BBLModuleAds28BBLUnityNativeOverlayManagerC33registerAppResumeObserverIfNeededyyF",
             "moduleName": "BBLModuleAds",
             "declAttributes": [
-              "HasInitialValue",
+              "Custom",
               "Final",
-              "HasStorage",
-              "ReferenceOwnership",
-              "SetterAccess",
-              "AccessControl"
+              "AccessControl",
+              "RawDocComment"
             ],
-            "ownership": 1,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Optional",
-                    "printedName": "UIKit.UIView?",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "UIView",
-                        "printedName": "UIKit.UIView",
-                        "usr": "c:objc(cs)UIView"
-                      }
-                    ],
-                    "usr": "s:Sq"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:12BBLModuleAds28BBLUnityNativeOverlayManagerC13slotContainerSo6UIViewCSgvg",
-                "mangledName": "$s12BBLModuleAds28BBLUnityNativeOverlayManagerC13slotContainerSo6UIViewCSgvg",
-                "moduleName": "BBLModuleAds",
-                "implicit": true,
-                "declAttributes": [
-                  "Final"
-                ],
-                "accessorKind": "get"
-              }
-            ]
+            "funcSelfKind": "NonMutating"
           },
           {
-            "kind": "Var",
-            "name": "placeholderView",
-            "printedName": "placeholderView",
+            "kind": "Function",
+            "name": "dismissFullscreenOnAppResume",
+            "printedName": "dismissFullscreenOnAppResume()",
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "WeakStorage",
-                "printedName": "UIKit.UIView?"
+                "name": "Void",
+                "printedName": "()"
               }
             ],
-            "declKind": "Var",
-            "usr": "s:12BBLModuleAds28BBLUnityNativeOverlayManagerC15placeholderViewSo6UIViewCSgvp",
-            "mangledName": "$s12BBLModuleAds28BBLUnityNativeOverlayManagerC15placeholderViewSo6UIViewCSgvp",
+            "declKind": "Func",
+            "usr": "s:12BBLModuleAds28BBLUnityNativeOverlayManagerC28dismissFullscreenOnAppResumeyyF",
+            "mangledName": "$s12BBLModuleAds28BBLUnityNativeOverlayManagerC28dismissFullscreenOnAppResumeyyF",
             "moduleName": "BBLModuleAds",
             "declAttributes": [
-              "HasInitialValue",
+              "Custom",
               "Final",
-              "HasStorage",
-              "ReferenceOwnership",
-              "SetterAccess",
               "AccessControl"
             ],
-            "ownership": 1,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Optional",
-                    "printedName": "UIKit.UIView?",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "UIView",
-                        "printedName": "UIKit.UIView",
-                        "usr": "c:objc(cs)UIView"
-                      }
-                    ],
-                    "usr": "s:Sq"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:12BBLModuleAds28BBLUnityNativeOverlayManagerC15placeholderViewSo6UIViewCSgvg",
-                "mangledName": "$s12BBLModuleAds28BBLUnityNativeOverlayManagerC15placeholderViewSo6UIViewCSgvg",
-                "moduleName": "BBLModuleAds",
-                "implicit": true,
-                "declAttributes": [
-                  "Final"
-                ],
-                "accessorKind": "get"
-              }
-            ]
+            "funcSelfKind": "NonMutating"
           },
           {
-            "kind": "Var",
-            "name": "shimmerView",
-            "printedName": "shimmerView",
+            "kind": "Function",
+            "name": "prepareNativeFullScreenShow",
+            "printedName": "prepareNativeFullScreenShow(adName:dismissOnAdClick:)",
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "WeakStorage",
-                "printedName": "UIKit.UIView?"
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
               }
             ],
-            "declKind": "Var",
-            "usr": "s:12BBLModuleAds28BBLUnityNativeOverlayManagerC11shimmerViewSo6UIViewCSgvp",
-            "mangledName": "$s12BBLModuleAds28BBLUnityNativeOverlayManagerC11shimmerViewSo6UIViewCSgvp",
+            "declKind": "Func",
+            "usr": "s:12BBLModuleAds28BBLUnityNativeOverlayManagerC07prepareD14FullScreenShow6adName16dismissOnAdClickySS_SbtF",
+            "mangledName": "$s12BBLModuleAds28BBLUnityNativeOverlayManagerC07prepareD14FullScreenShow6adName16dismissOnAdClickySS_SbtF",
             "moduleName": "BBLModuleAds",
             "declAttributes": [
-              "HasInitialValue",
+              "Custom",
               "Final",
-              "HasStorage",
-              "ReferenceOwnership",
-              "SetterAccess",
               "AccessControl"
             ],
-            "ownership": 1,
-            "hasStorage": true,
-            "accessors": [
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "setDefaultPlaceholderBounds",
+            "printedName": "setDefaultPlaceholderBounds(minX:minY:maxX:maxY:)",
+            "children": [
               {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Float",
+                "printedName": "Swift.Float",
+                "usr": "s:Sf"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Float",
+                "printedName": "Swift.Float",
+                "usr": "s:Sf"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Float",
+                "printedName": "Swift.Float",
+                "usr": "s:Sf"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Float",
+                "printedName": "Swift.Float",
+                "usr": "s:Sf"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12BBLModuleAds28BBLUnityNativeOverlayManagerC27setDefaultPlaceholderBounds4minX0K1Y4maxX0L1YySf_S3ftF",
+            "mangledName": "$s12BBLModuleAds28BBLUnityNativeOverlayManagerC27setDefaultPlaceholderBounds4minX0K1Y4maxX0L1YySf_S3ftF",
+            "moduleName": "BBLModuleAds",
+            "declAttributes": [
+              "Custom",
+              "Final",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "setPlaceholderBounds",
+            "printedName": "setPlaceholderBounds(adName:minX:minY:maxX:maxY:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
                 "children": [
                   {
                     "kind": "TypeNominal",
-                    "name": "Optional",
-                    "printedName": "UIKit.UIView?",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Float",
+                "printedName": "Swift.Float",
+                "usr": "s:Sf"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Float",
+                "printedName": "Swift.Float",
+                "usr": "s:Sf"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Float",
+                "printedName": "Swift.Float",
+                "usr": "s:Sf"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Float",
+                "printedName": "Swift.Float",
+                "usr": "s:Sf"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12BBLModuleAds28BBLUnityNativeOverlayManagerC20setPlaceholderBounds6adName4minX0L1Y4maxX0M1YySSSg_S4ftF",
+            "mangledName": "$s12BBLModuleAds28BBLUnityNativeOverlayManagerC20setPlaceholderBounds6adName4minX0L1Y4maxX0M1YySSSg_S4ftF",
+            "moduleName": "BBLModuleAds",
+            "declAttributes": [
+              "Custom",
+              "Final",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "applyDefaultBounds",
+            "printedName": "applyDefaultBounds(for:adName:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "NativeAdSize",
+                "printedName": "BBLModuleAds.BBLNativeAdView.NativeAdSize",
+                "usr": "s:12BBLModuleAds15BBLNativeAdViewC06NativeD4SizeO"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12BBLModuleAds28BBLUnityNativeOverlayManagerC18applyDefaultBounds3for6adNameyAA15BBLNativeAdViewC0dN4SizeO_SStF",
+            "mangledName": "$s12BBLModuleAds28BBLUnityNativeOverlayManagerC18applyDefaultBounds3for6adNameyAA15BBLNativeAdViewC0dN4SizeO_SStF",
+            "moduleName": "BBLModuleAds",
+            "declAttributes": [
+              "Custom",
+              "Final",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "resetBoundsState",
+            "printedName": "resetBoundsState()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12BBLModuleAds28BBLUnityNativeOverlayManagerC16resetBoundsStateyyF",
+            "mangledName": "$s12BBLModuleAds28BBLUnityNativeOverlayManagerC16resetBoundsStateyyF",
+            "moduleName": "BBLModuleAds",
+            "declAttributes": [
+              "Custom",
+              "Final",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "showNative",
+            "printedName": "showNative(adName:templateName:size:containerStyle:duration:customBounds:in:onHide:onAdClicked:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(nativeAdView: BBLModuleAds.BBLNativeAdView, callback: BBLModuleAds.AdCallback)?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Tuple",
+                    "printedName": "(nativeAdView: BBLModuleAds.BBLNativeAdView, callback: BBLModuleAds.AdCallback)",
                     "children": [
                       {
                         "kind": "TypeNominal",
-                        "name": "UIView",
-                        "printedName": "UIKit.UIView",
-                        "usr": "c:objc(cs)UIView"
+                        "name": "BBLNativeAdView",
+                        "printedName": "BBLModuleAds.BBLNativeAdView",
+                        "usr": "c:@M@BBLModuleAds@objc(cs)BBLNativeAdView"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "AdCallback",
+                        "printedName": "BBLModuleAds.AdCallback",
+                        "usr": "s:12BBLModuleAds10AdCallbackV"
                       }
-                    ],
-                    "usr": "s:Sq"
+                    ]
                   }
                 ],
-                "declKind": "Accessor",
-                "usr": "s:12BBLModuleAds28BBLUnityNativeOverlayManagerC11shimmerViewSo6UIViewCSgvg",
-                "mangledName": "$s12BBLModuleAds28BBLUnityNativeOverlayManagerC11shimmerViewSo6UIViewCSgvg",
-                "moduleName": "BBLModuleAds",
-                "implicit": true,
-                "declAttributes": [
-                  "Final"
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
                 ],
-                "accessorKind": "get"
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "NativeAdSize",
+                "printedName": "BBLModuleAds.BBLNativeAdView.NativeAdSize",
+                "usr": "s:12BBLModuleAds15BBLNativeAdViewC06NativeD4SizeO"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int32",
+                "printedName": "Swift.Int32",
+                "usr": "s:s5Int32V"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(minX: Swift.Float, minY: Swift.Float, maxX: Swift.Float, maxY: Swift.Float)?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Tuple",
+                    "printedName": "(minX: Swift.Float, minY: Swift.Float, maxX: Swift.Float, maxY: Swift.Float)",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Float",
+                        "printedName": "Swift.Float",
+                        "usr": "s:Sf"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Float",
+                        "printedName": "Swift.Float",
+                        "usr": "s:Sf"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Float",
+                        "printedName": "Swift.Float",
+                        "usr": "s:Sf"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Float",
+                        "printedName": "Swift.Float",
+                        "usr": "s:Sf"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UIViewController",
+                "printedName": "UIKit.UIViewController",
+                "usr": "c:objc(cs)UIViewController"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Swift.String) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ]
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Swift.String) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ]
               }
-            ]
+            ],
+            "declKind": "Func",
+            "usr": "s:12BBLModuleAds28BBLUnityNativeOverlayManagerC04showD06adName08templateI04size14containerStyle8duration12customBounds2in6onHide0R9AdClickedAA09BBLNativeT4ViewC06nativetW0_AA0T8CallbackV8callbacktSgSS_SSSgAO0dT4SizeOSSs5Int32VSf4minX_Sf4minYSf4maxXSf4maxYtSgSo16UIViewControllerCySScySSctF",
+            "mangledName": "$s12BBLModuleAds28BBLUnityNativeOverlayManagerC04showD06adName08templateI04size14containerStyle8duration12customBounds2in6onHide0R9AdClickedAA09BBLNativeT4ViewC06nativetW0_AA0T8CallbackV8callbacktSgSS_SSSgAO0dT4SizeOSSs5Int32VSf4minX_Sf4minYSf4maxXSf4maxYtSgSo16UIViewControllerCySScySSctF",
+            "moduleName": "BBLModuleAds",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "Custom",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "hide",
+            "printedName": "hide(adName:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12BBLModuleAds28BBLUnityNativeOverlayManagerC4hide6adNameySSSg_tF",
+            "mangledName": "$s12BBLModuleAds28BBLUnityNativeOverlayManagerC4hide6adNameySSSg_tF",
+            "moduleName": "BBLModuleAds",
+            "declAttributes": [
+              "Custom",
+              "Final",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "destroy",
+            "printedName": "destroy(adName:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12BBLModuleAds28BBLUnityNativeOverlayManagerC7destroy6adNameySSSg_tF",
+            "mangledName": "$s12BBLModuleAds28BBLUnityNativeOverlayManagerC7destroy6adNameySSSg_tF",
+            "moduleName": "BBLModuleAds",
+            "declAttributes": [
+              "Custom",
+              "Final",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "cancelCloseControls",
+            "printedName": "cancelCloseControls()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12BBLModuleAds28BBLUnityNativeOverlayManagerC19cancelCloseControlsyyF",
+            "mangledName": "$s12BBLModuleAds28BBLUnityNativeOverlayManagerC19cancelCloseControlsyyF",
+            "moduleName": "BBLModuleAds",
+            "declAttributes": [
+              "Custom",
+              "Final",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "tearDown",
+            "printedName": "tearDown()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12BBLModuleAds28BBLUnityNativeOverlayManagerC8tearDownyyF",
+            "mangledName": "$s12BBLModuleAds28BBLUnityNativeOverlayManagerC8tearDownyyF",
+            "moduleName": "BBLModuleAds",
+            "declAttributes": [
+              "Custom",
+              "Final",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
           },
           {
             "kind": "Function",
@@ -30528,285 +31401,11 @@
             "mangledName": "$s12BBLModuleAds28BBLUnityNativeOverlayManagerC20setPlaceholderBounds4minX0J1Y4maxX0K1YySf_S3ftF",
             "moduleName": "BBLModuleAds",
             "declAttributes": [
-              "Final",
-              "AccessControl",
-              "RawDocComment"
-            ],
-            "funcSelfKind": "NonMutating"
-          },
-          {
-            "kind": "Function",
-            "name": "applyDefaultBounds",
-            "printedName": "applyDefaultBounds(for:)",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Void",
-                "printedName": "()"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "NativeAdSize",
-                "printedName": "BBLModuleAds.BBLNativeAdView.NativeAdSize",
-                "usr": "s:12BBLModuleAds15BBLNativeAdViewC06NativeD4SizeO"
-              }
-            ],
-            "declKind": "Func",
-            "usr": "s:12BBLModuleAds28BBLUnityNativeOverlayManagerC18applyDefaultBounds3foryAA15BBLNativeAdViewC0dL4SizeO_tF",
-            "mangledName": "$s12BBLModuleAds28BBLUnityNativeOverlayManagerC18applyDefaultBounds3foryAA15BBLNativeAdViewC0dL4SizeO_tF",
-            "moduleName": "BBLModuleAds",
-            "declAttributes": [
+              "Custom",
               "Final",
               "AccessControl"
             ],
-            "funcSelfKind": "NonMutating"
-          },
-          {
-            "kind": "Function",
-            "name": "resetBoundsState",
-            "printedName": "resetBoundsState()",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Void",
-                "printedName": "()"
-              }
-            ],
-            "declKind": "Func",
-            "usr": "s:12BBLModuleAds28BBLUnityNativeOverlayManagerC16resetBoundsStateyyF",
-            "mangledName": "$s12BBLModuleAds28BBLUnityNativeOverlayManagerC16resetBoundsStateyyF",
-            "moduleName": "BBLModuleAds",
-            "declAttributes": [
-              "Final",
-              "AccessControl"
-            ],
-            "funcSelfKind": "NonMutating"
-          },
-          {
-            "kind": "Function",
-            "name": "createNativeSlot",
-            "printedName": "createNativeSlot(templateName:size:)",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Tuple",
-                "printedName": "(slot: UIKit.UIView, placeholder: UIKit.UIView, shimmer: UIKit.UIView, nativeAdView: BBLModuleAds.BBLNativeAdView)",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "UIView",
-                    "printedName": "UIKit.UIView",
-                    "usr": "c:objc(cs)UIView"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "UIView",
-                    "printedName": "UIKit.UIView",
-                    "usr": "c:objc(cs)UIView"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "UIView",
-                    "printedName": "UIKit.UIView",
-                    "usr": "c:objc(cs)UIView"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "BBLNativeAdView",
-                    "printedName": "BBLModuleAds.BBLNativeAdView",
-                    "usr": "c:@M@BBLModuleAds@objc(cs)BBLNativeAdView"
-                  }
-                ]
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "Optional",
-                "printedName": "Swift.String?",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "String",
-                    "printedName": "Swift.String",
-                    "usr": "s:SS"
-                  }
-                ],
-                "usr": "s:Sq"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "NativeAdSize",
-                "printedName": "BBLModuleAds.BBLNativeAdView.NativeAdSize",
-                "usr": "s:12BBLModuleAds15BBLNativeAdViewC06NativeD4SizeO"
-              }
-            ],
-            "declKind": "Func",
-            "usr": "s:12BBLModuleAds28BBLUnityNativeOverlayManagerC06createD4Slot12templateName4sizeSo6UIViewC4slot_AH11placeholderAH7shimmerAA15BBLNativeAdViewC06nativeqR0tSSSg_AM0dQ4SizeOtF",
-            "mangledName": "$s12BBLModuleAds28BBLUnityNativeOverlayManagerC06createD4Slot12templateName4sizeSo6UIViewC4slot_AH11placeholderAH7shimmerAA15BBLNativeAdViewC06nativeqR0tSSSg_AM0dQ4SizeOtF",
-            "moduleName": "BBLModuleAds",
-            "declAttributes": [
-              "Final",
-              "AccessControl",
-              "RawDocComment"
-            ],
-            "funcSelfKind": "NonMutating"
-          },
-          {
-            "kind": "Function",
-            "name": "attachRootOverlay",
-            "printedName": "attachRootOverlay(_:slot:to:)",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Void",
-                "printedName": "()"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "UIView",
-                "printedName": "UIKit.UIView",
-                "usr": "c:objc(cs)UIView"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "UIView",
-                "printedName": "UIKit.UIView",
-                "usr": "c:objc(cs)UIView"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "UIView",
-                "printedName": "UIKit.UIView",
-                "usr": "c:objc(cs)UIView"
-              }
-            ],
-            "declKind": "Func",
-            "usr": "s:12BBLModuleAds28BBLUnityNativeOverlayManagerC010attachRootE0_4slot2toySo6UIViewC_A2HtF",
-            "mangledName": "$s12BBLModuleAds28BBLUnityNativeOverlayManagerC010attachRootE0_4slot2toySo6UIViewC_A2HtF",
-            "moduleName": "BBLModuleAds",
-            "declAttributes": [
-              "Final",
-              "AccessControl"
-            ],
-            "funcSelfKind": "NonMutating"
-          },
-          {
-            "kind": "Function",
-            "name": "hideShimmer",
-            "printedName": "hideShimmer()",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Void",
-                "printedName": "()"
-              }
-            ],
-            "declKind": "Func",
-            "usr": "s:12BBLModuleAds28BBLUnityNativeOverlayManagerC11hideShimmeryyF",
-            "mangledName": "$s12BBLModuleAds28BBLUnityNativeOverlayManagerC11hideShimmeryyF",
-            "moduleName": "BBLModuleAds",
-            "declAttributes": [
-              "Final",
-              "AccessControl"
-            ],
-            "funcSelfKind": "NonMutating"
-          },
-          {
-            "kind": "Function",
-            "name": "showShimmer",
-            "printedName": "showShimmer()",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Void",
-                "printedName": "()"
-              }
-            ],
-            "declKind": "Func",
-            "usr": "s:12BBLModuleAds28BBLUnityNativeOverlayManagerC11showShimmeryyF",
-            "mangledName": "$s12BBLModuleAds28BBLUnityNativeOverlayManagerC11showShimmeryyF",
-            "moduleName": "BBLModuleAds",
-            "declAttributes": [
-              "Final",
-              "AccessControl"
-            ],
-            "funcSelfKind": "NonMutating"
-          },
-          {
-            "kind": "Function",
-            "name": "addCloseControls",
-            "printedName": "addCloseControls(to:duration:fullscreen:onHide:)",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Void",
-                "printedName": "()"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "UIView",
-                "printedName": "UIKit.UIView",
-                "usr": "c:objc(cs)UIView"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "Int32",
-                "printedName": "Swift.Int32",
-                "usr": "s:s5Int32V"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "Bool",
-                "printedName": "Swift.Bool",
-                "usr": "s:Sb"
-              },
-              {
-                "kind": "TypeFunc",
-                "name": "Function",
-                "printedName": "() -> ()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Void",
-                    "printedName": "()"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Void",
-                    "printedName": "()"
-                  }
-                ]
-              }
-            ],
-            "declKind": "Func",
-            "usr": "s:12BBLModuleAds28BBLUnityNativeOverlayManagerC16addCloseControls2to8duration10fullscreen6onHideySo6UIViewC_s5Int32VSbyyctF",
-            "mangledName": "$s12BBLModuleAds28BBLUnityNativeOverlayManagerC16addCloseControls2to8duration10fullscreen6onHideySo6UIViewC_s5Int32VSbyyctF",
-            "moduleName": "BBLModuleAds",
-            "declAttributes": [
-              "Final",
-              "AccessControl",
-              "RawDocComment"
-            ],
-            "funcSelfKind": "NonMutating"
-          },
-          {
-            "kind": "Function",
-            "name": "cancelCloseControls",
-            "printedName": "cancelCloseControls()",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Void",
-                "printedName": "()"
-              }
-            ],
-            "declKind": "Func",
-            "usr": "s:12BBLModuleAds28BBLUnityNativeOverlayManagerC19cancelCloseControlsyyF",
-            "mangledName": "$s12BBLModuleAds28BBLUnityNativeOverlayManagerC19cancelCloseControlsyyF",
-            "moduleName": "BBLModuleAds",
-            "declAttributes": [
-              "Final",
-              "AccessControl"
-            ],
+            "isFromExtension": true,
             "funcSelfKind": "NonMutating"
           },
           {
@@ -30825,31 +31424,11 @@
             "mangledName": "$s12BBLModuleAds28BBLUnityNativeOverlayManagerC05clearE5ViewsyyF",
             "moduleName": "BBLModuleAds",
             "declAttributes": [
-              "Final",
-              "AccessControl",
-              "RawDocComment"
-            ],
-            "funcSelfKind": "NonMutating"
-          },
-          {
-            "kind": "Function",
-            "name": "tearDown",
-            "printedName": "tearDown()",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Void",
-                "printedName": "()"
-              }
-            ],
-            "declKind": "Func",
-            "usr": "s:12BBLModuleAds28BBLUnityNativeOverlayManagerC8tearDownyyF",
-            "mangledName": "$s12BBLModuleAds28BBLUnityNativeOverlayManagerC8tearDownyyF",
-            "moduleName": "BBLModuleAds",
-            "declAttributes": [
+              "Custom",
               "Final",
               "AccessControl"
             ],
+            "isFromExtension": true,
             "funcSelfKind": "NonMutating"
           }
         ],
@@ -30860,6 +31439,7 @@
         "declAttributes": [
           "Final",
           "AccessControl",
+          "Custom",
           "RawDocComment"
         ],
         "hasMissingDesignatedInitializers": true,
@@ -30877,6 +31457,13 @@
             "printedName": "Escapable",
             "usr": "s:s9EscapableP",
             "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
           }
         ]
       },
@@ -32012,6 +32599,58 @@
             "declKind": "Func",
             "usr": "s:12BBLModuleAds15EncryptionUtilsV11decryptJson_13encryptionKeySSSgSS_AFtFZ",
             "mangledName": "$s12BBLModuleAds15EncryptionUtilsV11decryptJson_13encryptionKeySSSgSS_AFtFZ",
+            "moduleName": "BBLModuleAds",
+            "static": true,
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "encryptJson",
+            "printedName": "encryptJson(_:encryptionKey:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12BBLModuleAds15EncryptionUtilsV11encryptJson_13encryptionKeySSSgSS_AFtFZ",
+            "mangledName": "$s12BBLModuleAds15EncryptionUtilsV11encryptJson_13encryptionKeySSSgSS_AFtFZ",
             "moduleName": "BBLModuleAds",
             "static": true,
             "declAttributes": [
@@ -34579,140 +35218,175 @@
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Config\/PlacementConfig.swift",
       "kind": "IntegerLiteral",
-      "offset": 5200,
+      "offset": 5111,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Config\/PlacementConfig.swift",
-      "kind": "BooleanLiteral",
-      "offset": 5722,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Config\/PlacementConfig.swift",
-      "kind": "BooleanLiteral",
-      "offset": 5835,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Config\/PlacementConfig.swift",
       "kind": "IntegerLiteral",
-      "offset": 6241,
+      "offset": 5172,
       "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Config\/PlacementConfig.swift",
-      "kind": "BooleanLiteral",
-      "offset": 6426,
-      "length": 4,
-      "value": "true"
+      "value": "1"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Config\/PlacementConfig.swift",
       "kind": "IntegerLiteral",
-      "offset": 6471,
+      "offset": 5233,
+      "length": 1,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Config\/PlacementConfig.swift",
+      "kind": "IntegerLiteral",
+      "offset": 5291,
       "length": 1,
       "value": "3"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Config\/PlacementConfig.swift",
       "kind": "IntegerLiteral",
-      "offset": 6527,
+      "offset": 5437,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Config\/PlacementConfig.swift",
+      "kind": "BooleanLiteral",
+      "offset": 5558,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Config\/PlacementConfig.swift",
+      "kind": "BooleanLiteral",
+      "offset": 6084,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Config\/PlacementConfig.swift",
+      "kind": "BooleanLiteral",
+      "offset": 6197,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Config\/PlacementConfig.swift",
+      "kind": "IntegerLiteral",
+      "offset": 6603,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Config\/PlacementConfig.swift",
+      "kind": "BooleanLiteral",
+      "offset": 6788,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Config\/PlacementConfig.swift",
+      "kind": "IntegerLiteral",
+      "offset": 6833,
+      "length": 1,
+      "value": "3"
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Config\/PlacementConfig.swift",
+      "kind": "IntegerLiteral",
+      "offset": 6889,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Config\/PlacementConfig.swift",
       "kind": "Dictionary",
-      "offset": 6595,
+      "offset": 6957,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Config\/PlacementConfig.swift",
       "kind": "Array",
-      "offset": 7317,
+      "offset": 7679,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Config\/PlacementConfig.swift",
       "kind": "BooleanLiteral",
-      "offset": 7755,
+      "offset": 8117,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Config\/PlacementConfig.swift",
       "kind": "IntegerLiteral",
-      "offset": 7965,
+      "offset": 8327,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Config\/PlacementConfig.swift",
       "kind": "IntegerLiteral",
-      "offset": 8070,
+      "offset": 8432,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Config\/PlacementConfig.swift",
       "kind": "BooleanLiteral",
-      "offset": 8313,
+      "offset": 8675,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Config\/PlacementConfig.swift",
       "kind": "IntegerLiteral",
-      "offset": 8430,
+      "offset": 8792,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Config\/PlacementConfig.swift",
       "kind": "IntegerLiteral",
-      "offset": 8631,
+      "offset": 8993,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Config\/PlacementConfig.swift",
       "kind": "IntegerLiteral",
-      "offset": 8819,
+      "offset": 9181,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Config\/PlacementConfig.swift",
       "kind": "IntegerLiteral",
-      "offset": 8927,
+      "offset": 9289,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Config\/PlacementConfig.swift",
       "kind": "BooleanLiteral",
-      "offset": 9459,
+      "offset": 9821,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Config\/PlacementConfig.swift",
       "kind": "Array",
-      "offset": 9582,
+      "offset": 9944,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Config\/PlacementConfig.swift",
       "kind": "BooleanLiteral",
-      "offset": 9826,
+      "offset": 10188,
       "length": 4,
       "value": "true"
     },
@@ -34789,14 +35463,14 @@
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Core\/Application\/LifecycleCoordinator.swift",
       "kind": "BooleanLiteral",
-      "offset": 308,
+      "offset": 295,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Core\/Application\/LifecycleCoordinator.swift",
       "kind": "BooleanLiteral",
-      "offset": 353,
+      "offset": 339,
       "length": 5,
       "value": "false"
     },
@@ -34922,35 +35596,35 @@
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Core\/AdsManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 38303,
+      "offset": 39823,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Core\/AdsManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 38692,
+      "offset": 40212,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Core\/AdsManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 39150,
+      "offset": 40670,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Core\/BannerCoordinator.swift",
       "kind": "Dictionary",
-      "offset": 340,
+      "offset": 327,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Core\/BannerCoordinator.swift",
       "kind": "Dictionary",
-      "offset": 407,
+      "offset": 393,
       "length": 3,
       "value": "[]"
     },
@@ -35013,35 +35687,35 @@
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Core\/NativeAdsCoordinator.swift",
       "kind": "Dictionary",
-      "offset": 609,
+      "offset": 589,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Core\/NativeAdsCoordinator.swift",
       "kind": "Dictionary",
-      "offset": 666,
+      "offset": 645,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Core\/NativeAdsCoordinator.swift",
       "kind": "IntegerLiteral",
-      "offset": 729,
+      "offset": 707,
       "length": 3,
       "value": "300"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Core\/NativeAdsCoordinator.swift",
       "kind": "BooleanLiteral",
-      "offset": 802,
+      "offset": 777,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Core\/NativeAdsCoordinator.swift",
       "kind": "BooleanLiteral",
-      "offset": 1150,
+      "offset": 1112,
       "length": 5,
       "value": "false"
     },
@@ -35055,14 +35729,14 @@
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Function\/RewardedAdCallback.swift",
       "kind": "BooleanLiteral",
-      "offset": 293,
+      "offset": 282,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Function\/RewardedAdCallback.swift",
       "kind": "BooleanLiteral",
-      "offset": 327,
+      "offset": 315,
       "length": 5,
       "value": "false"
     },
@@ -35473,6 +36147,97 @@
       "value": "\"bbl_day_count\""
     },
     {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Security\/NetworkAvailability.swift",
+      "kind": "StringLiteral",
+      "offset": 228,
+      "length": 28,
+      "value": "\"com.bbl.module_ads.network\""
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Security\/NetworkAvailability.swift",
+      "kind": "Array",
+      "offset": 315,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Security\/NetworkAvailability.swift",
+      "kind": "BooleanLiteral",
+      "offset": 356,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Security\/SecurityInitGate.swift",
+      "kind": "StringLiteral",
+      "offset": 407,
+      "length": 48,
+      "value": "\"https:\/\/config.catgojsc.com\/api\/security\/check\""
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Security\/SecurityInitGate.swift",
+      "kind": "StringLiteral",
+      "offset": 502,
+      "length": 22,
+      "value": "\"bbl-security-gate-v1\""
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Security\/SecurityInitGate.swift",
+      "kind": "IntegerLiteral",
+      "offset": 583,
+      "length": 2,
+      "value": "30"
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Security\/SecurityInitGate.swift",
+      "kind": "IntegerLiteral",
+      "offset": 588,
+      "length": 2,
+      "value": "60"
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Security\/SecurityInitGate.swift",
+      "kind": "IntegerLiteral",
+      "offset": 647,
+      "length": 1,
+      "value": "5"
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Security\/SecurityInitGate.swift",
+      "kind": "IntegerLiteral",
+      "offset": 693,
+      "length": 1,
+      "value": "3"
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Security\/SecurityInitGate.swift",
+      "kind": "IntegerLiteral",
+      "offset": 749,
+      "length": 1,
+      "value": "8"
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Security\/SecurityInitGate.swift",
+      "kind": "BooleanLiteral",
+      "offset": 854,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Security\/SecurityInitGate.swift",
+      "kind": "IntegerLiteral",
+      "offset": 905,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Security\/SecurityInitGate.swift",
+      "kind": "StringLiteral",
+      "offset": 1008,
+      "length": 29,
+      "value": "\"com.bbl.module_ads.security\""
+    },
+    {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/SwiftUI\/AdModifiers.swift",
       "kind": "BooleanLiteral",
       "offset": 2392,
@@ -35796,52 +36561,115 @@
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Unity\/BBLUnityNativeOverlay.swift",
-      "kind": "StringLiteral",
-      "offset": 438,
-      "length": 18,
-      "value": "\"fl_adplaceholder\""
-    },
-    {
-      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Unity\/BBLUnityNativeOverlay.swift",
-      "kind": "StringLiteral",
-      "offset": 505,
-      "length": 26,
-      "value": "\"shimmer_container_native\""
-    },
-    {
-      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Unity\/BBLUnityNativeOverlay.swift",
       "kind": "BooleanLiteral",
-      "offset": 802,
+      "offset": 386,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Unity\/BBLUnityNativeOverlay.swift",
       "kind": "IntegerLiteral",
-      "offset": 841,
+      "offset": 416,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Unity\/BBLUnityNativeOverlay.swift",
       "kind": "FloatLiteral",
-      "offset": 876,
+      "offset": 442,
       "length": 4,
       "value": "0.85"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Unity\/BBLUnityNativeOverlay.swift",
       "kind": "IntegerLiteral",
-      "offset": 914,
+      "offset": 471,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Unity\/BBLUnityNativeOverlay.swift",
       "kind": "IntegerLiteral",
-      "offset": 949,
+      "offset": 497,
       "length": 1,
       "value": "1"
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Unity\/BBLUnityNativeOverlay.swift",
+      "kind": "StringLiteral",
+      "offset": 524,
+      "length": 8,
+      "value": "\"medium\""
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Unity\/BBLUnityNativeOverlay.swift",
+      "kind": "IntegerLiteral",
+      "offset": 732,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Unity\/BBLUnityNativeOverlay.swift",
+      "kind": "BooleanLiteral",
+      "offset": 803,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Unity\/BBLUnityNativeOverlay.swift",
+      "kind": "StringLiteral",
+      "offset": 1387,
+      "length": 18,
+      "value": "\"fl_adplaceholder\""
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Unity\/BBLUnityNativeOverlay.swift",
+      "kind": "StringLiteral",
+      "offset": 1453,
+      "length": 26,
+      "value": "\"shimmer_container_native\""
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Unity\/BBLUnityNativeOverlay.swift",
+      "kind": "Dictionary",
+      "offset": 1599,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Unity\/BBLUnityNativeOverlay.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1642,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Unity\/BBLUnityNativeOverlay.swift",
+      "kind": "FloatLiteral",
+      "offset": 1683,
+      "length": 4,
+      "value": "0.85"
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Unity\/BBLUnityNativeOverlay.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1727,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Unity\/BBLUnityNativeOverlay.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1768,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Unity\/BBLUnityNativeOverlay.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1813,
+      "length": 5,
+      "value": "false"
     },
     {
       "filePath": "\/Users\/phuongtrinh\/Downloads\/BBL-Module-Ads\/ios-project\/BBL-Module-Ads\/BBL-Module-Ads\/Utils\/AdsPreferenceStorage.swift",

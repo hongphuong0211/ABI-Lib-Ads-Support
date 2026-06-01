@@ -352,7 +352,7 @@ namespace ABI.Ads.UnityBridge
                 bridge.CallStatic("setNativePlaceholderBounds", minX, minY, maxX, maxY);
             }
 #elif UNITY_IOS && !UNITY_EDITOR
-            ABIUnityAds_SetNativePlaceholderBounds(minX, minY, maxX, maxY);
+            ABIUnityAds_SetNativePlaceholderBoundsForPlacement(placement, minX, minY, maxX, maxY);
 #else
             Debug.Log($"ABIAds.SetNativePlaceholderBounds({minX},{minY},{maxX},{maxY}) skipped on this platform.");
 #endif
@@ -388,7 +388,7 @@ namespace ABI.Ads.UnityBridge
                     maxY);
             }
 #elif UNITY_IOS && !UNITY_EDITOR
-            ABIUnityAds_SetNativePlaceholderBounds(minX, minY, maxX, maxY);
+            ABIUnityAds_SetNativePlaceholderBoundsForPlacement(placement, minX, minY, maxX, maxY);
 #else
             Debug.Log(
                 $"ABIAds.SetNativePlaceholderBounds({placement},{minX},{minY},{maxX},{maxY}) skipped on this platform.");
@@ -447,6 +447,8 @@ namespace ABI.Ads.UnityBridge
             {
                 bridge.CallStatic("prepareNativeFullScreenShow", config.Placement, true);
             }
+#elif UNITY_IOS && !UNITY_EDITOR
+            ABIUnityAds_PrepareNativeFullScreenShow(config.Placement, 1);
 #endif
 
             ShowNative(
@@ -598,7 +600,7 @@ namespace ABI.Ads.UnityBridge
                 bridge.CallStatic("hideNative", placement);
             }
 #elif UNITY_IOS && !UNITY_EDITOR
-            ABIUnityAds_HideNative();
+            ABIUnityAds_HideNativeForPlacement(placement);
 #else
             Debug.Log($"ABIAds.HideNative({placement}) skipped on this platform.");
 #endif
@@ -632,7 +634,7 @@ namespace ABI.Ads.UnityBridge
                 bridge.CallStatic("destroyNative", placement);
             }
 #elif UNITY_IOS && !UNITY_EDITOR
-            ABIUnityAds_DestroyNative();
+            ABIUnityAds_DestroyNativeForPlacement(placement);
 #else
             Debug.Log($"ABIAds.DestroyNative({placement}) skipped on this platform.");
 #endif
@@ -851,6 +853,14 @@ namespace ABI.Ads.UnityBridge
             float maxX,
             float maxY);
 
+        [DllImport("__Internal", EntryPoint = "ABIUnityAds_SetNativePlaceholderBoundsForPlacement")]
+        private static extern void ABIUnityAds_SetNativePlaceholderBoundsForPlacement(
+            string placement,
+            float minX,
+            float minY,
+            float maxX,
+            float maxY);
+
         [DllImport("__Internal", EntryPoint = "ABIUnityAds_ShowNativeWithDuration")]
         private static extern void ABIUnityAds_ShowNativeWithDuration(
             string placement,
@@ -871,11 +881,20 @@ namespace ABI.Ads.UnityBridge
             float maxX,
             float maxY);
 
+        [DllImport("__Internal", EntryPoint = "ABIUnityAds_PrepareNativeFullScreenShow")]
+        private static extern void ABIUnityAds_PrepareNativeFullScreenShow(string placement, int dismissOnAdClick);
+
         [DllImport("__Internal")]
         private static extern void ABIUnityAds_HideNative();
 
+        [DllImport("__Internal", EntryPoint = "ABIUnityAds_HideNativeForPlacement")]
+        private static extern void ABIUnityAds_HideNativeForPlacement(string placement);
+
         [DllImport("__Internal")]
         private static extern void ABIUnityAds_DestroyNative();
+
+        [DllImport("__Internal", EntryPoint = "ABIUnityAds_DestroyNativeForPlacement")]
+        private static extern void ABIUnityAds_DestroyNativeForPlacement(string placement);
 #endif
     }
 }

@@ -30,8 +30,6 @@ private final class ABIUnityAdsBridgeStore {
     var initializedEventEmitted = false
     var bannerContainer: UIView?
     var bannerPlacementName: String?
-    var nativeContainer: UIView?
-    var nativePlacementName: String?
     var rewardedPlacements = Set<String>()
     var placementAdTypes: [String: String] = [:]
 }
@@ -398,16 +396,28 @@ private func removeOverlayView(_ view: UIView?) {
     view?.removeFromSuperview()
 }
 
-private func cancelNativeCloseCountdown() {
-    BBLUnityNativeOverlayManager.shared.cancelCloseControls()
+private func hideNativePlacement(_ placementName: String?) {
+    let overlayManager = BBLUnityNativeOverlayManager.shared
+    overlayManager.hide(adName: placementName)
+    let placement = placementName ?? ""
+    emitEvent(
+        eventName: "native_hidden",
+        placement: placement,
+        ready: bridgeReadyState()
+    )
 }
 
-private final class NativeOverlayCloseTarget: NSObject {
-    static let shared = NativeOverlayCloseTarget()
-
-    @objc func hideNative() {
-        ABIUnityAds_HideNative()
+private func destroyNativePlacement(_ placementName: String?) {
+    let overlayManager = BBLUnityNativeOverlayManager.shared
+    if let placementName, !placementName.isEmpty {
+        AdsManager.shared.unregisterNativePresentation(adName: placementName)
+        overlayManager.destroy(adName: placementName)
+        emitEvent(eventName: "native_destroyed", placement: placementName, ready: bridgeReadyState())
+        return
     }
+
+    overlayManager.destroy(adName: nil)
+    emitEvent(eventName: "native_destroyed", ready: bridgeReadyState())
 }
 
 private func emitEvent(
@@ -596,6 +606,15 @@ public func ABIUnityAds_Initialize(
         let placements = parsePlacements(from: placementsString)
         cachePlacementAdTypes(from: placements)
 
+        if let requirementError = AdsManager.validateUnityMediationRequirements(globalConfig) {
+            emitEvent(
+                eventName: "failed",
+                error: requirementError,
+                ready: bridgeReadyState()
+            )
+            return
+        }
+
         if AdsManager.shared.isReady {
             applyUnityConfigWhenReady(globalConfig: globalConfig, placements: placements)
             store.isReady = true
@@ -606,19 +625,32 @@ public func ABIUnityAds_Initialize(
             return
         }
 
-        AdsManager.shared.initialize(
-            application: UIApplication.shared,
-            config: globalConfig,
-            localPlacements: placements
-        ) { remoteApplied in
-            store.isReady = true
-            if !store.initializedEventEmitted {
-                store.initializedEventEmitted = true
-                emitEvent(eventName: "initialized", ready: true, remoteApplied: remoteApplied)
+        AdsManager.shared.requestInitSecurityPermission(config: globalConfig) { allowed, reason in
+            DispatchQueue.main.async {
+                guard allowed else {
+                    emitEvent(
+                        eventName: "failed",
+                        error: "Denied: \(reason ?? "denied")",
+                        ready: bridgeReadyState()
+                    )
+                    return
+                }
+
+                AdsManager.shared.initialize(
+                    application: UIApplication.shared,
+                    config: globalConfig,
+                    localPlacements: placements
+                ) { remoteApplied in
+                    store.isReady = true
+                    if !store.initializedEventEmitted {
+                        store.initializedEventEmitted = true
+                        emitEvent(eventName: "initialized", ready: true, remoteApplied: remoteApplied)
+                    }
+                }
+
+                emitEvent(eventName: "config_applied", ready: bridgeReadyState())
             }
         }
-
-        emitEvent(eventName: "config_applied", ready: bridgeReadyState())
     }
 }
 
@@ -820,9 +852,10 @@ public func ABIUnityAds_ShowBanner(
 
         let container = UIView(frame: .zero)
         container.backgroundColor = .clear
-        container.isHidden = true
+        container.isHidden = false
         store.bannerContainer = container
         store.bannerPlacementName = placementName
+        viewController.view.clipsToBounds = false
         AdsManager.shared.setCurrentViewController(viewController)
         AdsManager.shared.registerBannerContainer(adName: placementName, containerView: container)
         addOverlayView(container, to: viewController.view, position: positionName, height: 0)
@@ -831,7 +864,8 @@ public func ABIUnityAds_ShowBanner(
         let previousLoaded = callback.onAdLoaded
         let previousFailed = callback.onAdFailed
         callback.onAdLoaded = { placement in
-            container.isHidden = false
+            container.setNeedsLayout()
+            container.layoutIfNeeded()
             previousLoaded?(placement)
         }
         callback.onAdFailed = { placement, error in
@@ -855,7 +889,8 @@ public func ABIUnityAds_ShowBanner(
 public func ABIUnityAds_HideBanner() {
     DispatchQueue.main.async {
         ABIUnityAdsBridgeStore.shared.bannerContainer?.isHidden = true
-        emitEvent(eventName: "banner_hidden", ready: ABIUnityAdsBridgeStore.shared.isReady)
+        AdsManager.shared.clearAllBannerLoadingStates()
+        emitEvent(eventName: "banner_hidden", ready: bridgeReadyState())
     }
 }
 
@@ -869,6 +904,7 @@ public func ABIUnityAds_DestroyBanner() {
         removeOverlayView(store.bannerContainer)
         store.bannerContainer = nil
         store.bannerPlacementName = nil
+        AdsManager.shared.clearAllBannerLoadingStates()
         emitEvent(eventName: "banner_destroyed", ready: bridgeReadyState())
     }
 }
@@ -891,11 +927,46 @@ public func ABIUnityAds_SetNativePlaceholderBounds(
     _ maxY: Float
 ) {
     DispatchQueue.main.async {
-        BBLUnityNativeOverlayManager.shared.setPlaceholderBounds(
+        BBLUnityNativeOverlayManager.shared.setDefaultPlaceholderBounds(
             minX: minX,
             minY: minY,
             maxX: maxX,
             maxY: maxY
+        )
+    }
+}
+
+@_cdecl("ABIUnityAds_SetNativePlaceholderBoundsForPlacement")
+public func ABIUnityAds_SetNativePlaceholderBoundsForPlacement(
+    _ placement: UnsafePointer<CChar>?,
+    _ minX: Float,
+    _ minY: Float,
+    _ maxX: Float,
+    _ maxY: Float
+) {
+    let placementName = stringFromCString(placement)
+    DispatchQueue.main.async {
+        BBLUnityNativeOverlayManager.shared.setPlaceholderBounds(
+            adName: placementName,
+            minX: minX,
+            minY: minY,
+            maxX: maxX,
+            maxY: maxY
+        )
+    }
+}
+
+@_cdecl("ABIUnityAds_PrepareNativeFullScreenShow")
+public func ABIUnityAds_PrepareNativeFullScreenShow(
+    _ placement: UnsafePointer<CChar>?,
+    _ dismissOnAdClick: Int32
+) {
+    let placementName = stringFromCString(placement) ?? ""
+    guard !placementName.isEmpty else { return }
+    DispatchQueue.main.async {
+        BBLUnityNativeOverlayManager.shared.prepareNativeFullScreenShow(
+            adName: placementName,
+            dismissOnAdClick: dismissOnAdClick != 0
         )
     }
 }
@@ -936,98 +1007,122 @@ public func ABIUnityAds_ShowNativeWithDurationAndBounds(
     let placementName = stringFromCString(placement) ?? ""
     let template = stringFromCString(templateName)
     let size = parseNativeSize(stringFromCString(sizeName))
-    _ = stringFromCString(position)
+    let containerStyle = stringFromCString(sizeName) ?? "medium"
 
     DispatchQueue.main.async {
+        guard !placementName.isEmpty else {
+            emitEvent(
+                eventName: "failed",
+                placement: placementName,
+                error: "Placement is empty",
+                ready: bridgeReadyState()
+            )
+            return
+        }
+
         guard let viewController = currentUnityViewController() else {
             emitEvent(
                 eventName: "failed",
                 placement: placementName,
                 error: "No active UIViewController found",
-                ready: ABIUnityAdsBridgeStore.shared.isReady
+                ready: bridgeReadyState()
             )
             return
         }
 
-        let store = ABIUnityAdsBridgeStore.shared
-        let overlayManager = BBLUnityNativeOverlayManager.shared
-        overlayManager.clearOverlayViews()
-        removeOverlayView(store.nativeContainer)
-        store.nativeContainer = nil
-
-        if minX >= 0, minY >= 0, maxX >= 0, maxY >= 0 {
-            overlayManager.setPlaceholderBounds(minX: minX, minY: minY, maxX: maxX, maxY: maxY)
-        } else {
-            overlayManager.resetBoundsState()
-            overlayManager.applyDefaultBounds(for: size)
-        }
-
-        let (slot, _, shimmer, nativeAdView) = overlayManager.createNativeSlot(
-            templateName: template,
-            size: size
-        )
-
-        let rootOverlay = UIView()
-        overlayManager.attachRootOverlay(rootOverlay, slot: slot, to: viewController.view)
-        store.nativeContainer = rootOverlay
-        store.nativePlacementName = placementName
-
-        let isFullscreen = size == .fullScreen
-        overlayManager.addCloseControls(to: slot, duration: duration, fullscreen: isFullscreen) {
-            ABIUnityAds_HideNative()
-        }
-
         AdsManager.shared.setCurrentViewController(viewController)
+
+        let customBounds: (minX: Float, minY: Float, maxX: Float, maxY: Float)?
+        if minX >= 0, minY >= 0, maxX >= 0, maxY >= 0 {
+            customBounds = (minX, minY, maxX, maxY)
+        } else {
+            customBounds = nil
+        }
+
+        let overlayManager = BBLUnityNativeOverlayManager.shared
+        guard let built = overlayManager.showNative(
+            adName: placementName,
+            templateName: template,
+            size: size,
+            containerStyle: containerStyle,
+            duration: duration,
+            customBounds: customBounds,
+            in: viewController,
+            onHide: { adName in
+                hideNativePlacement(adName)
+            },
+            onAdClicked: { _ in }
+        ) else {
+            emitEvent(
+                eventName: "failed",
+                placement: placementName,
+                error: "Unable to create native slot",
+                ready: bridgeReadyState()
+            )
+            return
+        }
 
         AdsManager.shared.registerNativePresentation(
             adName: placementName,
-            nativeAdView: nativeAdView,
+            nativeAdView: built.nativeAdView,
             size: size,
             enableLegacyReadyLookup: true
         )
 
         var callback = makeCallback()
+        let overlayCallback = built.callback
         let previousLoaded = callback.onAdLoaded
         let previousFailed = callback.onAdFailed
-        callback.onAdLoaded = { placement in
-            overlayManager.hideShimmer()
-            previousLoaded?(placement)
+        let previousClicked = callback.onAdClicked
+        callback.onAdLoaded = { name in
+            overlayCallback.onAdLoaded?(name)
+            previousLoaded?(name)
         }
-        callback.onAdFailed = { placement, error in
-            overlayManager.hideShimmer()
-            previousFailed?(placement, error)
+        callback.onAdFailed = { name, error in
+            overlayCallback.onAdFailed?(name, error)
+            previousFailed?(name, error)
+        }
+        callback.onAdClicked = { name in
+            overlayCallback.onAdClicked?(name)
+            previousClicked?(name)
         }
 
         AdsManager.shared.loadAndRenderNativeAd(
             adName: placementName,
-            nativeAdView: nativeAdView,
+            nativeAdView: built.nativeAdView,
             size: size,
             callback: callback
         )
-        emitEvent(eventName: "native_requested", placement: placementName, ready: store.isReady)
+        emitEvent(eventName: "native_requested", placement: placementName, ready: bridgeReadyState())
     }
 }
 
 @_cdecl("ABIUnityAds_HideNative")
 public func ABIUnityAds_HideNative() {
     DispatchQueue.main.async {
-        cancelNativeCloseCountdown()
-        ABIUnityAdsBridgeStore.shared.nativeContainer?.isHidden = true
-        emitEvent(eventName: "native_hidden", ready: ABIUnityAdsBridgeStore.shared.isReady)
+        hideNativePlacement(nil)
+    }
+}
+
+@_cdecl("ABIUnityAds_HideNativeForPlacement")
+public func ABIUnityAds_HideNativeForPlacement(_ placement: UnsafePointer<CChar>?) {
+    let placementName = stringFromCString(placement)
+    DispatchQueue.main.async {
+        hideNativePlacement(placementName)
     }
 }
 
 @_cdecl("ABIUnityAds_DestroyNative")
 public func ABIUnityAds_DestroyNative() {
     DispatchQueue.main.async {
-        let store = ABIUnityAdsBridgeStore.shared
-        if let placementName = store.nativePlacementName {
-            AdsManager.shared.unregisterNativePresentation(adName: placementName)
-        }
-        BBLUnityNativeOverlayManager.shared.tearDown()
-        removeOverlayView(store.nativeContainer)
-        store.nativeContainer = nil
-        store.nativePlacementName = nil
-        emitEvent(eventName: "native_destroyed", ready: bridgeReadyState())
+        destroyNativePlacement(nil)
+    }
+}
+
+@_cdecl("ABIUnityAds_DestroyNativeForPlacement")
+public func ABIUnityAds_DestroyNativeForPlacement(_ placement: UnsafePointer<CChar>?) {
+    let placementName = stringFromCString(placement)
+    DispatchQueue.main.async {
+        destroyNativePlacement(placementName)
     }
 }

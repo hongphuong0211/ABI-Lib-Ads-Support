@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.7.15
+
+- Release `v1.7.15` — align `package.json` version with Git tag for UPM.
+
 ## 1.7.14
 
 - **Breaking:** Package requires **Unity 6** (6000.0+) and JDK 17. Unity 2022.3 is no longer supported.

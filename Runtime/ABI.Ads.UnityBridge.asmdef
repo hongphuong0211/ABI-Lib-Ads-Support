@@ -1,8 +1,6 @@
 {
   "name": "ABI.Ads.UnityBridge",
-  "references": [
-    "MaxSdk.Scripts"
-  ],
+  "references": [],
   "includePlatforms": [],
   "excludePlatforms": [],
   "allowUnsafeCode": false,

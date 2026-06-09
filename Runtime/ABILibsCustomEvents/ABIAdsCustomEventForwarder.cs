@@ -74,19 +74,19 @@ namespace ABI.Ads.UnityBridge
                 return;
             }
 
-            string adType = ResolveAdType(adsEvent);
-            string adFormat = NormalizeAdFormat(adType);
+            ABIAdFormat adFormat = ResolveAdFormat(adsEvent);
 
             try
             {
                 _troasEventMethod?.Invoke(null, new object[] { revenue, adFormat });
                 _troasEvent2Method?.Invoke(null, new object[] { revenue, adFormat });
 
-                if (IsRewarded(adType))
+                if (adFormat.IsBambooRewardAdType())
                 {
                     _bambooRewardedEventMethod?.Invoke(null, new object[] { revenue });
                 }
-                else if (IsBambooNonRewarded(adType))
+
+                if (adFormat.IsBambooAdEventType())
                 {
                     _bambooAdEventMethod?.Invoke(null, new object[] { revenue });
                 }
@@ -138,49 +138,19 @@ namespace ABI.Ads.UnityBridge
                    || double.TryParse(revenue, NumberStyles.Float, CultureInfo.CurrentCulture, out value);
         }
 
-        private static string ResolveAdType(ABIAdsEvent adsEvent)
+        private static ABIAdFormat ResolveAdFormat(ABIAdsEvent adsEvent)
         {
             if (!string.IsNullOrWhiteSpace(adsEvent.adType))
             {
-                return adsEvent.adType;
+                return ABIAdFormatExtensions.Parse(adsEvent.adType);
             }
 
-            return !string.IsNullOrWhiteSpace(adsEvent.placement) && PlacementTypes.TryGetValue(adsEvent.placement, out string adType)
-                ? adType
-                : string.Empty;
-        }
-
-        private static string NormalizeAdFormat(string adType)
-        {
-            if (string.IsNullOrWhiteSpace(adType))
+            if (!string.IsNullOrWhiteSpace(adsEvent.placement) && PlacementTypes.TryGetValue(adsEvent.placement, out string adType))
             {
-                return string.Empty;
+                return ABIAdFormatExtensions.Parse(adType);
             }
 
-            string normalized = adType.Trim().ToLowerInvariant();
-            return normalized == "mrec" ? "mrec" : normalized;
-        }
-
-        private static bool IsRewarded(string adType)
-        {
-            if (string.IsNullOrWhiteSpace(adType))
-            {
-                return false;
-            }
-
-            string normalized = adType.Trim().ToLowerInvariant();
-            return normalized == "rewarded" || normalized == "rewarded_interstitial";
-        }
-
-        private static bool IsBambooNonRewarded(string adType)
-        {
-            if (string.IsNullOrWhiteSpace(adType))
-            {
-                return true;
-            }
-
-            string normalized = adType.Trim().ToLowerInvariant();
-            return normalized == "interstitial" || normalized == "app_open";
+            return ABIAdFormat.Unknown;
         }
 
         [Serializable]

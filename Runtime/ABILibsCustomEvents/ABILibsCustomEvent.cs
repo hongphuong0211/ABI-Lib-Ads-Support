@@ -7,7 +7,7 @@ namespace ABILibsSDK
 {
     /// <summary>
     /// Entry points for Firebase Analytics custom events used in TROAS / Bamboo / purchase flows.
-    /// All public methods marshal work to the Unity main thread; safe to call from AppLovin MAX callbacks or background threads.
+    /// All public methods marshal work to the Unity main thread; safe to call from native ad callbacks or background threads.
     /// Requires <see cref="ABILibsCustomEventConfig.Instance"/> to be initialized; otherwise calls no-op.
     /// </summary>
     public class ABILibsCustomEvent
@@ -19,25 +19,35 @@ namespace ABILibsSDK
         /// <summary>
         /// Records ad impression revenue for TROAS-style tiered events (cumulative cache + first-hit semantics).
         /// </summary>
-        /// <param name="adUnitId">Ad unit identifier from MAX (passed through for API symmetry; not used in current implementation).</param>
-        /// <param name="adInfo">MAX ad info; <see cref="MaxSdkBase.AdInfo.Revenue"/> and <see cref="MaxSdkBase.AdInfo.AdFormat"/> are read on the calling thread then applied on the main thread.</param>
+        /// <param name="adUnitId">Ad unit identifier (passed through for API symmetry; not used in current implementation).</param>
+        /// <param name="adInfo">Revenue and ad format; snapshotted on the calling thread then applied on the main thread.</param>
         /// <remarks>
         /// Banner/MREC: revenue is accumulated until it exceeds <c>minRevenueThresholdForBannerAndMrec</c>, then flushed.
         /// Other formats: revenue is added to a shared cache. When cache crosses thresholds in <c>troasAdEvents</c>,
         /// Firebase events named <c>baseTROASEventName</c> + index are logged with parameters <c>value</c> (USD) and <c>currency</c> ("USD").
         /// </remarks>
-        public static void TROASEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+        public static void TROASEvent(string adUnitId, ABIAdRevenueInfo adInfo)
         {
             double impressionRevenue = adInfo.Revenue;
-            string snapshotFormat = adInfo.AdFormat != null ? adInfo.AdFormat.ToLowerInvariant() : string.Empty;
+            ABIAdFormat snapshotFormat = adInfo.AdFormat;
             MainThreadDispatcher.RunOnMainThread(() => TROASEventOnMainThread(impressionRevenue, snapshotFormat));
         }
 
-        private static void TROASEventOnMainThread(double impressionRevenue, string adFormatLower)
+        /// <summary>Convenience overload when ad unit id is not needed.</summary>
+        public static void TROASEvent(ABIAdRevenueInfo adInfo) => TROASEvent(null, adInfo);
+
+        public static void TROASEvent(double revenue, ABIAdFormat adFormat) =>
+            TROASEvent(new ABIAdRevenueInfo(revenue, adFormat));
+
+        /// <summary>Convenience overload for callers that supply a raw <c>ads_type</c> string.</summary>
+        public static void TROASEvent(double revenue, string adFormat) =>
+            TROASEvent(new ABIAdRevenueInfo(revenue, adFormat));
+
+        private static void TROASEventOnMainThread(double impressionRevenue, ABIAdFormat adFormat)
         {
             if (ABILibsCustomEventConfig.Instance == null) return;
             double revenue = impressionRevenue;
-            if (adFormatLower == "banner" || adFormatLower == "mrec")
+            if (adFormat.IsBannerOrMrec())
             {
                 // With Banner and Mrec, we should track until revenue reach the min threshold
                 float troasCacheBanner = PlayerPrefs.GetFloat(TROAS_CACHE_KEY_BANNER, 0);
@@ -80,25 +90,33 @@ namespace ABILibsSDK
         /// <summary>
         /// TROAS ad revenue variant: logs when cumulative revenue since the last fired threshold increases by at least each tier in <c>troasAdEvents2</c>.
         /// </summary>
-        /// <param name="adUnitId">Ad unit identifier from MAX (reserved; not used in current implementation).</param>
-        /// <param name="adInfo">MAX ad info; revenue and ad format are snapshotted before main-thread work.</param>
+        /// <param name="adUnitId">Ad unit identifier (reserved; not used in current implementation).</param>
+        /// <param name="adInfo">Revenue and ad format; snapshotted before main-thread work.</param>
         /// <remarks>
         /// Banner/MREC handling matches <see cref="TROASEvent"/>.
         /// For each tier, <c>value</c> is the revenue delta since that tier’s last log; only one matching tier fires per call (first match wins, then loop breaks).
         /// Event names: <c>baseTROASEventName2</c> + index.
         /// </remarks>
-        public static void TROASEvent2(string adUnitId, MaxSdkBase.AdInfo adInfo)
+        public static void TROASEvent2(string adUnitId, ABIAdRevenueInfo adInfo)
         {
             double impressionRevenue = adInfo.Revenue;
-            string snapshotFormat = adInfo.AdFormat != null ? adInfo.AdFormat.ToLowerInvariant() : string.Empty;
+            ABIAdFormat snapshotFormat = adInfo.AdFormat;
             MainThreadDispatcher.RunOnMainThread(() => TROASEvent2OnMainThread(impressionRevenue, snapshotFormat));
         }
 
-        private static void TROASEvent2OnMainThread(double impressionRevenue, string adFormatLower)
+        public static void TROASEvent2(ABIAdRevenueInfo adInfo) => TROASEvent2(null, adInfo);
+
+        public static void TROASEvent2(double revenue, ABIAdFormat adFormat) =>
+            TROASEvent2(new ABIAdRevenueInfo(revenue, adFormat));
+
+        public static void TROASEvent2(double revenue, string adFormat) =>
+            TROASEvent2(new ABIAdRevenueInfo(revenue, adFormat));
+
+        private static void TROASEvent2OnMainThread(double impressionRevenue, ABIAdFormat adFormat)
         {
             if (ABILibsCustomEventConfig.Instance == null) return;
             double revenue = impressionRevenue;
-            if (adFormatLower == "banner" || adFormatLower == "mrec")
+            if (adFormat.IsBannerOrMrec())
             {
                 // With Banner and Mrec, we should track until revenue reach the min threshold
                 float troasCacheBanner = PlayerPrefs.GetFloat(TROAS_CACHE_KEY_BANNER, 0);
@@ -139,19 +157,23 @@ namespace ABILibsSDK
         private const string PREFIX_CACHE_REVENUE_BAMBOO = "[ABILibsSDK]cache_revenue_bamboo_";
         private const string PREFIX_LAST_SEND_EVENT_CACHE_BAMBOO = "[ABILibsSDK]last_send_event_cache_bamboo_";
         /// <summary>
-        /// Increments global interstitial (non-rewarded) ad impression count and accumulates revenue for Bamboo-style tiered events.
+        /// Increments global interstitial / rewarded / app-open ad impression count and accumulates revenue for Bamboo-style tiered events.
         /// </summary>
-        /// <param name="adUnitId">Ad unit identifier from MAX (reserved; not used in current implementation).</param>
-        /// <param name="adInfo">MAX ad info; only <see cref="MaxSdkBase.AdInfo.Revenue"/> is used.</param>
+        /// <param name="adUnitId">Ad unit identifier (reserved; not used in current implementation).</param>
+        /// <param name="adInfo">Only <see cref="ABIAdRevenueInfo.Revenue"/> is used.</param>
         /// <remarks>
         /// When impression count reaches thresholds in <c>bambooCountAdEvents</c>, logs Firebase events
         /// <c>baseBambooAdEventName</c> + index with <c>value</c> / <c>currency</c> ("USD"). First fire per tier uses accumulated revenue since tracking started for that tier.
         /// </remarks>
-        public static void BambooAdEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+        public static void BambooAdEvent(string adUnitId, ABIAdRevenueInfo adInfo)
         {
             double impressionRevenue = adInfo.Revenue;
             MainThreadDispatcher.RunOnMainThread(() => BambooAdEventOnMainThread(impressionRevenue));
         }
+
+        public static void BambooAdEvent(ABIAdRevenueInfo adInfo) => BambooAdEvent(null, adInfo);
+
+        public static void BambooAdEvent(double revenue) => BambooAdEvent(new ABIAdRevenueInfo(revenue, ABIAdFormat.Unknown));
 
         private static void BambooAdEventOnMainThread(double impressionRevenue)
         {
@@ -185,18 +207,22 @@ namespace ABILibsSDK
         private const string PREFIX_CACHE_REVENUE_BAMBOO_REWARDED = "[ABILibsSDK]cache_revenue_bamboo_rewarded_";
         private const string PREFIX_LAST_SEND_EVENT_CACHE_BAMBOO_REWARDED = "[ABILibsSDK]last_send_event_cache_bamboo_rewarded_";
         /// <summary>
-        /// Same pattern as <see cref="BambooAdEvent"/> but uses a separate impression counter and config arrays for rewarded ads.
+        /// Same pattern as <see cref="BambooAdEvent"/> but uses a separate impression counter and config arrays; only for <see cref="ABIAdFormat.Rewarded"/>.
         /// </summary>
-        /// <param name="adUnitId">Ad unit identifier from MAX (reserved; not used in current implementation).</param>
-        /// <param name="adInfo">MAX ad info; only revenue is used.</param>
+        /// <param name="adUnitId">Ad unit identifier (reserved; not used in current implementation).</param>
+        /// <param name="adInfo">Only revenue is used.</param>
         /// <remarks>
         /// Thresholds and event name prefix come from <c>bambooCountRewardedEvents</c> and <c>baseBambooRewardedEventName</c>.
         /// </remarks>
-        public static void BambooRewardedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
+        public static void BambooRewardedEvent(string adUnitId, ABIAdRevenueInfo adInfo)
         {
             double impressionRevenue = adInfo.Revenue;
             MainThreadDispatcher.RunOnMainThread(() => BambooRewardedEventOnMainThread(impressionRevenue));
         }
+
+        public static void BambooRewardedEvent(ABIAdRevenueInfo adInfo) => BambooRewardedEvent(null, adInfo);
+
+        public static void BambooRewardedEvent(double revenue) => BambooRewardedEvent(new ABIAdRevenueInfo(revenue, ABIAdFormat.Unknown));
 
         private static void BambooRewardedEventOnMainThread(double impressionRevenue)
         {

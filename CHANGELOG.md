@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.8.1
+
+- **Android native fullscreen:** `ShowNativeFullScreen` opens a dedicated Activity instead of overlaying Unity — fixes video/native media not rendering on the Unity surface.
+- **Custom events:** TROAS/Bamboo (`ABILibsCustomEvent`) no longer depends on AppLovin MAX Unity SDK — uses `ABIAdRevenueInfo` / `ABIAdFormat`; removed `MaxSdk.Scripts` asmdef reference.
+- Bamboo routing: interstitial / rewarded / app open → `BambooAdEvent`; rewarded also fires `BambooRewardedEvent`.
+- Refresh `Plugins/Android/ads-release.aar`.
+
 ## 1.8.0
 
 - Remove default AdMob mediation adapter `com.google.ads.mediation:applovin` from `Editor/ABIAdsDependencies.xml`; enable networks via **ABI Ads → Configs → Apply**.

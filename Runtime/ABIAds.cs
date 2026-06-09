@@ -442,23 +442,31 @@ namespace ABI.Ads.UnityBridge
                 return;
             }
 
+            EnsureReceiver();
+
 #if UNITY_ANDROID && !UNITY_EDITOR
             using (var bridge = new AndroidJavaClass(AndroidBridgeClass))
             {
-                bridge.CallStatic("prepareNativeFullScreenShow", config.Placement, true);
+                bridge.CallStatic(
+                    "showNativeFullScreen",
+                    config.Placement,
+                    config.TemplateName ?? string.Empty,
+                    Mathf.Max(0, config.CountDownSec),
+                    true);
             }
 #elif UNITY_IOS && !UNITY_EDITOR
             ABIUnityAds_PrepareNativeFullScreenShow(config.Placement, 1);
-#endif
-
             ShowNative(
                 config.Placement,
                 config.TemplateName,
                 NativeSize.FreeSize,
                 NativePosition.Center,
                 Mathf.Max(0, config.CountDownSec),
-                NativePlaceholderBounds.FullScreen
-            );
+                NativePlaceholderBounds.FullScreen);
+#else
+            Debug.Log($"ABIAds.ShowNativeFullScreen skipped for placement `{config.Placement}` in editor.");
+            DispatchEditorFailed(config.Placement, "ABIAds.ShowNativeFullScreen is not available in editor.");
+#endif
         }
 
         /// <summary>

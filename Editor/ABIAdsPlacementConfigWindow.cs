@@ -19,6 +19,59 @@ namespace ABI.Ads.UnityBridge.Editor
             "rewarded_interstitial"
         };
 
+        // AdmobBanner.java + PlacementConfig.BannerAdConfig
+        private static readonly string[] BannerInlineStyleValues =
+        {
+            string.Empty,
+            "BANNER_INLINE_SMALL_STYLE",
+            "BANNER_INLINE_LARGE_STYLE"
+        };
+
+        private static readonly string[] BannerInlineStyleLabels =
+        {
+            "<Default (Small 50dp)>",
+            "BANNER_INLINE_SMALL_STYLE",
+            "BANNER_INLINE_LARGE_STYLE"
+        };
+
+        private static readonly string[] BannerCollapsibleGravityValues =
+        {
+            string.Empty,
+            "top",
+            "bottom"
+        };
+
+        private static readonly string[] BannerCollapsibleGravityLabels =
+        {
+            "<Default (bottom)>",
+            "top",
+            "bottom"
+        };
+
+        private static readonly string[] BannerSizeValues =
+        {
+            string.Empty,
+            "BANNER",
+            "MEDIUM_RECTANGLE",
+            "LARGE_BANNER",
+            "FULL_BANNER",
+            "LEADERBOARD",
+            "SMART_BANNER",
+            "ADAPTIVE_BANNER"
+        };
+
+        private static readonly string[] BannerSizeLabels =
+        {
+            "<Default (BANNER)>",
+            "BANNER",
+            "MEDIUM_RECTANGLE",
+            "LARGE_BANNER",
+            "FULL_BANNER",
+            "LEADERBOARD",
+            "SMART_BANNER (→ adaptive)",
+            "ADAPTIVE_BANNER"
+        };
+
         private ABIAdsPlacementsRoot _placementsRoot;
         private ABIAdsConfigStore.ConfigLoadSource _configLoadSource;
         private Vector2 _scroll;
@@ -130,22 +183,6 @@ namespace ABI.Ads.UnityBridge.Editor
             ABIAdsConfigGui.DrawStringList("Disable Versions", placement.disable_version);
 
             EditorGUILayout.Space();
-            EditorGUILayout.LabelField("Auto Trigger", EditorStyles.boldLabel);
-            placement.activity_trigger_load = EditorGUILayout.TextField("Activity Trigger Load", placement.activity_trigger_load ?? string.Empty);
-            placement.activity_load_and_show = EditorGUILayout.Toggle("Activity Load And Show", placement.activity_load_and_show);
-            placement.delay_time_trigger_load = EditorGUILayout.IntField("Delay Trigger Load (ms)", placement.delay_time_trigger_load);
-            placement.activity_trigger_show = EditorGUILayout.TextField("Activity Trigger Show", placement.activity_trigger_show ?? string.Empty);
-            placement.delay_time_trigger_show = EditorGUILayout.IntField("Delay Trigger Show (ms)", placement.delay_time_trigger_show);
-            placement.click_trigger_view_id = EditorGUILayout.TextField("Click Trigger View ID", placement.click_trigger_view_id ?? string.Empty);
-            placement.click_load_and_show = EditorGUILayout.Toggle("Click Load And Show", placement.click_load_and_show);
-            placement.click_delay_ms = EditorGUILayout.IntField("Click Delay (ms)", placement.click_delay_ms);
-            placement.click_trigger_show_view_id = EditorGUILayout.TextField("Click Trigger Show View ID", placement.click_trigger_show_view_id ?? string.Empty);
-            placement.click_trigger_show_delay_ms = EditorGUILayout.IntField("Click Trigger Show Delay (ms)", placement.click_trigger_show_delay_ms);
-            placement.click_trigger_count_view_id = EditorGUILayout.TextField("Click Trigger Count View ID", placement.click_trigger_count_view_id ?? string.Empty);
-            placement.click_trigger_count_threshold = EditorGUILayout.IntField("Click Trigger Count Threshold", placement.click_trigger_count_threshold);
-            placement.click_trigger_count_delay_ms = EditorGUILayout.IntField("Click Trigger Count Delay (ms)", placement.click_trigger_count_delay_ms);
-
-            EditorGUILayout.Space();
             EditorGUILayout.LabelField("Ad IDs", EditorStyles.boldLabel);
             DrawAdIdList(placement.ad_ids);
 
@@ -157,11 +194,23 @@ namespace ABI.Ads.UnityBridge.Editor
             {
                 EditorGUILayout.Space();
                 EditorGUILayout.LabelField("Banner", EditorStyles.boldLabel);
-                placement.banner_ad.inline_style = EditorGUILayout.TextField("Inline Style", placement.banner_ad.inline_style ?? string.Empty);
+                placement.banner_ad.inline_style = ABIAdsConfigGui.LabeledStringPopup(
+                    "Inline Style",
+                    placement.banner_ad.inline_style,
+                    BannerInlineStyleValues,
+                    BannerInlineStyleLabels);
                 placement.banner_ad.use_inline_adaptive = EditorGUILayout.Toggle("Use Inline Adaptive", placement.banner_ad.use_inline_adaptive);
                 placement.banner_ad.use_collapsible = EditorGUILayout.Toggle("Use Collapsible", placement.banner_ad.use_collapsible);
-                placement.banner_ad.collapsible_gravity = EditorGUILayout.TextField("Collapsible Gravity", placement.banner_ad.collapsible_gravity ?? string.Empty);
-                placement.banner_ad.banner_size = EditorGUILayout.TextField("Banner Size", placement.banner_ad.banner_size ?? string.Empty);
+                placement.banner_ad.collapsible_gravity = ABIAdsConfigGui.LabeledStringPopup(
+                    "Collapsible Gravity",
+                    placement.banner_ad.collapsible_gravity,
+                    BannerCollapsibleGravityValues,
+                    BannerCollapsibleGravityLabels);
+                placement.banner_ad.banner_size = ABIAdsConfigGui.LabeledStringPopup(
+                    "Banner Size",
+                    placement.banner_ad.banner_size,
+                    BannerSizeValues,
+                    BannerSizeLabels);
                 placement.banner_ad.reload_time = EditorGUILayout.IntField("Reload Time (s)", placement.banner_ad.reload_time);
             }
 
@@ -182,15 +231,38 @@ namespace ABI.Ads.UnityBridge.Editor
                 placement.native_ad.advertiser_text_color = ABIAdsConfigGui.DrawHexColorField("Advertiser Text Color", placement.native_ad.advertiser_text_color);
                 placement.native_ad.clicked.btn_act_color = ABIAdsConfigGui.DrawHexColorField("Clicked Button Color", placement.native_ad.clicked.btn_act_color);
                 placement.native_ad.clicked.btn_act_text_color = ABIAdsConfigGui.DrawHexColorField("Clicked Button Text Color", placement.native_ad.clicked.btn_act_text_color);
-                placement.native_ad.clicked.delay_time_show_btn_next = EditorGUILayout.IntField("Delay Show Next Button", placement.native_ad.clicked.delay_time_show_btn_next);
+                placement.native_ad.clicked.close_countdown_time = EditorGUILayout.IntField(
+                    "Close Countdown Time (s)",
+                    placement.native_ad.clicked.close_countdown_time);
+                EditorGUILayout.HelpBox(
+                    "Close Countdown Time: -1 = ẩn countdown/X, 0 = hiện X ngay, >0 = countdown theo render mode.",
+                    MessageType.None);
                 placement.native_ad.clicked.close_btn_render_mode = EditorGUILayout.IntPopup(
                     "Close Button Render Mode",
                     placement.native_ad.clicked.close_btn_render_mode,
-                    new[] { "0 Default (close top-right)", "1 Close top-left", "2 Meta Progress", "3 Delay Only" },
-                    new[] { 0, 1, 2, 3 });
+                    new[] { "0 Countdown + X", "1 Arrow + Progress + X", "2 Delay Only (ẩn countdown)" },
+                    new[] { 0, 1, 2 });
+                DrawNormalizedPos("Countdown Pos (0-1)", placement.native_ad.clicked.countdown_pos);
+                DrawNormalizedPos("Progress Pos (0-1)", placement.native_ad.clicked.progress_pos);
+                DrawNormalizedPos("Close Button Pos (0-1)", placement.native_ad.clicked.close_btn_pos);
                 placement.native_ad.clicked.dismiss_on_ad_click = EditorGUILayout.Toggle(
                     "Dismiss On Ad Click (fullscreen)",
                     placement.native_ad.clicked.dismiss_on_ad_click);
+            }
+        }
+
+        private static void DrawNormalizedPos(string label, ABIAdsNormalizedPos pos)
+        {
+            if (pos == null)
+            {
+                pos = new ABIAdsNormalizedPos();
+            }
+
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                EditorGUILayout.PrefixLabel(label);
+                pos.x = EditorGUILayout.Slider(pos.x, 0f, 1f);
+                pos.y = EditorGUILayout.Slider(pos.y, 0f, 1f);
             }
         }
 

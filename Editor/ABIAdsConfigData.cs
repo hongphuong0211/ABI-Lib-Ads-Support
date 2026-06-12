@@ -468,6 +468,18 @@ namespace ABI.Ads.UnityBridge.Editor
             return values[EditorGUILayout.Popup(label, index, values)];
         }
 
+        internal static string LabeledStringPopup(string label, string value, string[] values, string[] labels)
+        {
+            value = value ?? string.Empty;
+            var index = Array.IndexOf(values, value);
+            if (index < 0)
+            {
+                index = 0;
+            }
+
+            return values[EditorGUILayout.Popup(label, index, labels)];
+        }
+
         internal static string LayoutFilePopup(string label, string value, string[] supportedValues)
         {
             value = value ?? string.Empty;
@@ -839,19 +851,6 @@ namespace ABI.Ads.UnityBridge.Editor
         public bool prioritize_by_weight;
         public int ad_load_mode;
         public string[] disable_version;
-        public string activity_trigger_load;
-        public bool activity_load_and_show;
-        public int delay_time_trigger_load;
-        public string activity_trigger_show;
-        public int delay_time_trigger_show;
-        public string click_trigger_view_id;
-        public bool click_load_and_show;
-        public int click_delay_ms;
-        public string click_trigger_show_view_id;
-        public int click_trigger_show_delay_ms;
-        public string click_trigger_count_view_id;
-        public int click_trigger_count_threshold;
-        public int click_trigger_count_delay_ms;
         public ABIAdsBannerAdConfigJsonDto banner_ad;
         public ABIAdsNativeAdConfigJsonDto native_ad;
 
@@ -860,11 +859,6 @@ namespace ABI.Ads.UnityBridge.Editor
             ad_name = ad_name ?? string.Empty;
             ads_type = string.IsNullOrEmpty(ads_type) ? "interstitial" : ads_type;
             config_version = config_version ?? string.Empty;
-            activity_trigger_load = activity_trigger_load ?? string.Empty;
-            activity_trigger_show = activity_trigger_show ?? string.Empty;
-            click_trigger_view_id = click_trigger_view_id ?? string.Empty;
-            click_trigger_show_view_id = click_trigger_show_view_id ?? string.Empty;
-            click_trigger_count_view_id = click_trigger_count_view_id ?? string.Empty;
             disable_version = disable_version ?? Array.Empty<string>();
             ad_ids = ad_ids ?? Array.Empty<ABIAdsAdIdConfigJsonDto>();
             backup_ad_ids = backup_ad_ids ?? Array.Empty<ABIAdsAdIdConfigJsonDto>();
@@ -882,19 +876,6 @@ namespace ABI.Ads.UnityBridge.Editor
                 config_version = config_version,
                 prioritize_by_weight = prioritize_by_weight,
                 ad_load_mode = ad_load_mode,
-                activity_trigger_load = activity_trigger_load,
-                activity_load_and_show = activity_load_and_show,
-                delay_time_trigger_load = delay_time_trigger_load,
-                activity_trigger_show = activity_trigger_show,
-                delay_time_trigger_show = delay_time_trigger_show,
-                click_trigger_view_id = click_trigger_view_id,
-                click_load_and_show = click_load_and_show,
-                click_delay_ms = click_delay_ms,
-                click_trigger_show_view_id = click_trigger_show_view_id,
-                click_trigger_show_delay_ms = click_trigger_show_delay_ms,
-                click_trigger_count_view_id = click_trigger_count_view_id,
-                click_trigger_count_threshold = click_trigger_count_threshold,
-                click_trigger_count_delay_ms = click_trigger_count_delay_ms,
                 disable_version = ABIAdsConfigJsonHelpers.ToStringList(disable_version),
                 ad_ids = ABIAdsAdIdConfigJsonDto.ToList(ad_ids),
                 backup_ad_ids = ABIAdsAdIdConfigJsonDto.ToList(backup_ad_ids),
@@ -917,19 +898,6 @@ namespace ABI.Ads.UnityBridge.Editor
                 config_version = placement.config_version,
                 prioritize_by_weight = placement.prioritize_by_weight,
                 ad_load_mode = placement.ad_load_mode,
-                activity_trigger_load = placement.activity_trigger_load,
-                activity_load_and_show = placement.activity_load_and_show,
-                delay_time_trigger_load = placement.delay_time_trigger_load,
-                activity_trigger_show = placement.activity_trigger_show,
-                delay_time_trigger_show = placement.delay_time_trigger_show,
-                click_trigger_view_id = placement.click_trigger_view_id,
-                click_load_and_show = placement.click_load_and_show,
-                click_delay_ms = placement.click_delay_ms,
-                click_trigger_show_view_id = placement.click_trigger_show_view_id,
-                click_trigger_show_delay_ms = placement.click_trigger_show_delay_ms,
-                click_trigger_count_view_id = placement.click_trigger_count_view_id,
-                click_trigger_count_threshold = placement.click_trigger_count_threshold,
-                click_trigger_count_delay_ms = placement.click_trigger_count_delay_ms,
                 disable_version = ABIAdsConfigJsonHelpers.ToStringArray(placement.disable_version),
                 ad_ids = ABIAdsAdIdConfigJsonDto.FromList(placement.ad_ids),
                 backup_ad_ids = ABIAdsAdIdConfigJsonDto.FromList(placement.backup_ad_ids),
@@ -1110,12 +1078,45 @@ namespace ABI.Ads.UnityBridge.Editor
     }
 
     [Serializable]
+    internal sealed class ABIAdsNormalizedPosJsonDto
+    {
+        public float x;
+        public float y;
+
+        internal ABIAdsNormalizedPos ToData()
+        {
+            return new ABIAdsNormalizedPos
+            {
+                x = x,
+                y = y
+            };
+        }
+
+        internal static ABIAdsNormalizedPosJsonDto FromData(ABIAdsNormalizedPos config)
+        {
+            if (config == null)
+            {
+                return null;
+            }
+
+            return new ABIAdsNormalizedPosJsonDto
+            {
+                x = config.x,
+                y = config.y
+            };
+        }
+    }
+
+    [Serializable]
     internal sealed class ABIAdsClickedConfigJsonDto
     {
         public string btn_act_color;
         public string btn_act_text_color;
-        public int delay_time_show_btn_next;
+        public int close_countdown_time;
         public int close_btn_render_mode;
+        public ABIAdsNormalizedPosJsonDto countdown_pos;
+        public ABIAdsNormalizedPosJsonDto progress_pos;
+        public ABIAdsNormalizedPosJsonDto close_btn_pos;
         public bool dismiss_on_ad_click;
 
         internal ABIAdsClickedConfig ToData()
@@ -1124,8 +1125,11 @@ namespace ABI.Ads.UnityBridge.Editor
             {
                 btn_act_color = btn_act_color ?? string.Empty,
                 btn_act_text_color = btn_act_text_color ?? string.Empty,
-                delay_time_show_btn_next = delay_time_show_btn_next,
+                close_countdown_time = close_countdown_time,
                 close_btn_render_mode = close_btn_render_mode,
+                countdown_pos = countdown_pos != null ? countdown_pos.ToData() : null,
+                progress_pos = progress_pos != null ? progress_pos.ToData() : null,
+                close_btn_pos = close_btn_pos != null ? close_btn_pos.ToData() : null,
                 dismiss_on_ad_click = dismiss_on_ad_click
             };
         }
@@ -1141,8 +1145,11 @@ namespace ABI.Ads.UnityBridge.Editor
             {
                 btn_act_color = config.btn_act_color,
                 btn_act_text_color = config.btn_act_text_color,
-                delay_time_show_btn_next = config.delay_time_show_btn_next,
+                close_countdown_time = config.close_countdown_time,
                 close_btn_render_mode = config.close_btn_render_mode,
+                countdown_pos = ABIAdsNormalizedPosJsonDto.FromData(config.countdown_pos),
+                progress_pos = ABIAdsNormalizedPosJsonDto.FromData(config.progress_pos),
+                close_btn_pos = ABIAdsNormalizedPosJsonDto.FromData(config.close_btn_pos),
                 dismiss_on_ad_click = config.dismiss_on_ad_click
             };
         }
@@ -1177,19 +1184,6 @@ namespace ABI.Ads.UnityBridge.Editor
         public bool prioritize_by_weight = true;
         public int ad_load_mode = 1;
         public List<string> disable_version = new List<string>();
-        public string activity_trigger_load = string.Empty;
-        public bool activity_load_and_show;
-        public int delay_time_trigger_load;
-        public string activity_trigger_show = string.Empty;
-        public int delay_time_trigger_show;
-        public string click_trigger_view_id = string.Empty;
-        public bool click_load_and_show;
-        public int click_delay_ms;
-        public string click_trigger_show_view_id = string.Empty;
-        public int click_trigger_show_delay_ms;
-        public string click_trigger_count_view_id = string.Empty;
-        public int click_trigger_count_threshold;
-        public int click_trigger_count_delay_ms;
         public ABIAdsBannerAdConfig banner_ad = new ABIAdsBannerAdConfig();
         public ABIAdsNativeAdConfig native_ad = new ABIAdsNativeAdConfig();
         [NonSerialized] public bool foldout = true;
@@ -1323,12 +1317,22 @@ namespace ABI.Ads.UnityBridge.Editor
     }
 
     [Serializable]
+    internal sealed class ABIAdsNormalizedPos
+    {
+        public float x = 0.92f;
+        public float y = 0.06f;
+    }
+
+    [Serializable]
     internal sealed class ABIAdsClickedConfig
     {
         public string btn_act_color = string.Empty;
         public string btn_act_text_color = string.Empty;
-        public int delay_time_show_btn_next;
+        public int close_countdown_time;
         public int close_btn_render_mode;
+        public ABIAdsNormalizedPos countdown_pos = new ABIAdsNormalizedPos();
+        public ABIAdsNormalizedPos progress_pos = new ABIAdsNormalizedPos { x = 0.08f, y = 0.06f };
+        public ABIAdsNormalizedPos close_btn_pos = new ABIAdsNormalizedPos();
         public bool dismiss_on_ad_click;
     }
 }

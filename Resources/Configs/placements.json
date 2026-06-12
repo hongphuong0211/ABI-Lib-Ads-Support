@@ -17,19 +17,6 @@
             "prioritize_by_weight": true,
             "ad_load_mode": 1,
             "disable_version": [],
-            "activity_trigger_load": "",
-            "activity_load_and_show": false,
-            "delay_time_trigger_load": 0,
-            "activity_trigger_show": "",
-            "delay_time_trigger_show": 0,
-            "click_trigger_view_id": "",
-            "click_load_and_show": false,
-            "click_delay_ms": 0,
-            "click_trigger_show_view_id": "",
-            "click_trigger_show_delay_ms": 0,
-            "click_trigger_count_view_id": "",
-            "click_trigger_count_threshold": 0,
-            "click_trigger_count_delay_ms": 0,
             "banner_ad": {
                 "inline_style": "",
                 "use_inline_adaptive": false,
@@ -53,8 +40,11 @@
                 "clicked": {
                     "btn_act_color": "",
                     "btn_act_text_color": "",
-                    "delay_time_show_btn_next": 0,
+                    "close_countdown_time": 0,
                     "close_btn_render_mode": 0,
+                    "countdown_pos": { "x": 0.92, "y": 0.06 },
+                    "progress_pos": { "x": 0.08, "y": 0.06 },
+                    "close_btn_pos": { "x": 0.92, "y": 0.06 },
                     "dismiss_on_ad_click": false
                 }
             }

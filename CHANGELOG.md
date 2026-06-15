@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.8.3
+
+- **Android inline native:** fix video/media rendering on `ShowNative` overlay (non-fullscreen) over the Unity Activity.
+- Refresh `Plugins/Android/ads-release.aar`.
+
+## 1.8.2
+
+- Editor: normalized position DTO for ad configs; `LabeledStringPopup` UI helper; remove unused activity-trigger fields from placement editor.
+- Update sample `Resources/Configs/placements.json`.
+- Refresh `Plugins/Android/ads-release.aar`.
+
 ## 1.8.1
 
 - **Android native fullscreen:** `ShowNativeFullScreen` opens a dedicated Activity instead of overlaying Unity — fixes video/native media not rendering on the Unity surface.

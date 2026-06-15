@@ -4,7 +4,7 @@ Unity Package Manager package tích hợp **ABI Module Ads** vào project Unity 
 
 | | |
 |---|---|
-| Package | `com.abi.ads.unity` (hiện tại **v1.8.1**) |
+| Package | `com.abi.ads.unity` (hiện tại **v1.8.3**) |
 | Unity | **Unity 6** (6000.0+) — không hỗ trợ Unity 2022.3 |
 | Repository | [ABI-Lib-Ads-Support](https://github.com/hongphuong0211/ABI-Lib-Ads-Support) |
 | Hướng dẫn tích hợp | [Unity integration guide (Google Docs)](https://docs.google.com/document/d/1n4MRn_bFpleChfLl4Tf6l5B_owGpiHaahPNa9bVTqh8/edit?usp=sharing) |
@@ -47,7 +47,7 @@ Tài liệu song ngữ:
 **Git URL** in `Packages/manifest.json`:
 
 ```json
-"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.8.1"
+"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.8.3"
 ```
 
 **Local package** (monorepo):
@@ -257,7 +257,7 @@ Placement `ads_type` in JSON determines native SDK behavior. Unity API mapping:
 | `rewarded` | `LoadRewarded`, `ShowRewarded`, `LoadAndShowRewarded` | Must use rewarded API |
 | `banner` | `ShowBanner`, `HideBanner`, `DestroyBanner` | `position`: `"top"` or `"bottom"` |
 | `mrec` | `ShowBanner`, `HideBanner`, `DestroyBanner` | MREC size from placement JSON |
-| `native` | `ShowNative`, `ShowNativeFullScreen`, `SetNativePlaceholderBounds`, `HideNative`, `DestroyNative` | `ShowNative` overlay; **Android** `ShowNativeFullScreen` opens a dedicated Activity (video-safe); per-placement hide/destroy |
+| `native` | `ShowNative`, `ShowNativeFullScreen`, `SetNativePlaceholderBounds`, `HideNative`, `DestroyNative` | `ShowNative` overlay (inline video on Unity Activity); **Android** `ShowNativeFullScreen` → dedicated Activity; per-placement hide/destroy |
 
 #### Interstitial / App Open / Rewarded Interstitial
 
@@ -362,6 +362,7 @@ ABIAds.UnregisterPlacement("main_native");
 - `SetNativePlaceholderBounds(…, maxY: 1f)` anchors to content bottom (not navigation bar) on current AAR.
 - `NativePlaceholderBounds.FullScreen` and `BottomStrip(heightPercent)` are helpers for common layouts.
 - Per-placement `HideNative(placement)` / `DestroyNative(placement)` keep other native slots visible (Android).
+- **Android inline native:** `ShowNative` overlay supports video/media on the Unity Activity (non-fullscreen).
 - **Android fullscreen:** `ShowNativeFullScreen` uses a separate Activity (not an overlay on the Unity `Activity`) so native video/media can render correctly.
 - Set `native_ad.clicked.dismiss_on_ad_click` in placement JSON for fullscreen native dismiss-on-click behavior.
 - `templateName` must match a layout in the ads module. Pick from the Editor dropdown or see [Native template files (review)](https://docs.google.com/spreadsheets/d/1LxvJKFlAn_9vDGtWCXLAHsGexKQmfJraV2_DgbhK6ng/edit?gid=0#gid=0).
@@ -504,7 +505,7 @@ Key points:
 **Git URL** trong `Packages/manifest.json`:
 
 ```json
-"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.8.1"
+"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.8.3"
 ```
 
 **Local package:**
@@ -709,7 +710,7 @@ Luôn đăng ký `OnInitialized` **trước** `Initialize()`. Preload bằng `Lo
 | `rewarded` | `LoadRewarded`, `ShowRewarded`, `LoadAndShowRewarded` | Bắt buộc API rewarded |
 | `banner` | `ShowBanner`, `HideBanner`, `DestroyBanner` | `position`: `"top"` / `"bottom"` |
 | `mrec` | `ShowBanner`, `HideBanner`, `DestroyBanner` | Kích thước MREC từ JSON placement |
-| `native` | `ShowNative`, `ShowNativeFullScreen`, `SetNativePlaceholderBounds`, `HideNative`, `DestroyNative` | `ShowNative` overlay; **Android** `ShowNativeFullScreen` mở Activity riêng (video ổn); hide/destroy theo placement |
+| `native` | `ShowNative`, `ShowNativeFullScreen`, `SetNativePlaceholderBounds`, `HideNative`, `DestroyNative` | `ShowNative` overlay (video inline trên Unity Activity); **Android** `ShowNativeFullScreen` → Activity riêng; hide/destroy theo placement |
 
 #### Interstitial / App Open / Rewarded Interstitial
 
@@ -797,6 +798,7 @@ ABIAds.UnregisterPlacement("main_native");
 - `maxY = 1f` neo đáy vùng nội dung (không tính navigation bar) trên AAR mới.
 - `NativePlaceholderBounds.FullScreen` và `BottomStrip(heightPercent)` là helper cho layout phổ biến.
 - `HideNative(placement)` / `DestroyNative(placement)` giữ các slot native khác (Android).
+- **Android inline native:** `ShowNative` overlay hỗ trợ video/media trên Unity Activity (không fullscreen).
 - **Android fullscreen:** `ShowNativeFullScreen` dùng Activity riêng (không overlay lên Unity `Activity`) để video/media native render đúng.
 - Bật `native_ad.clicked.dismiss_on_ad_click` trong JSON cho fullscreen dismiss khi click ad.
 - `templateName` phải khớp layout trong module ads. Chọn từ dropdown Editor hoặc xem [Danh sách native template (review)](https://docs.google.com/spreadsheets/d/1LxvJKFlAn_9vDGtWCXLAHsGexKQmfJraV2_DgbhK6ng/edit?gid=0#gid=0).
@@ -911,4 +913,4 @@ Asset: `Runtime/ABILibsCustomEvents/Resources/ABILibsCustomEventConfig.asset`.
 
 ---
 
-*Repository: [ABI-Lib-Ads-Support](https://github.com/hongphuong0211/ABI-Lib-Ads-Support) — Cập nhật README: 2026-06-01.*
+*Repository: [ABI-Lib-Ads-Support](https://github.com/hongphuong0211/ABI-Lib-Ads-Support) — Cập nhật README: 2026-06-12.*

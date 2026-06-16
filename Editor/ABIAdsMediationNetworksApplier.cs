@@ -190,7 +190,7 @@ namespace ABI.Ads.UnityBridge.Editor
                 return;
             }
 
-            foreach (var package in args.added.Concat(args.changed))
+            foreach (var package in args.added.Concat(args.changedTo))
             {
                 if (!string.Equals(package.name, ABIAdsEditorPaths.PackageName, StringComparison.Ordinal))
                 {

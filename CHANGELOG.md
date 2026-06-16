@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.8.5
+
+- Fix Unity 6 compile error: use `PackageRegistrationEventArgs.changedTo` instead of removed `changed` when restoring mediation adapters after UPM update.
+
 ## 1.8.4
 
 - Persist AdMob/MAX mediation network selections in `Assets/Resources/Configs/mediation_networks.json` (separate from `global_config.json`).

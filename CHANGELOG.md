@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.8.4
+
+- Persist AdMob/MAX mediation network selections in `Assets/Resources/Configs/mediation_networks.json` (separate from `global_config.json`).
+- Auto-restore mediation adapters to `ABIAdsDependencies.xml` after UPM package update or when XML drifts from saved config.
+- Migrate legacy `admob_mediation_networks` / `max_mediation_networks` fields from `global_config.json` when present.
+- Treat missing or empty `mediation_networks.json` as no mediation adapters; clear stale MAX/AdMob specs from `ABIAdsDependencies.xml` on sync.
+
 ## 1.8.3
 
 - **Android inline native:** fix video/media rendering on `ShowNative` overlay (non-fullscreen) over the Unity Activity.

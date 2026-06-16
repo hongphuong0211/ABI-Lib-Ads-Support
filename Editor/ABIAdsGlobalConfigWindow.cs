@@ -39,7 +39,8 @@ namespace ABI.Ads.UnityBridge.Editor
             EditorGUILayout.Space();
             EditorGUILayout.HelpBox(
                 "Quản lý Assets/Resources/Configs/global_config.json (tên file: global_config.json, gạch dưới). " +
-                "Save luôn ghi vào Assets; Reload ưu tiên file project, rồi mới fallback package mẫu.",
+                "Save luôn ghi vào Assets; Reload ưu tiên file project, rồi mới fallback package mẫu. " +
+                "Mediation network lưu riêng tại Assets/Resources/Configs/mediation_networks.json và tự apply lại sau update UPM.",
                 MessageType.Info);
 
             using (new EditorGUILayout.HorizontalScope())
@@ -119,17 +120,13 @@ namespace ABI.Ads.UnityBridge.Editor
             EnsureAdMobNetworks();
             DrawMediationNetworks(
                 "AdMob Mediation Networks",
-                "Tick network cần integrate cho AdMob. Khi Apply, window sẽ cập nhật Editor/ABIAdsDependencies.xml, thêm Maven repo vào settingsTemplate.gradle, rồi chạy EDM4U Force Resolve.",
+                "Tick network cần integrate cho AdMob. Apply ghi vào mediation_networks.json + ABIAdsDependencies.xml, thêm Maven repo vào settingsTemplate.gradle, rồi chạy EDM4U Force Resolve.",
                 ABIAdsAdMobMediationNetworks.VersionSource,
                 ABIAdsAdMobMediationNetworks.All,
                 ref _adMobMediationFoldout,
                 _enabledAdMobNetworkIds,
                 LoadAdMobNetworks,
-                () =>
-                {
-                    ABIAdsDependenciesXmlStore.SaveEnabledMediationNetworks(_enabledAdMobNetworkIds);
-                    AssetDatabase.Refresh();
-                });
+                ApplyAdMobMediationNetworks);
         }
 
         private void DrawMaxMediationNetworks()
@@ -137,17 +134,13 @@ namespace ABI.Ads.UnityBridge.Editor
             EnsureMaxNetworks();
             DrawMediationNetworks(
                 "MAX Mediation Networks",
-                "Tick network cần integrate cho MAX. Khi Apply, window sẽ cập nhật Editor/ABIAdsDependencies.xml, thêm Maven repo vào settingsTemplate.gradle, rồi chạy EDM4U Force Resolve.",
+                "Tick network cần integrate cho MAX. Apply ghi vào mediation_networks.json + ABIAdsDependencies.xml, thêm Maven repo vào settingsTemplate.gradle, rồi chạy EDM4U Force Resolve.",
                 ABIAdsMaxMediationNetworks.VersionSource,
                 ABIAdsMaxMediationNetworks.All,
                 ref _maxMediationFoldout,
                 _enabledMaxNetworkIds,
                 LoadMaxNetworks,
-                () =>
-                {
-                    ABIAdsDependenciesXmlStore.SaveEnabledMaxMediationNetworks(_enabledMaxNetworkIds);
-                    AssetDatabase.Refresh();
-                });
+                ApplyMaxMediationNetworks);
         }
 
         private static void DrawMediationNetworks(
@@ -172,6 +165,7 @@ namespace ABI.Ads.UnityBridge.Editor
                 EditorGUILayout.HelpBox(helpText, MessageType.Info);
                 EditorGUILayout.LabelField("Version Source", versionSource, EditorStyles.miniLabel);
                 ABIAdsConfigGui.DrawPath("Dependencies XML", ABIAdsDependenciesXmlStore.DependenciesPath());
+                ABIAdsConfigGui.DrawPath("Persisted networks", ABIAdsEditorPaths.MediationNetworksConfigPath());
 
                 using (new EditorGUILayout.HorizontalScope())
                 {
@@ -188,7 +182,7 @@ namespace ABI.Ads.UnityBridge.Editor
                         enabledNetworkIds.Clear();
                     }
 
-                    if (GUILayout.Button("Reload From XML", GUILayout.Width(128)))
+                    if (GUILayout.Button("Reload From Config", GUILayout.Width(140)))
                     {
                         reload();
                     }
@@ -263,6 +257,24 @@ namespace ABI.Ads.UnityBridge.Editor
             _configLoadSource = ABIAdsConfigStore.ConfigLoadSource.Project;
         }
 
+        private void ApplyAdMobMediationNetworks()
+        {
+            EnsureData();
+            ABIAdsMediationNetworksConfigStore.Save(_enabledAdMobNetworkIds, _enabledMaxNetworkIds);
+            ABIAdsDependenciesXmlStore.SaveEnabledMediationNetworks(_enabledAdMobNetworkIds);
+            AssetDatabase.Refresh();
+            ABIAdsMediationNetworksApplier.TryForceResolveAndroidDependencies();
+        }
+
+        private void ApplyMaxMediationNetworks()
+        {
+            EnsureData();
+            ABIAdsMediationNetworksConfigStore.Save(_enabledAdMobNetworkIds, _enabledMaxNetworkIds);
+            ABIAdsDependenciesXmlStore.SaveEnabledMaxMediationNetworks(_enabledMaxNetworkIds);
+            AssetDatabase.Refresh();
+            ABIAdsMediationNetworksApplier.TryForceResolveAndroidDependencies();
+        }
+
         private void EnsureData()
         {
             if (_globalConfig == null)
@@ -276,7 +288,9 @@ namespace ABI.Ads.UnityBridge.Editor
 
         private void LoadAdMobNetworks()
         {
-            _enabledAdMobNetworkIds = ABIAdsDependenciesXmlStore.LoadEnabledMediationNetworkIds();
+            var config = ABIAdsMediationNetworksConfigStore.Load(out _);
+            _enabledAdMobNetworkIds = ABIAdsMediationNetworksApplier.ToHashSet(config.admob_mediation_networks);
+            _enabledMaxNetworkIds = ABIAdsMediationNetworksApplier.ToHashSet(config.max_mediation_networks);
         }
 
         private void EnsureAdMobNetworks()
@@ -289,7 +303,7 @@ namespace ABI.Ads.UnityBridge.Editor
 
         private void LoadMaxNetworks()
         {
-            _enabledMaxNetworkIds = ABIAdsDependenciesXmlStore.LoadEnabledMaxMediationNetworkIds();
+            LoadAdMobNetworks();
         }
 
         private void EnsureMaxNetworks()

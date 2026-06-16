@@ -4,14 +4,14 @@ Unity Package Manager package tích hợp **ABI Module Ads** vào project Unity 
 
 | | |
 |---|---|
-| Package | `com.abi.ads.unity` (hiện tại **v1.8.3**) |
+| Package | `com.abi.ads.unity` (hiện tại **v1.8.4**) |
 | Unity | **Unity 6** (6000.0+) — không hỗ trợ Unity 2022.3 |
 | Repository | [ABI-Lib-Ads-Support](https://github.com/hongphuong0211/ABI-Lib-Ads-Support) |
 | Hướng dẫn tích hợp | [Unity integration guide (Google Docs)](https://docs.google.com/document/d/1n4MRn_bFpleChfLl4Tf6l5B_owGpiHaahPNa9bVTqh8/edit?usp=sharing) |
 | Namespace | `ABI.Ads.UnityBridge` |
 | API chính | `ABIAds` |
 | Editor | `ABI Ads > Configs` |
-| Config runtime | `Resources/Configs/global_config.json`, `Resources/Configs/placements.json` |
+| Config runtime | `Resources/Configs/global_config.json`, `placements.json`, `mediation_networks.json` |
 
 Tài liệu song ngữ:
 
@@ -47,7 +47,7 @@ Tài liệu song ngữ:
 **Git URL** in `Packages/manifest.json`:
 
 ```json
-"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.8.3"
+"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.8.4"
 ```
 
 **Local package** (monorepo):
@@ -141,9 +141,11 @@ ABI Ads manages **Gradle adapter dependencies** and **Maven repos** from the edi
 2. Open **ABI Ads → Configs → Edit Global Config**.
 3. Under **AdMob Mediation Networks** / **MAX Mediation Networks**, tick every network you use in the dashboard.
 4. Click **Apply To XML** for each section. This:
+   - Saves selections to `Assets/Resources/Configs/mediation_networks.json`
    - Writes adapter specs to `Packages/.../Editor/ABIAdsDependencies.xml`
    - Injects Maven repos into `Assets/Plugins/Android/settingsTemplate.gradle` (block `// ABI Ads Mediation Repos Start … End`)
    - Triggers EDM4U **Force Resolve**
+   - After a UPM package update, editor auto-syncs `ABIAdsDependencies.xml` from saved `mediation_networks.json`
 5. Confirm `mainTemplate.gradle` still has **GMA classic** block **above** `// Android Resolver Dependencies Start` (EDM may overwrite — re-add if missing):
 
 ```gradle
@@ -505,7 +507,7 @@ Key points:
 **Git URL** trong `Packages/manifest.json`:
 
 ```json
-"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.8.3"
+"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.8.4"
 ```
 
 **Local package:**
@@ -599,9 +601,11 @@ Package quản lý **Gradle adapter** và **Maven repo** từ Editor — bạn v
 2. Mở **ABI Ads → Configs → Edit Global Config**.
 3. Tick network trong **AdMob Mediation Networks** / **MAX Mediation Networks**.
 4. Bấm **Apply To XML** — hệ thống sẽ:
+   - Lưu lựa chọn vào `Assets/Resources/Configs/mediation_networks.json`
    - Ghi adapter vào `Editor/ABIAdsDependencies.xml`
    - Inject Maven repo vào `settingsTemplate.gradle` (block `// ABI Ads Mediation Repos Start … End`)
    - Chạy EDM4U **Force Resolve**
+   - Sau khi update UPM package, editor tự sync `ABIAdsDependencies.xml` từ `mediation_networks.json` đã lưu
 5. Kiểm tra `mainTemplate.gradle` vẫn có block **GMA classic** **phía trên** `// Android Resolver Dependencies Start`:
 
 ```gradle

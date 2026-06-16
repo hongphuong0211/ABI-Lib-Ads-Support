@@ -12,6 +12,7 @@ namespace ABI.Ads.UnityBridge.Editor
         internal const string ResourceFolderInProject = "Resources/Configs";
         internal const string ResourceFolderInPackage = "Resources/Configs";
         internal const string GlobalConfigFileName = "global_config.json";
+        internal const string MediationNetworksConfigFileName = "mediation_networks.json";
         internal const string PlacementsFileName = "placements.json";
         internal const string PlacementsAssetFileName = "1.txt";
         internal const string GlobalAssetFileName = "2.txt";
@@ -23,6 +24,11 @@ namespace ABI.Ads.UnityBridge.Editor
         internal static string GlobalConfigPath()
         {
             return Path.Combine(ConfigRoot(), GlobalConfigFileName);
+        }
+
+        internal static string MediationNetworksConfigPath()
+        {
+            return Path.Combine(ConfigRoot(), MediationNetworksConfigFileName);
         }
 
         internal static string PlacementsPath()
@@ -53,6 +59,11 @@ namespace ABI.Ads.UnityBridge.Editor
         internal static string PackageGlobalConfigPath()
         {
             return Path.Combine(PackageConfigRoot(), GlobalConfigFileName);
+        }
+
+        internal static string PackageMediationNetworksConfigPath()
+        {
+            return Path.Combine(PackageConfigRoot(), MediationNetworksConfigFileName);
         }
 
         internal static string PackagePlacementsPath()
@@ -361,6 +372,33 @@ namespace ABI.Ads.UnityBridge.Editor
                     return "package Resources/Configs";
                 default:
                     return "editor defaults";
+            }
+        }
+
+        internal static bool TryLoadProjectGlobalConfig(out ABIAdsGlobalConfigData config)
+        {
+            config = null;
+            var path = ABIAdsEditorPaths.GlobalConfigPath();
+            if (!File.Exists(path))
+            {
+                return false;
+            }
+
+            try
+            {
+                var raw = File.ReadAllText(path);
+                if (!TryParseGlobalConfigJson(raw, out var parsed))
+                {
+                    return false;
+                }
+
+                config = parsed;
+                return config != null;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning($"ABI Ads could not read project global config `{path}`: {ex.Message}");
+                return false;
             }
         }
 

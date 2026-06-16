@@ -225,11 +225,7 @@ namespace ABI.Ads.UnityBridge.Editor
                 : CreateEmptyDocument();
 
             var androidPackages = EnsureAndroidPackages(document);
-            var mediationSpecs = new HashSet<string>(
-                ABIAdsMaxMediationNetworks.All.SelectMany(network => network.Specs).Concat(new[] { ABIAdsMaxMediationNetworks.MaxSdkSpec }),
-                StringComparer.Ordinal);
-
-            RemoveSpecs(androidPackages, mediationSpecs);
+            RemoveMaxManagedPackages(androidPackages);
 
             if (enabledIds.Count > 0)
             {
@@ -252,6 +248,19 @@ namespace ABI.Ads.UnityBridge.Editor
             document.Save(path);
             ABIAdsMediationGradleConfigurator.SyncFromDependenciesXml();
             Debug.Log($"ABI Ads MAX mediation dependencies saved to `{path}`.");
+        }
+
+        internal static bool ContainsAnyManagedMediationPackages()
+        {
+            foreach (var spec in LoadAndroidPackageSpecs())
+            {
+                if (IsManagedAdMobMediationSpec(spec) || IsManagedMaxMediationSpec(spec))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private static HashSet<string> LoadAndroidPackageSpecs()
@@ -313,6 +322,66 @@ namespace ABI.Ads.UnityBridge.Editor
                     package.Remove();
                 }
             }
+        }
+
+        private static void RemoveMaxManagedPackages(XElement androidPackages)
+        {
+            foreach (var package in androidPackages.Elements("androidPackage").ToList())
+            {
+                var spec = (string)package.Attribute("spec");
+                if (spec != null && IsManagedMaxMediationSpec(spec))
+                {
+                    package.Remove();
+                }
+            }
+        }
+
+        private static bool IsManagedAdMobMediationSpec(string spec)
+        {
+            if (string.IsNullOrWhiteSpace(spec))
+            {
+                return false;
+            }
+
+            foreach (var network in ABIAdsAdMobMediationNetworks.All)
+            {
+                foreach (var managedSpec in network.Specs)
+                {
+                    if (string.Equals(managedSpec, spec, StringComparison.Ordinal))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private static bool IsManagedMaxMediationSpec(string spec)
+        {
+            if (string.IsNullOrWhiteSpace(spec))
+            {
+                return false;
+            }
+
+            if (spec.StartsWith("com.applovin:applovin-sdk:", StringComparison.Ordinal)
+                || spec.StartsWith("com.applovin.mediation:", StringComparison.Ordinal))
+            {
+                return true;
+            }
+
+            foreach (var network in ABIAdsMaxMediationNetworks.All)
+            {
+                foreach (var managedSpec in network.Specs)
+                {
+                    if (string.Equals(managedSpec, spec, StringComparison.Ordinal))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         private static XDocument CreateEmptyDocument()

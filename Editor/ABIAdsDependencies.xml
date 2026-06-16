@@ -25,16 +25,8 @@
     <androidPackage spec="androidx.lifecycle:lifecycle-viewmodel:2.6.2" />
     <androidPackage spec="androidx.lifecycle:lifecycle-common-java8:2.6.2" />
 
-    <!-- AppLovin MAX (optional — tick networks in ABI Ads → Configs) -->
-    <androidPackage spec="com.applovin:applovin-sdk:13.6.2" />
-    <androidPackage spec="com.applovin.mediation:google-ad-manager-adapter:24.1.0.0" />
-    <androidPackage spec="com.applovin.mediation:google-adapter:24.1.0.0" />
+    <!-- AppLovin MAX (optional — tick networks in ABI Ads → Configs → Apply) -->
 
-    <!-- AdMob mediation (enabled defaults — change via ABI Ads → Configs → Apply) -->
-    
-    
-    
-    
-    
+    <!-- AdMob mediation (managed via ABI Ads → Configs → Apply) -->
   </androidPackages>
 </dependencies>

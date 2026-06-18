@@ -11,6 +11,7 @@
 //
 // Google Mobile Ads SDK (classic, required for ads-debug.aar / ads-release.aar):
 // implementation 'com.google.android.gms:play-services-ads:25.3.0'
+// UMP is resolved via Editor/ABIAdsDependencies.xml (External Dependency Manager).
 // implementation 'com.google.android.ump:user-messaging-platform:4.0.0'
 // implementation 'com.google.android.gms:play-services-ads-identifier:18.2.0'
 //

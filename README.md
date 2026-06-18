@@ -4,7 +4,7 @@ Unity Package Manager package tích hợp **ABI Module Ads** vào project Unity 
 
 | | |
 |---|---|
-| Package | `com.abi.ads.unity` (hiện tại **v1.8.6-beta**) |
+| Package | `com.abi.ads.unity` (hiện tại **v1.8.7-beta**) |
 | Unity | **Unity 6** (6000.0+) — không hỗ trợ Unity 2022.3 |
 | Repository | [ABI-Lib-Ads-Support](https://github.com/hongphuong0211/ABI-Lib-Ads-Support) |
 | Hướng dẫn tích hợp | [Unity integration guide (Google Docs)](https://docs.google.com/document/d/1n4MRn_bFpleChfLl4Tf6l5B_owGpiHaahPNa9bVTqh8/edit?usp=sharing) |
@@ -16,7 +16,9 @@ Unity Package Manager package tích hợp **ABI Module Ads** vào project Unity 
 Tài liệu song ngữ:
 
 - [English](#english)
+- [Multi-project / compatibility matrix (EN)](#multi-project--compatibility-matrix)
 - [Tiếng Việt](#tieng-viet)
+- [Nhiều project / ma trận tương thích (VI)](#nhieu-project--ma-tran-tuong-thich)
 - [Hướng dẫn tích hợp Unity (Google Docs)](https://docs.google.com/document/d/1n4MRn_bFpleChfLl4Tf6l5B_owGpiHaahPNa9bVTqh8/edit?usp=sharing)
 
 ---
@@ -47,7 +49,7 @@ Tài liệu song ngữ:
 **Git URL** in `Packages/manifest.json`:
 
 ```json
-"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.8.6-beta"
+"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.8.7-beta"
 ```
 
 **Local package** (monorepo):
@@ -67,9 +69,83 @@ After resolve, Unity imports C# bridge + native plugins (`Plugins/Android/ads-re
 
 **Host dependencies (recommended):**
 
-- Firebase Analytics (for TROAS/Bamboo forwarding)
-- AppLovin MAX Unity SDK (when using MAX or Dual mediation)
-- External Dependency Manager (EDM4U) for Android Gradle resolve
+- External Dependency Manager (EDM4U) for Android Gradle resolve — **required**
+- Firebase Analytics / Remote Config (optional — TROAS/Bamboo forwarding, remote placements)
+- **Do not** add the [Google Mobile Ads Unity Plugin](https://developers.google.com/admob/unity/quick-start) — see [Multi-project / compatibility matrix](#multi-project--compatibility-matrix)
+
+---
+
+<a id="multi-project--compatibility-matrix"></a>
+
+### Multi-project / compatibility matrix
+
+`com.abi.ads.unity` is meant to be **reused across many game projects**. Each host project may include different third-party plugins. **Force Resolve** merges every `*Dependencies.xml` in that project into `mainTemplate.gradle`; Gradle then picks one version per artifact at APK build time.
+
+#### Do not combine with Google Mobile Ads Unity Plugin
+
+**Do not install** the official **Google Mobile Ads Unity Plugin** alongside `com.abi.ads.unity`.
+
+| Reason | Detail |
+|--------|--------|
+| Duplicate GMA stack | Both ship `play-services-ads`, UMP, and `MobileAds.initialize` |
+| Double init | Two consent/init flows → `OnInitialized` may never fire or ads stay `sdk not ready` |
+| Duplicate classes | Build may fail with `Duplicate class com.google.android.gms...` |
+
+**Use one ads entry point only:** `ABIAds.Initialize()` → native `ABIUnityAdsBridge`.
+
+If migrating from the GMA Unity Plugin: remove the plugin, keep AdMob App ID in manifest / `global_config.json`, then Force Resolve and use ABI Ads APIs only.
+
+#### Compatibility matrix
+
+| Host stack | Status | Notes |
+|------------|--------|-------|
+| ABI Ads + EDM4U | ✅ Required | Force Resolve after add or update package |
+| ABI Ads + Firebase Unity 13.x | ✅ Supported | Remote config optional; local JSON works |
+| ABI Ads + Google Play Games | ✅ Supported | Independent of ads init |
+| ABI Ads + AdMob mediation (editor **Apply To XML**) | ✅ Supported | Adapters not in base XML until you Apply |
+| ABI Ads + MAX or Dual (`mediation_provider` 1 or 2) | ✅ Supported | MAX adapters via Configs; avoid a second MAX init entry point |
+| Google Mobile Ads Unity Plugin | ❌ **Do not combine** | Remove GMA plugin; use ABI Ads only |
+| Another primary ads Unity SDK (e.g. LevelPlay as sole entry) | ⚠️ Avoid | Competes with ABI init and Gradle deps |
+| Firebase + GMA Unity Plugin + ABI Ads | ❌ Do not combine | Pick **ABI Ads or** GMA plugin, not both |
+
+#### Base dependencies (all projects)
+
+`Editor/ABIAdsDependencies.xml` is resolved by EDM4U into `mainTemplate.gradle`. You **do not** need a manual GMA block unless Resolve failed.
+
+| Package | Purpose |
+|---------|---------|
+| `play-services-ads:25.3.0` | GMA SDK — `MobileAds.initialize` |
+| `play-services-ads-identifier:18.2.0` | Ad ID |
+| `user-messaging-platform:4.0.0` | UMP consent before Mobile Ads |
+| AndroidX / `lifecycle-*:2.6.2` | Native layouts, ProcessLifecycleOwner |
+| `kotlinx-coroutines`, `guava` | Runtime refs from `ads-release.aar` |
+
+**Not in base XML:** mediation adapters (Configs → Apply), Firebase (Firebase Unity EDM), optional tracking SDKs (Adjust, AppsFlyer, …).
+
+#### Onboarding checklist (new host project)
+
+1. Add `com.abi.ads.unity` to `Packages/manifest.json` — **no** Google Mobile Ads Unity Plugin.
+2. Enable **Custom Main / Settings / Properties Gradle Template** (Android).
+3. Save **Global + Placement** config → **ABI Ads → Configs → Apply** (if using mediation) → **Force Resolve**.
+4. Confirm `mainTemplate.gradle` contains `play-services-ads` with comment `ABIAdsDependencies.xml`.
+5. Set `AndroidManifest` → `com.abi.ads.modules.unity.ABIUnityAdsApplication` + `com.google.android.gms.ads.APPLICATION_ID`.
+6. Call `ABIAds.Initialize(...)` → wait `OnInitialized` with `ready=true`.
+7. Build APK; smoke-test splash init + one ad format.
+
+#### Version conflicts between plugins
+
+Different plugins may declare the same library at different versions. Gradle usually keeps the highest compatible version. Real problems show up as:
+
+- **Build:** `Duplicate class ...`
+- **Runtime:** `NoSuchMethodError`, init stuck after UMP
+
+**Per-project fix:** compare `mainTemplate.gradle` and `ProjectSettings/AndroidResolverDependencies.xml` with a known-good project; use Gradle `resolutionStrategy` if needed. This package already pins `androidx.lifecycle` to **2.6.2** on Unity 6 builds.
+
+#### After package update (every consuming project)
+
+1. Pull the new tag or refresh the local package path.
+2. Run **Force Resolve** on **each** game project.
+3. Rebuild APK and verify init (`OnInitialized`, `ready=true`).
 
 ---
 
@@ -146,14 +222,14 @@ ABI Ads manages **Gradle adapter dependencies** and **Maven repos** from the edi
    - Injects Maven repos into `Assets/Plugins/Android/settingsTemplate.gradle` (block `// ABI Ads Mediation Repos Start … End`)
    - Triggers EDM4U **Force Resolve**
    - After a UPM package update, editor auto-syncs `ABIAdsDependencies.xml` from saved `mediation_networks.json`
-5. Confirm `mainTemplate.gradle` still has **GMA classic** block **above** `// Android Resolver Dependencies Start` (EDM may overwrite — re-add if missing):
+5. After **Force Resolve**, confirm `mainTemplate.gradle` includes GMA from `Editor/ABIAdsDependencies.xml`:
 
 ```gradle
-implementation 'com.google.android.gms:play-services-ads:25.3.0'
-implementation 'com.google.android.ump:user-messaging-platform:4.0.0'
-configurations.configureEach {
-}
+implementation 'com.google.android.gms:play-services-ads:25.3.0' // Packages/com.abi.ads.unity/Editor/ABIAdsDependencies.xml
+implementation 'com.google.android.ump:user-messaging-platform:4.0.0' // ...
 ```
+
+If those lines are missing, run **Force Resolve** again. Manual fallback only: copy block from `docs/mainTemplate.host-unity6.gradle.snippet` above `// Android Resolver Dependencies Start`.
 
 6. Configure the same networks + ad units in **AdMob Mediation** or **MAX Mediation** web UI.
 7. In **Placement Config**, set each `ad_ids[].mediation` to match the provider (`0` or `1`). In **Dual** mode, use both AdMob and MAX unit IDs on the same placement as needed.
@@ -461,8 +537,8 @@ Key points:
 
 - Custom `Application`: `com.abi.ads.modules.unity.ABIUnityAdsApplication` or extend `AdsMultiDexApplication`
 - Package provides `abi-multidex-keep.pro` + `ABIAdsLauncherMultidexGradlePostProcessor`
-- Host `mainTemplate.gradle`: keep **GMA classic** block above EDM resolver block (see [§3](#3-integrate-mediation-networks))
-- Gradle snippet files in package `docs/` (`*.gradle.snippet`, `*.properties.snippet`) for host template blocks
+- GMA + UMP: resolved from `Editor/ABIAdsDependencies.xml` via EDM **Force Resolve** (see [Multi-project / compatibility matrix](#multi-project--compatibility-matrix))
+- Gradle snippet files in package `docs/` (`*.gradle.snippet`, `*.properties.snippet`) — fallback if EDM did not inject GMA
 - CI env: `ABI_ANDROID_GOOGLE_AD_APP_ID`, `ABI_ANDROID_MAX_SDK_KEY`
 - Unity 6 + Firebase: Maven repos in `settingsTemplate.gradle`, not only `mainTemplate.gradle`
 - If Gradle cannot resolve mediation artifacts (`mbridge`, `pag-sdk`, …): enable **Custom Gradle Settings Template**, **Apply To XML**, **Force Resolve**, then clean `Library/Bee/Android`
@@ -507,7 +583,7 @@ Key points:
 **Git URL** trong `Packages/manifest.json`:
 
 ```json
-"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.8.6-beta"
+"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.8.7-beta"
 ```
 
 **Local package:**
@@ -527,9 +603,83 @@ Sau resolve, Unity import C# bridge + native plugin (`Plugins/Android/ads-releas
 
 **Dependency khuyến nghị ở project host:**
 
-- Firebase Analytics (forward TROAS/Bamboo)
-- AppLovin MAX Unity SDK (khi dùng MAX hoặc Dual)
-- External Dependency Manager (EDM4U) cho Android
+- External Dependency Manager (EDM4U) cho Android Gradle resolve — **bắt buộc**
+- Firebase Analytics / Remote Config (tuỳ chọn — TROAS/Bamboo, remote placements)
+- **Không** cài [Google Mobile Ads Unity Plugin](https://developers.google.com/admob/unity/quick-start) — xem [Nhiều project / ma trận tương thích](#nhieu-project--ma-tran-tuong-thich)
+
+---
+
+<a id="nhieu-project--ma-tran-tuong-thich"></a>
+
+### Nhiều project / ma trận tương thích
+
+`com.abi.ads.unity` được thiết kế **dùng chung cho nhiều game**. Mỗi project host có thể có bộ plugin khác nhau. **Force Resolve** gom mọi `*Dependencies.xml` trong project đó vào `mainTemplate.gradle`; Gradle chọn một version cho mỗi artifact khi build APK.
+
+#### Không kết hợp với Google Mobile Ads Unity Plugin
+
+**Không cài** **Google Mobile Ads Unity Plugin** chính thức cùng lúc với `com.abi.ads.unity`.
+
+| Lý do | Chi tiết |
+|-------|----------|
+| Trùng stack GMA | Cả hai đều có `play-services-ads`, UMP và `MobileAds.initialize` |
+| Init kép | Hai luồng consent/init → `OnInitialized` không fire hoặc ads kẹt `sdk not ready` |
+| Duplicate class | Build fail: `Duplicate class com.google.android.gms...` |
+
+**Chỉ một entry point ads:** `ABIAds.Initialize()` → native `ABIUnityAdsBridge`.
+
+Khi migrate từ GMA Unity Plugin: gỡ plugin, giữ AdMob App ID trong manifest / `global_config.json`, Force Resolve, chỉ dùng API ABI Ads.
+
+#### Ma trận tương thích
+
+| Stack host | Trạng thái | Ghi chú |
+|------------|------------|---------|
+| ABI Ads + EDM4U | ✅ Bắt buộc | Force Resolve sau khi thêm/cập nhật package |
+| ABI Ads + Firebase Unity 13.x | ✅ Hỗ trợ | Remote config tuỳ chọn; JSON local vẫn chạy |
+| ABI Ads + Google Play Games | ✅ Hỗ trợ | Độc lập với ads init |
+| ABI Ads + AdMob mediation (editor **Apply To XML**) | ✅ Hỗ trợ | Adapter không có trong base XML cho đến khi Apply |
+| ABI Ads + MAX hoặc Dual (`mediation_provider` 1 hoặc 2) | ✅ Hỗ trợ | Adapter MAX qua Configs; tránh init MAX entry point thứ hai |
+| Google Mobile Ads Unity Plugin | ❌ **Không kết hợp** | Gỡ GMA plugin; chỉ dùng ABI Ads |
+| SDK ads Unity khác làm entry chính (vd. LevelPlay) | ⚠️ Tránh | Xung đột init và Gradle |
+| Firebase + GMA Unity Plugin + ABI Ads | ❌ Không kết hợp | Chọn **ABI Ads hoặc** GMA plugin |
+
+#### Dependency cơ bản (mọi project)
+
+`Editor/ABIAdsDependencies.xml` được EDM4U resolve vào `mainTemplate.gradle`. **Không** cần block GMA thủ công trừ khi Resolve thất bại.
+
+| Package | Mục đích |
+|---------|----------|
+| `play-services-ads:25.3.0` | GMA SDK — `MobileAds.initialize` |
+| `play-services-ads-identifier:18.2.0` | Ad ID |
+| `user-messaging-platform:4.0.0` | UMP consent trước Mobile Ads |
+| AndroidX / `lifecycle-*:2.6.2` | Layout native, ProcessLifecycleOwner |
+| `kotlinx-coroutines`, `guava` | Runtime refs từ `ads-release.aar` |
+
+**Không có trong base XML:** mediation adapter (Configs → Apply), Firebase (Firebase Unity EDM), tracking SDK tuỳ chọn (Adjust, AppsFlyer, …).
+
+#### Checklist onboard project mới
+
+1. Thêm `com.abi.ads.unity` vào `Packages/manifest.json` — **không** cài Google Mobile Ads Unity Plugin.
+2. Bật **Custom Main / Settings / Properties Gradle Template** (Android).
+3. Lưu **Global + Placement** → **Apply To XML** (nếu dùng mediation) → **Force Resolve**.
+4. Kiểm tra `mainTemplate.gradle` có `play-services-ads` với comment `ABIAdsDependencies.xml`.
+5. `AndroidManifest` → `ABIUnityAdsApplication` + `com.google.android.gms.ads.APPLICATION_ID`.
+6. Gọi `ABIAds.Initialize(...)` → đợi `OnInitialized` với `ready=true`.
+7. Build APK; smoke-test splash init + một format quảng cáo.
+
+#### Xung đột version giữa plugin
+
+Plugin khác nhau có thể khai báo cùng lib với version khác nhau. Gradle thường giữ version cao nhất tương thích. Lỗi thực tế:
+
+- **Build:** `Duplicate class ...`
+- **Runtime:** `NoSuchMethodError`, init kẹt sau UMP
+
+**Sửa theo từng project:** so sánh `mainTemplate.gradle` và `ProjectSettings/AndroidResolverDependencies.xml` với project đang chạy ổn; dùng Gradle `resolutionStrategy` nếu cần. Package này đã pin `androidx.lifecycle` **2.6.2** trên Unity 6.
+
+#### Sau khi cập nhật package (mọi project đang dùng)
+
+1. Pull tag mới hoặc refresh đường dẫn local package.
+2. **Force Resolve** trên **từng** game project.
+3. Build lại APK và verify init (`OnInitialized`, `ready=true`).
 
 ---
 
@@ -606,14 +756,14 @@ Package quản lý **Gradle adapter** và **Maven repo** từ Editor — bạn v
    - Inject Maven repo vào `settingsTemplate.gradle` (block `// ABI Ads Mediation Repos Start … End`)
    - Chạy EDM4U **Force Resolve**
    - Sau khi update UPM package, editor tự sync `ABIAdsDependencies.xml` từ `mediation_networks.json` đã lưu
-5. Kiểm tra `mainTemplate.gradle` vẫn có block **GMA classic** **phía trên** `// Android Resolver Dependencies Start`:
+5. Sau **Force Resolve**, kiểm tra `mainTemplate.gradle` có GMA từ `Editor/ABIAdsDependencies.xml`:
 
 ```gradle
-implementation 'com.google.android.gms:play-services-ads:25.3.0'
-implementation 'com.google.android.ump:user-messaging-platform:4.0.0'
-configurations.configureEach {
-}
+implementation 'com.google.android.gms:play-services-ads:25.3.0' // Packages/com.abi.ads.unity/Editor/ABIAdsDependencies.xml
+implementation 'com.google.android.ump:user-messaging-platform:4.0.0' // ...
 ```
+
+Nếu thiếu, chạy **Force Resolve** lại. Chỉ copy thủ công từ `docs/mainTemplate.host-unity6.gradle.snippet` khi Resolve thất bại.
 
 6. Cấu hình cùng network + ad unit trên **AdMob** / **MAX** web console.
 7. Trong **Placement Config**, set `ad_ids[].mediation` đúng provider. Chế độ **Dual**: có thể khai báo cả unit AdMob và MAX trên cùng placement.
@@ -897,8 +1047,8 @@ Asset: `Runtime/ABILibsCustomEvents/Resources/ABILibsCustomEventConfig.asset`.
 
 - Application: `com.abi.ads.modules.unity.ABIUnityAdsApplication` hoặc kế thừa `AdsMultiDexApplication`
 - Package có `abi-multidex-keep.pro` + post-processor MultiDex
-- `mainTemplate.gradle` host: giữ block **GMA classic** phía trên block EDM (xem [§3](#3-tích-hợp-mediation-network))
-- File snippet trong `docs/` package (`*.gradle.snippet`, `*.properties.snippet`) để copy vào template host
+- GMA + UMP: resolve từ `Editor/ABIAdsDependencies.xml` qua EDM **Force Resolve** (xem [Nhiều project / ma trận tương thích](#nhieu-project--ma-tran-tuong-thich))
+- File snippet trong `docs/` package — fallback khi EDM không inject GMA
 - CI: `ABI_ANDROID_GOOGLE_AD_APP_ID`, `ABI_ANDROID_MAX_SDK_KEY`
 - Unity 6 + Firebase: repo Maven trong `settingsTemplate.gradle`
 - Gradle không resolve mediation (`mbridge`, `pag-sdk`, …): bật **Custom Gradle Settings Template**, **Apply To XML**, **Force Resolve**, xóa `Library/Bee/Android`
@@ -917,4 +1067,4 @@ Asset: `Runtime/ABILibsCustomEvents/Resources/ABILibsCustomEventConfig.asset`.
 
 ---
 
-*Repository: [ABI-Lib-Ads-Support](https://github.com/hongphuong0211/ABI-Lib-Ads-Support) — Cập nhật README: 2026-06-12.*
+*Repository: [ABI-Lib-Ads-Support](https://github.com/hongphuong0211/ABI-Lib-Ads-Support) — Cập nhật README: 2026-06-18.*

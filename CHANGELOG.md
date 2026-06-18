@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.8.7-beta
+
+- **`Editor/ABIAdsDependencies.xml`**: resolve GMA classic (`play-services-ads:25.3.0`, `play-services-ads-identifier:18.2.0`), Kotlin coroutines, and guava via EDM4U — required because flat `ads-release.aar` does not pull Maven transitive dependencies.
+- **README**: add **Multi-project / compatibility matrix** (EN + VI); document **do not combine with Google Mobile Ads Unity Plugin**; per-project onboarding checklist and Force Resolve guidance after package updates.
+- Mediation docs: GMA + UMP are injected by EDM from `ABIAdsDependencies.xml`; manual `mainTemplate.gradle` GMA block is a fallback only when Resolve fails.
+
 ## 1.8.6-beta
 
 - Native placement editor: add `close_btn_render_mode` `3` (Random Style) and `4` (Random All).

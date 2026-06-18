@@ -1,12 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
   ABI Ads — Android Resolver base dependencies (Unity 6 only).
-  GMA classic (play-services-ads) stays in host mainTemplate.gradle — not here.
+  GMA classic + UMP: required at runtime (ads-release.aar is a flat AAR — no transitive Maven deps).
   Firebase: resolve via Firebase Unity EDM — not here.
   Mediation adapters below are managed by ABI Ads → Configs → Apply.
 -->
 <dependencies>
   <androidPackages>
+    <!-- Google Mobile Ads SDK (classic GMA) — required for MobileAds.initialize -->
+    <androidPackage spec="com.google.android.gms:play-services-ads:25.3.0" />
+    <androidPackage spec="com.google.android.gms:play-services-ads-identifier:18.2.0" />
+
     <!-- Layout / UI (ads-debug.aar resources) -->
     <androidPackage spec="androidx.appcompat:appcompat:1.7.0" />
     <androidPackage spec="androidx.constraintlayout:constraintlayout:2.2.0" />
@@ -24,6 +28,16 @@
     <androidPackage spec="androidx.lifecycle:lifecycle-process:2.6.2" />
     <androidPackage spec="androidx.lifecycle:lifecycle-viewmodel:2.6.2" />
     <androidPackage spec="androidx.lifecycle:lifecycle-common-java8:2.6.2" />
+
+    <!-- Google UMP — consent form before Mobile Ads init (GoogleMobileAdsUmpHelper) -->
+    <androidPackage spec="com.google.android.ump:user-messaging-platform:4.0.0" />
+
+    <!-- Kotlin coroutines (ads module AAR references kotlinx at runtime) -->
+    <androidPackage spec="org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1" />
+    <androidPackage spec="org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1" />
+
+    <!-- Guava (ads module + GMA helpers) -->
+    <androidPackage spec="com.google.guava:guava:27.1-android" />
 
     <!-- AppLovin MAX (optional — tick networks in ABI Ads → Configs → Apply) -->
 

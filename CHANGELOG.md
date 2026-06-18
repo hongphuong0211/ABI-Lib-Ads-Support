@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.8.6_beta
+
+- Native placement editor: add `close_btn_render_mode` `3` (Random Style) and `4` (Random All).
+- Refresh `Plugins/Android/ads-release.aar`.
+
 ## 1.8.5
 
 - Fix Unity 6 compile error: use `PackageRegistrationEventArgs.changedTo` instead of removed `changed` when restoring mediation adapters after UPM update.

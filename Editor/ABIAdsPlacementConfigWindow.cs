@@ -240,8 +240,14 @@ namespace ABI.Ads.UnityBridge.Editor
                 placement.native_ad.clicked.close_btn_render_mode = EditorGUILayout.IntPopup(
                     "Close Button Render Mode",
                     placement.native_ad.clicked.close_btn_render_mode,
-                    new[] { "0 Countdown + X", "1 Arrow + Progress + X", "2 Delay Only (ẩn countdown)" },
-                    new[] { 0, 1, 2 });
+                    new[] {
+                        "0 Countdown + X",
+                        "1 Arrow + Progress + X",
+                        "2 Delay Only (ẩn countdown)",
+                        "3 Random Style (giữ vị trí config)",
+                        "4 Random All (style + vị trí flip)"
+                    },
+                    new[] { 0, 1, 2, 3, 4 });
                 DrawNormalizedPos("Countdown Pos (0-1)", placement.native_ad.clicked.countdown_pos);
                 DrawNormalizedPos("Progress Pos (0-1)", placement.native_ad.clicked.progress_pos);
                 DrawNormalizedPos("Close Button Pos (0-1)", placement.native_ad.clicked.close_btn_pos);

@@ -4,7 +4,7 @@ Unity Package Manager package tích hợp **ABI Module Ads** vào project Unity 
 
 | | |
 |---|---|
-| Package | `com.abi.ads.unity` (hiện tại **v1.8.5**) |
+| Package | `com.abi.ads.unity` (hiện tại **v1.8.6_beta**) |
 | Unity | **Unity 6** (6000.0+) — không hỗ trợ Unity 2022.3 |
 | Repository | [ABI-Lib-Ads-Support](https://github.com/hongphuong0211/ABI-Lib-Ads-Support) |
 | Hướng dẫn tích hợp | [Unity integration guide (Google Docs)](https://docs.google.com/document/d/1n4MRn_bFpleChfLl4Tf6l5B_owGpiHaahPNa9bVTqh8/edit?usp=sharing) |
@@ -47,7 +47,7 @@ Tài liệu song ngữ:
 **Git URL** in `Packages/manifest.json`:
 
 ```json
-"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.8.5"
+"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.8.6_beta"
 ```
 
 **Local package** (monorepo):
@@ -119,7 +119,7 @@ One entry per logical ad slot:
 | `disable_version[]` | Config versions where this placement is disabled |
 | Banner/MREC options | inline adaptive, collapsible, size, reload time |
 | Native options | layout colors, corner radius, CTA style |
-| Native `clicked.close_btn_render_mode` | `0` default (close top-right), `1` close top-left, `2` Meta progress, `3` delay only |
+| Native `clicked.close_btn_render_mode` | `0` Countdown + X, `1` Arrow + Progress + X, `2` Delay only, `3` Random style (keep config position), `4` Random all (style + position flip) |
 | Native `clicked.dismiss_on_ad_click` | Fullscreen native: dismiss overlay when user clicks the ad |
 
 Click **Save Global Config** / **Save Placement Config**. JSON is plain text in the Unity bridge (no encryption in C#).
@@ -507,7 +507,7 @@ Key points:
 **Git URL** trong `Packages/manifest.json`:
 
 ```json
-"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.8.5"
+"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.8.6_beta"
 ```
 
 **Local package:**
@@ -579,7 +579,7 @@ Mỗi vị trí quảng cáo một entry:
 | `disable_version[]` | Phiên bản config tắt placement này |
 | Banner/MREC | inline adaptive, collapsible, size, reload time |
 | Native | màu layout, bo góc, CTA |
-| Native `clicked.close_btn_render_mode` | `0` mặc định (close góc phải), `1` close góc trái, `2` Meta progress, `3` chỉ delay |
+| Native `clicked.close_btn_render_mode` | `0` Countdown + X, `1` Arrow + Progress + X, `2` Chỉ delay, `3` Random style (giữ vị trí config), `4` Random all (style + flip vị trí) |
 | Native `clicked.dismiss_on_ad_click` | Native fullscreen: đóng overlay khi user click vào ad |
 
 Bấm **Save Global Config** / **Save Placement Config**. JSON lưu dạng plain text (bridge Unity không mã hóa).

@@ -1,9 +1,10 @@
 # Changelog
 
-## 1.8.6_beta
+## 1.8.6-beta
 
 - Native placement editor: add `close_btn_render_mode` `3` (Random Style) and `4` (Random All).
 - Refresh `Plugins/Android/ads-release.aar`.
+- Fix `package.json` version to semver pre-release format (`1.8.6-beta`; UPM rejects `1.8.6_beta`).
 
 ## 1.8.5
 

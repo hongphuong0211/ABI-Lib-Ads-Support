@@ -4,7 +4,7 @@ Unity Package Manager package tích hợp **ABI Module Ads** vào project Unity 
 
 | | |
 |---|---|
-| Package | `com.abi.ads.unity` (hiện tại **v1.8.6_beta**) |
+| Package | `com.abi.ads.unity` (hiện tại **v1.8.6-beta**) |
 | Unity | **Unity 6** (6000.0+) — không hỗ trợ Unity 2022.3 |
 | Repository | [ABI-Lib-Ads-Support](https://github.com/hongphuong0211/ABI-Lib-Ads-Support) |
 | Hướng dẫn tích hợp | [Unity integration guide (Google Docs)](https://docs.google.com/document/d/1n4MRn_bFpleChfLl4Tf6l5B_owGpiHaahPNa9bVTqh8/edit?usp=sharing) |
@@ -47,7 +47,7 @@ Tài liệu song ngữ:
 **Git URL** in `Packages/manifest.json`:
 
 ```json
-"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.8.6_beta"
+"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.8.6-beta"
 ```
 
 **Local package** (monorepo):
@@ -507,7 +507,7 @@ Key points:
 **Git URL** trong `Packages/manifest.json`:
 
 ```json
-"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.8.6_beta"
+"com.abi.ads.unity": "https://github.com/hongphuong0211/ABI-Lib-Ads-Support.git#v1.8.6-beta"
 ```
 
 **Local package:**

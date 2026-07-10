@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.8.8-beta
+
+- Refresh `Plugins/Android/ads-release.aar`.
+- `.gitignore`: ignore `AGENTS.md.meta`.
+
 ## 1.8.7-beta
 
 - **`Editor/ABIAdsDependencies.xml`**: resolve GMA classic (`play-services-ads:25.3.0`, `play-services-ads-identifier:18.2.0`), Kotlin coroutines, and guava via EDM4U — required because flat `ads-release.aar` does not pull Maven transitive dependencies.
